@@ -12,6 +12,7 @@ return function(inst)
         "prefabs/01_character/loramia_modules/02_recharge_badge_setup",                 ---- 充电值的界面
         "prefabs/01_character/loramia_modules/03_recharge_sys_setup",                   ---- 充电值系统
         "prefabs/01_character/loramia_modules/04_death_skeleton",                       ---- 死亡骷髅
+        "prefabs/01_character/loramia_modules/05_custom_eater",                         ---- 吃东西的组件
 
     }
     for k, lua_addr in pairs(modules) do
@@ -23,6 +24,9 @@ return function(inst)
 
 
     inst:AddTag("loramia")
+    inst:AddTag("fastbuilder")
+    inst:AddTag("handyperson")
+    inst:AddTag("basicengineer")
 
 
     inst.customidleanim = "idle_wendy"  -- 闲置站立动画

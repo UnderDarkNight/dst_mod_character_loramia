@@ -34,8 +34,8 @@ local temp_assets = {
         Asset( "IMAGE", "images/names_loramia.tex" ),  --人物名字
         Asset( "ATLAS", "images/names_loramia.xml" ),
         
-        Asset("ANIM", "anim/loramia.zip"),              --- 人物动画文件
-        Asset("ANIM", "anim/ghost_loramia_build.zip"),  --- 灵魂状态动画文件
+        -- Asset("ANIM", "anim/loramia.zip"),              --- 人物动画文件
+        -- Asset("ANIM", "anim/ghost_loramia_build.zip"),  --- 灵魂状态动画文件
 
     ---------------------------------------------------------------------------
     ----

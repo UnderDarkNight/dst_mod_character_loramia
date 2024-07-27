@@ -1,7 +1,7 @@
 local assets =
 {
-	Asset( "ANIM", "anim/loramia.zip" ),
-	Asset( "ANIM", "anim/ghost_loramia_build.zip" ),
+	-- Asset( "ANIM", "anim/loramia.zip" ),
+	-- Asset( "ANIM", "anim/ghost_loramia_build.zip" ),
 
 	Asset( "ANIM", "anim/llmy.zip" ),
 	Asset( "ANIM", "anim/ghost_llmy_build.zip" ),
