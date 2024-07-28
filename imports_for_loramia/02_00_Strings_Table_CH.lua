@@ -35,6 +35,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "洛拉米亚的专属制服",
                 ["recipe_desc"] = "洛拉米亚的专属制服",
             },
+		    ["loramia_item_wings_of_universe"] = {
+                ["name"] = "宇宙之翼",
+                ["inspect_str"] = "宇宙之翼",
+                ["recipe_desc"] = "宇宙之翼",
+            },
         --------------------------------------------------------------------
 }
 

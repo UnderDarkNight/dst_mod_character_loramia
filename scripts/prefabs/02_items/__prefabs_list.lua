@@ -29,6 +29,7 @@ local prefabs_name_list = {
 
 
     "01_uniform",                           --- 专属制服
+    "02_wings_of_universe",                 --- 宇宙之翼
 
 }
 

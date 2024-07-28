@@ -12,24 +12,30 @@ local assets =
 local function onequip(inst, owner)
     if owner and owner.prefab == "loramia" then
         -- owner:DoTaskInTime(0,function()
-            owner.components.skinner:SetSkinName("loramia_uniform")
-            owner.components.hunger.max = TUNING[string.upper("loramia").."_HUNGER"] + 2700
-            owner.components.hunger:DoDelta(0,true)
-            if not owner.components.loramia_data:Get("loramia_item_uniform_first_time") then
-                owner.components.loramia_data:Set("loramia_item_uniform_first_time",true)
-                owner.components.hunger:SetPercent(1,true)
-            end
-            owner.components.combat.externaldamagetakenmultipliers:SetModifier(inst,0.5)
+        --     owner.components.skinner:SetSkinName("loramia_uniform")
+        --     owner.components.hunger.max = TUNING[string.upper("loramia").."_HUNGER"] + 2700
+        --     owner.components.hunger:DoDelta(0,true)
+        --     if not owner.components.loramia_data:Get("loramia_item_uniform_first_time") then
+        --         owner.components.loramia_data:Set("loramia_item_uniform_first_time",true)
+        --         owner.components.hunger:SetPercent(1,true)
+        --     end
         -- end)
+        -- owner.components.loramia_data:Set("loramia_item_uniform_equipped",true)
+        owner:PushEvent("loramia_item_uniform_equipped",inst)
+
     end
 end
 
 local function onunequip(inst, owner)
     if owner and owner.prefab == "loramia" then
-        owner.components.skinner:SetSkinName("loramia_none")
-        owner.components.hunger.max = TUNING[string.upper("loramia").."_HUNGER"]
-        owner.components.hunger:DoDelta(0,true)
-        owner.components.combat.externaldamagetakenmultipliers:RemoveModifier(inst)
+        -- owner:DoTaskInTime(0,function()        
+        --     owner.components.skinner:SetSkinName("loramia_none")
+        --     owner.components.hunger.max = TUNING[string.upper("loramia").."_HUNGER"]
+        --     owner.components.hunger:DoDelta(0,true)
+        --     owner.components.loramia_data:Set("loramia_item_uniform_equipped",false)
+        -- end)
+        owner:PushEvent("loramia_item_uniform_unequipped",inst)
+        -- owner.components.combat.externaldamagetakenmultipliers:RemoveModifier(inst)
     end
 end
 
@@ -46,6 +52,7 @@ local function fn()
     inst.AnimState:SetBuild("loramia_item_uniform")
     inst.AnimState:PlayAnimation("idle")
 
+    inst:AddTag("loramia_item_uniform")
 
     MakeInventoryFloatable(inst)
 
@@ -84,7 +91,8 @@ local function fn()
     ---------------------------------------------------------------------------------------------------
     --- 可装备
         inst:AddComponent("equippable")
-        inst.components.equippable.equipslot = EQUIPSLOTS.BODY
+        -- inst.components.equippable.equipslot = EQUIPSLOTS.BODY
+        inst.components.equippable.equipslot = EQUIPSLOTS.LORAMIA_BODY
         inst.components.equippable.restrictedtag = "loramia"
 
         inst.components.equippable:SetOnEquip(onequip)

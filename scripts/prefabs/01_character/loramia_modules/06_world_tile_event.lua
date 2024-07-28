@@ -6,23 +6,37 @@
 
 ]]--
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-local TILE_NUM = 30
-if TUNING.LORAMIA_DEBUGGING_MODE then
-    TILE_NUM = 1
-end
-
+-- 参数表
+    local TILE_NUM = 30
+    if TUNING.LORAMIA_DEBUGGING_MODE then
+        TILE_NUM = 3
+    end
+    local TILE_NUM_WINGS = 20
+    if TUNING.LORAMIA_DEBUGGING_MODE then
+        TILE_NUM_WINGS = 2
+    end
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 return function(inst)
     if not TheWorld.ismastersim then
         return
     end
 
     inst:ListenForEvent("loramia_event.enter_new_tile",function(inst,_table)
-        if inst.components.loramia_com_recharge:Add("tile_num",1) >= TILE_NUM then
-            inst.components.loramia_com_recharge:Set("tile_num",0)
-            inst.components.loramia_com_recharge:DoDelta(1)
-            -- print("loramia_event.enter_new_tile",inst.components.loramia_com_recharge:Add("tile_num",0))
-        end
+        -----------------------------------------------------------------------------------------------
+        -- 玩家进入新地皮
+            if inst.components.loramia_com_recharge:Add("tile_num",1) >= TILE_NUM then
+                inst.components.loramia_com_recharge:Set("tile_num",0)
+                inst.components.loramia_com_recharge:DoDelta(1)
+            end
+        -----------------------------------------------------------------------------------------------
+        -- 装备了翅膀
+            if inst.components.inventory:EquipHasTag("loramia_item_wings_of_universe") then
+                if inst.components.loramia_com_recharge:Add("tile_num_wings",1) >= TILE_NUM_WINGS then
+                    inst.components.loramia_com_recharge:Set("tile_num_wings",0)
+                    inst.components.loramia_com_recharge:DoDelta(-1)
+                end
+            end
+        -----------------------------------------------------------------------------------------------
     end)
 
 end

@@ -26,6 +26,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "Loramia's Uniform",
                 ["recipe_desc"] = "Loramia's Uniform",
             },
+            ["loramia_item_wings_of_universe"] = {
+                ["name"] = "Wings of Universe",
+                ["inspect_str"] = "Wings of Universe",
+                ["recipe_desc"] = "Wings of Universe",
+            },
         --------------------------------------------------------------------
 
 }
