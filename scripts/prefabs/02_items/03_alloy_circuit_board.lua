@@ -11,6 +11,15 @@ local assets =
 }
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--- 速度加速器 
+    local speed_mult_inst = nil
+    local function GetSpeedMultInst()
+        if speed_mult_inst == nil or not speed_mult_inst:IsValid() then
+            speed_mult_inst = CreateEntity()
+        end
+        return speed_mult_inst
+    end
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- 坐标检查
     local function Check_Can_Deploy_At_Point(x,y,z)
         if TheWorld.Map:IsDockAtPoint(x,y,z) then
@@ -42,7 +51,7 @@ local assets =
         inst.AnimState:SetBuild("loramia_item_alloy_circuit_board")
         inst.AnimState:PlayAnimation("idle")
 
-        -- inst:AddTag("loramia_item_uniform")
+        inst:AddTag("deploykititem")
 
         MakeInventoryFloatable(inst)
 
@@ -168,12 +177,14 @@ local assets =
             end
             local function add_speed_mult(player)
                 if player.components.locomotor then
-	                player.components.locomotor:SetExternalSpeedMultiplier(inst, "alloy_circuit_board",TUNING.LORAMIA_DEBUGGING_MODE and 2 or 1.2)
+	                player.components.locomotor:SetExternalSpeedMultiplier(GetSpeedMultInst(), "alloy_circuit_board",TUNING.LORAMIA_DEBUGGING_MODE and 2 or 1.2)
                 end
             end
             local function remove_speed_mult(player)
                 if player.components.locomotor then
-                    player.components.locomotor:RemoveExternalSpeedMultiplier(inst, "alloy_circuit_board")
+                    if not TheWorld.components.loramia_com_world_map_tile_sys:Has_Tag_In_Point(Vector3(player.Transform:GetWorldPosition()),"alloy_circuit_board") then
+                        player.components.locomotor:RemoveExternalSpeedMultiplier(GetSpeedMultInst(), "alloy_circuit_board")
+                    end
                 end
             end
             inst.__player_enter_tile_fn = function(player,tx,ty)
