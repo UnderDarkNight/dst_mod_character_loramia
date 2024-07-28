@@ -21,4 +21,7 @@ modimport("key_modules_for_loramia/04_origin_prefab_upgrade/__all_prefabs_init.l
 modimport("key_modules_for_loramia/05_widget/__all_widgets_init.lua")
 -- 三维模块hook
 
+modimport("key_modules_for_loramia/06_recipes/__all_recipes_init.lua")
+-- 各种配方
+
 

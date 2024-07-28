@@ -29,5 +29,12 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
         --- 组件动作
            
         --------------------------------------------------------------------
+        --- 02_items
+		    ["loramia_item_uniform"] = {
+                ["name"] = "洛拉米亚的制服",
+                ["inspect_str"] = "洛拉米亚的专属制服",
+                ["recipe_desc"] = "洛拉米亚的专属制服",
+            },
+        --------------------------------------------------------------------
 }
 

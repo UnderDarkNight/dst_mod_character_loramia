@@ -20,5 +20,12 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
             --     ["recipe_desc"] = " en 测试描述666",
             -- },        
         --------------------------------------------------------------------
+        --- 02_items
+		    ["loramia_item_uniform"] = {
+                ["name"] = "Loramia's Uniform",
+                ["inspect_str"] = "Loramia's Uniform",
+                ["recipe_desc"] = "Loramia's Uniform",
+            },
+        --------------------------------------------------------------------
 
 }

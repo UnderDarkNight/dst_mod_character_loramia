@@ -4,7 +4,9 @@
 return function(inst)
 
     if TheWorld.ismastersim then
-
+        if inst.components.loramia_data == nil then
+            inst:AddComponent("loramia_data")
+        end
     end
 
     local modules = {
