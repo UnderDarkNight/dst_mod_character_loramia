@@ -40,6 +40,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "宇宙之翼",
                 ["recipe_desc"] = "宇宙之翼",
             },
+		    ["loramia_item_alloy_circuit_board"] = {
+                ["name"] = "合金电路板",
+                ["inspect_str"] = "合金电路板",
+                ["recipe_desc"] = "合金电路板",
+            },
         --------------------------------------------------------------------
 }
 

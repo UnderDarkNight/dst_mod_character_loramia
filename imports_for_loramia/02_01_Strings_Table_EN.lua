@@ -31,6 +31,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "Wings of Universe",
                 ["recipe_desc"] = "Wings of Universe",
             },
+            ["loramia_item_alloy_circuit_board"] = {
+                ["name"] = "Alloy Circuit Board",
+                ["inspect_str"] = "Alloy Circuit Board",
+                ["recipe_desc"] = "Alloy Circuit Board",
+            },
         --------------------------------------------------------------------
 
 }
