@@ -15,7 +15,7 @@ local start_inv = {
 -- 当人物复活的时候
 local function onbecamehuman(inst)
 	-- 设置人物的移速（1表示1倍于wilson）
-	inst.components.locomotor:SetExternalSpeedMultiplier(inst, "loramia_speed_mod", 1.25)
+	inst.components.locomotor:SetExternalSpeedMultiplier(inst, "loramia_speed_mod", 1)
 	--（也可以用以前的那种
 	--inst.components.locomotor.walkspeed = 4
 	--inst.components.locomotor.runspeed = 6）

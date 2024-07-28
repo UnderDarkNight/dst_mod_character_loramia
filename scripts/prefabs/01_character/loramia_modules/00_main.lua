@@ -13,6 +13,7 @@ return function(inst)
         "prefabs/01_character/loramia_modules/03_recharge_sys_setup",                   ---- 充电值系统
         "prefabs/01_character/loramia_modules/04_death_skeleton",                       ---- 死亡骷髅
         "prefabs/01_character/loramia_modules/05_custom_eater",                         ---- 吃东西的组件
+        "prefabs/01_character/loramia_modules/06_world_tile_event",                     ---- 地图地块检测组件
 
     }
     for k, lua_addr in pairs(modules) do

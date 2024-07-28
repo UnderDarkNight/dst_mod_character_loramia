@@ -56,7 +56,7 @@ local flg,error_code = pcall(function()
         -- ThePlayer.components.hunger:DoDelta(-10)
     ----------------------------------------------------------------------------------------------------------------
     --- 新的能量条
-        local front_root = ThePlayer.HUD.controls.status
+        -- local front_root = ThePlayer.HUD.controls.status
 
 
         
@@ -65,24 +65,29 @@ local flg,error_code = pcall(function()
 
     ----------------------------------------------------------------------------------------------------------------
     ---
-        if ThePlayer.test_task then
-            ThePlayer.test_task:Cancel()
-        end
+        -- if ThePlayer.test_task then
+        --     ThePlayer.test_task:Cancel()
+        -- end
 
-        local up_flag = true
-        ThePlayer.test_task = ThePlayer:DoPeriodicTask(0.5,function(inst)
-            if up_flag then
-                inst.components.loramia_com_recharge:DoDelta(1)
-                if inst.components.loramia_com_recharge:GetPercent() == 1 then
-                    up_flag = false
-                end
-            else
-                inst.components.loramia_com_recharge:DoDelta(-1)
-                if inst.components.loramia_com_recharge:GetPercent() == 0 then
-                    up_flag = true
-                end
-            end
-        end)
+        -- local up_flag = true
+        -- ThePlayer.test_task = ThePlayer:DoPeriodicTask(0.5,function(inst)
+        --     if up_flag then
+        --         inst.components.loramia_com_recharge:DoDelta(1)
+        --         if inst.components.loramia_com_recharge:GetPercent() == 1 then
+        --             up_flag = false
+        --         end
+        --     else
+        --         inst.components.loramia_com_recharge:DoDelta(-1)
+        --         if inst.components.loramia_com_recharge:GetPercent() == 0 then
+        --             up_flag = true
+        --         end
+        --     end
+        -- end)
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+            -- local item = TheSim:FindFirstEntityWithTag("loramia_special_item")
+            -- item.components.equippable.dapperness = TUNING.DAPPERNESS_HUGE
+        ThePlayer.components.loramia_com_recharge:DoDelta(-10)
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

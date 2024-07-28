@@ -31,6 +31,7 @@ local prefabs_name_list = {
     "01_01_loramia_none",                            --- 皮肤数据
     "01_02_loramia",                                 --- 角色prefab
     "02_loramia_skeleton",                           --- 专属骷髅
+    "03_special_item",                               --- 特殊物品、给玩家上回San光环
 
 }
 

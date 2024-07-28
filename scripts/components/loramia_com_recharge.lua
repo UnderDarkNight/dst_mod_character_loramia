@@ -80,6 +80,7 @@ nil,
 ----
     function loramia_com_recharge:SetValue(num)
         self.current = math.clamp(num,0,self.max)
+        self.inst:PushEvent("loramia_com_recharge_update")
     end
     function loramia_com_recharge:GetCurrent()
         return self.current
