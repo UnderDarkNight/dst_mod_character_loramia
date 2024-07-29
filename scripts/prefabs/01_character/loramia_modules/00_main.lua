@@ -43,6 +43,8 @@ return function(inst)
         return
     end
 
+    inst.AnimState:AddOverrideBuild("wendy_channel")
+    inst.AnimState:AddOverrideBuild("player_idles_wendy")
 
 
 end

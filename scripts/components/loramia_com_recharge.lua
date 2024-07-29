@@ -12,6 +12,12 @@
             replica_com:SetCurrent(value)
         end
     end
+    local function set_max(self,value)
+        local replica_com = self.inst.replica.loramia_com_recharge or self.inst.replica._.loramia_com_recharge
+        if replica_com then
+            replica_com:SetMax(value)
+        end
+    end
 ----------------------------------------------------------------------------------------------------------------------------------
 local loramia_com_recharge = Class(function(self, inst)
     self.inst = inst
@@ -32,6 +38,7 @@ end,
 nil,
 {
     current = set_current,
+    max = set_max,
 })
 ---------------------------------------------------------------------------------------------------
 ----- onload/onsave 函数
@@ -101,6 +108,7 @@ nil,
         {
             DataTable = self.DataTable,
             current = self.current,
+            max = self.max,
         }
         return next(data) ~= nil and data or nil
     end
@@ -112,6 +120,9 @@ nil,
         end
         if data.current then
             self.current = data.current
+        end
+        if data.max then
+            self.max = data.max
         end
         self:ActiveOnLoadFns()
     end
