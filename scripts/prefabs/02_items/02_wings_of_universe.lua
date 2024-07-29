@@ -6,6 +6,8 @@
 local assets =
 {
     Asset("ANIM", "anim/loramia_item_wings_of_universe.zip"),
+    Asset( "IMAGE", "images/inventoryimages/loramia_item_wings_of_universe.tex" ),
+    Asset( "ATLAS", "images/inventoryimages/loramia_item_wings_of_universe.xml" ),
 }
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- 水上行走

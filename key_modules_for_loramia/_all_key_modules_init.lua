@@ -10,6 +10,9 @@ modimport("key_modules_for_loramia/00_others/__all_others_init.lua")
 modimport("key_modules_for_loramia/01_character/__all_character_modules_init.lua") 
 -- 角色模块
 
+modimport("key_modules_for_loramia/02_actions/__all_actions_init.lua") 
+-- 所有动作模块
+
 
 modimport("key_modules_for_loramia/03_origin_components_upgrade/__all_com_init.lua")
 -- 官方的 component 修改

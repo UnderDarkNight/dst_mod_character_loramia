@@ -143,6 +143,19 @@ local assets =
             inst.components.workable:SetOnFinishCallback(function()
                 inst:Remove()
             end)
+            --- 除非玩家主动敲打，否则不会掉落
+            local old_WorkedBy = inst.components.workable.WorkedBy
+            inst.components.workable.WorkedBy = function(self,worker, numworks,...)
+                if worker and worker:HasTag("player") then
+                    return old_WorkedBy(self,worker, numworks,...)
+                end
+            end
+            local old_WorkedBy_Internal = inst.components.workable.WorkedBy_Internal
+            inst.components.workable.WorkedBy_Internal = function(self,worker, numworks,...)
+                if worker and worker:HasTag("player") then
+                    return old_WorkedBy_Internal(self,worker, numworks,...)
+                end
+            end
             -- inst.components.workable:SetOnWorkCallback(onhit)
         ---------------------------------------------------------------------------------------------
         --- 放置

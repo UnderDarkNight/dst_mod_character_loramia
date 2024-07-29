@@ -87,7 +87,7 @@ local flg,error_code = pcall(function()
     ---
             -- local item = TheSim:FindFirstEntityWithTag("loramia_special_item")
             -- item.components.equippable.dapperness = TUNING.DAPPERNESS_HUGE
-        ThePlayer.components.loramia_com_recharge:DoDelta(-100)
+        ThePlayer.components.loramia_com_recharge:DoDelta(100)
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

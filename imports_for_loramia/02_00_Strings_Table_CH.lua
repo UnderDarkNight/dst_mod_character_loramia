@@ -45,6 +45,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "合金电路板",
                 ["recipe_desc"] = "合金电路板",
             },
+		    ["loramia_weapon_laser_cannon"] = {
+                ["name"] = "聚合激光炮",
+                ["inspect_str"] = "聚合激光炮",
+                ["recipe_desc"] = "聚合激光炮",
+            },
         --------------------------------------------------------------------
 }
 

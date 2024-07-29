@@ -20,9 +20,10 @@ local temp_assets = {
 
 
 	---------------------------------------------------------------------------
-	-- Asset("ANIM", "anim/loramia_mutant_frog.zip"),	--- 变异青蛙贴图包
-	-- Asset("ANIM", "anim/loramia_animal_frog_hound.zip"),	--- 变异青蛙狗贴图包
-
+	--- 从老王的MOD中提取来的 RPG 动作和声音
+		Asset("ANIM", "anim/player_homura_rpg.zip"),	--- RPG动作
+		Asset("SOUNDPACKAGE", "sound/lw_homura.fev"), 
+		Asset("SOUND", "sound/lw_homura.fsb") 
 	---------------------------------------------------------------------------
 	-- Asset("SOUNDPACKAGE", "sound/dontstarve_DLC002.fev"),	--- 单机声音集
 	---------------------------------------------------------------------------

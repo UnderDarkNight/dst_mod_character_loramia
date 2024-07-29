@@ -8,12 +8,8 @@ local file_folders = {
     "00_others",            ---- 其他东西
     "01_character",         ---- 角色相关
     "02_items",             ---- 物品
-    -- "03_equipments",        ---- 装备
-    -- "04_fx",                ---- 特效
-    -- "05_buffs",             ---- buff
-    -- "06_spell",             ---- spell
-    -- "07_projectile",        ---- 弹药
     
+    "05_spells",            ---- 技能物品    
 }
 
 

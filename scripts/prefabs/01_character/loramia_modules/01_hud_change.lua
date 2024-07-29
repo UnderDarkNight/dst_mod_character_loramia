@@ -23,21 +23,21 @@
     --     local over_index = { "topperanim","circleframe2","backing","anim","circleframe"}
         
     --     for k, index in pairs(over_index) do
-    --         HealthBadge[index]:GetAnimState():OverrideSymbol("bg","moonlightcoda_hud_status_meter","bg")
-    --         HealthBadge[index]:GetAnimState():OverrideSymbol("frame_circle","moonlightcoda_hud_status_meter","frame_circle")
-    --         HealthBadge[index]:GetAnimState():OverrideSymbol("level","moonlightcoda_hud_status_meter","level")
+    --         HealthBadge[index]:GetAnimState():OverrideSymbol("bg","loramia_hud_status_meter","bg")
+    --         HealthBadge[index]:GetAnimState():OverrideSymbol("frame_circle","loramia_hud_status_meter","frame_circle")
+    --         HealthBadge[index]:GetAnimState():OverrideSymbol("level","loramia_hud_status_meter","level")
     --     end
 
-    --     HealthBadge.effigyanim:GetAnimState():OverrideSymbol("icon","moonlightcoda_hud_status_health","icon")
-    --     HealthBadge.circleframe:GetAnimState():OverrideSymbol("icon","moonlightcoda_hud_status_health","icon")
+    --     HealthBadge.effigyanim:GetAnimState():OverrideSymbol("icon","loramia_hud_status_health","icon")
+    --     HealthBadge.circleframe:GetAnimState():OverrideSymbol("icon","loramia_hud_status_health","icon")
 
     --     HealthBadge.anim:GetAnimState():SetMultColour(1,1,1,1)
 
     --     --------- 修改成可动动画
     --         HealthBadge.circleframe:Hide()
     --         HealthBadge.special_icon = HealthBadge:AddChild(UIAnim())
-    --         HealthBadge.special_icon:GetAnimState():SetBank("moonlightcoda_hud_health")
-    --         HealthBadge.special_icon:GetAnimState():SetBuild("moonlightcoda_hud_health")
+    --         HealthBadge.special_icon:GetAnimState():SetBank("loramia_hud_health")
+    --         HealthBadge.special_icon:GetAnimState():SetBuild("loramia_hud_health")
     --         HealthBadge.special_icon:GetAnimState():PlayAnimation("icon_fx",true)
     --         local icon_scale = 1
     --         HealthBadge.special_icon:SetScale(icon_scale,icon_scale,icon_scale)
@@ -48,8 +48,8 @@
     --     --------- 添加后台特效
 
     --         HealthBadge.special_back_fx = HealthBadge:AddChild(UIAnim())
-    --         HealthBadge.special_back_fx:GetAnimState():SetBank("moonlightcoda_hud_health")
-    --         HealthBadge.special_back_fx:GetAnimState():SetBuild("moonlightcoda_hud_health")
+    --         HealthBadge.special_back_fx:GetAnimState():SetBank("loramia_hud_health")
+    --         HealthBadge.special_back_fx:GetAnimState():SetBuild("loramia_hud_health")
     --         HealthBadge.special_back_fx:GetAnimState():PlayAnimation("fx",true)
     --         HealthBadge.special_back_fx:SetScale(0.5,0.5,0.5)
     --         HealthBadge.special_back_fx:GetAnimState():SetDeltaTimeMultiplier(0.7)

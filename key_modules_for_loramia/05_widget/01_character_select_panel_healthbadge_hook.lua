@@ -19,16 +19,16 @@
     local function change_widget(status,character,status_name)
         if character == "loramia" then
             -- if status_name == "health" then
-            --     status.status_icon:SetTexture("images/widgets/character_select_panel_moonlightcoda_health.xml", "character_select_panel_moonlightcoda_health.tex")
+            --     status.status_icon:SetTexture("images/widgets/character_select_panel_loramia_health.xml", "character_select_panel_loramia_health.tex")
             -- elseif status_name == "sanity" then
-            --     status.status_icon:SetTexture("images/widgets/character_select_panel_moonlightcoda_sanity.xml", "character_select_panel_moonlightcoda_sanity.tex")
+            --     status.status_icon:SetTexture("images/widgets/character_select_panel_loramia_sanity.xml", "character_select_panel_loramia_sanity.tex")
             -- end
             if status_name == "hunger" then
                 status.status_icon:SetTexture("images/widgets/character_select_panel_loramia_hunger.xml", "character_select_panel_loramia_hunger.tex")
             end
         end
 
-        -- if status_name == "health" and character == "moonlightcoda" then
+        -- if status_name == "health" and character == "loramia" then
         --     -- status:Hide()
         --     --[[
         --         status.status_icon = status:AddChild(Image())
