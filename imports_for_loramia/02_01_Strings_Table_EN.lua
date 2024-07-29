@@ -40,6 +40,8 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["name"] = "Laser Cannon",
                 ["inspect_str"] = "Laser Cannon",
                 ["recipe_desc"] = "Laser Cannon",
+                ["action_str"] = "Shoot",
+
             },
         --------------------------------------------------------------------
 

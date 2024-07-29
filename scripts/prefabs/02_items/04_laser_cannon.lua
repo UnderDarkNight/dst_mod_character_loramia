@@ -207,13 +207,16 @@ local assets =
                 end
                 --------------------------------------------------------------------------------
                 ---
+                    if target == doer then
+                        return false
+                    end
                     if not CheckCanCastSpell(inst,doer) then
                         return false
                     end
                 --------------------------------------------------------------------------------
                 return true
             end)
-            replica_com:SetText("laser_cannon","发射") -- 显示文本
+            replica_com:SetText("laser_cannon",TUNING.LORAMIA_FN:GetStringsTable("loramia_weapon_laser_cannon","action_str") or "发射") -- 显示文本
             replica_com:SetSGAction("loramia_laser_cannon_shoot") -- 配置执行的sg
             -- replica_com:SetPreActionFn(function(inst,doer,target,pt)
             -- end)
