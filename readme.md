@@ -18,11 +18,11 @@ git bash 黑框技巧：
         git config --global http.sslverify false
 
     5、 输入 命令   ：     
-        git clone https://github.com/UnderDarkNight/DST_MOD_loramia.git
+        git clone https://github.com/UnderDarkNight/dst_mod_character_loramia.git
 
-    6、 等待下载完成。这个时候会多出个文件夹【DST_MOD_loramia】。这个就是MOD的所有东西。
+    6、 等待下载完成。这个时候会多出个文件夹【dst_mod_character_loramia】。这个就是MOD的所有东西。
 
-    7、 进入【DST_MOD_loramia】文件夹，重新右键【Git Bash Here】
+    7、 进入【dst_mod_character_loramia】文件夹，重新右键【Git Bash Here】
 
     8、 输入以下命令：
         git reset --hard
@@ -31,12 +31,12 @@ git bash 黑框技巧：
         git pull
     
     10、 输入以下命令：
-        git pull origin master
+        git pull -f origin master
 
 更新步骤：
     1、启用 Watt Toolkit 。加速选项里  勾选 【Github】  和 【国外验证码平台】、【公共CDN】
 
-    2、进入【DST_MOD_loramia】文件夹，重新右键【Git Bash Here】
+    2、进入【dst_mod_character_loramia】文件夹，重新右键【Git Bash Here】
 
     3、 输入命令： 【注意！！！】最后那个  【点】不能漏掉。
         git checkout .
