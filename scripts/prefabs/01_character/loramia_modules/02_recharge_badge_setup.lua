@@ -73,10 +73,10 @@
             local icon = recharge_badge.circleframe:AddChild(UIAnim())
             icon:GetAnimState():SetBank("loramia_status_meter")
             icon:GetAnimState():SetBuild("loramia_status_meter")
-            icon:GetAnimState():PlayAnimation("icon_1")
-            local icon_sacle = 0.6
+            icon:GetAnimState():PlayAnimation("recharge")
+            local icon_sacle = 1
             icon:SetScale(icon_sacle,icon_sacle,icon_sacle)
-            icon:SetPosition(0,-2,0)
+            icon:SetPosition(0,-1,0)
             
         ----------------------------------------------------------------------------------------------------------------
         --- 框框缩放（未完成）
