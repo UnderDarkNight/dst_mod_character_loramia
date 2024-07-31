@@ -31,7 +31,8 @@ local prefabs_name_list = {
     "01_uniform",                           --- 专属制服
     "02_wings_of_universe",                 --- 宇宙之翼
     "03_alloy_circuit_board",               --- 合金电路板
-    "04_laser_cannon",                      --- 激光炮
+    "04_luminous_alloy_board",              --- 发光合金板
+    "05_laser_cannon",                      --- 激光炮
 
 }
 

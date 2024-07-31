@@ -1,0 +1,6 @@
+<Atlas>
+<Texture filename="loramia_item_luminous_alloy_board.tex" />
+<Elements>
+<Element name="loramia_item_luminous_alloy_board.tex" u1="0.0078125" u2="0.9921875" v1="0.0078125" v2="0.9921875" />
+</Elements>
+</Atlas>

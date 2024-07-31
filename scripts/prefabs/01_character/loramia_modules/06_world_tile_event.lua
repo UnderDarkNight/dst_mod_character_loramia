@@ -9,7 +9,7 @@
 -- 参数表
     local TILE_NUM = 30
     if TUNING.LORAMIA_DEBUGGING_MODE then
-        TILE_NUM = 3
+        TILE_NUM = 30
     end
     local TILE_NUM_WINGS = 20
     if TUNING.LORAMIA_DEBUGGING_MODE then

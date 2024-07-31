@@ -5,20 +5,10 @@
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 local assets =
 {
-    Asset("ANIM", "anim/loramia_item_alloy_circuit_board.zip"),
-    Asset( "IMAGE", "images/inventoryimages/loramia_item_alloy_circuit_board.tex" ),
-    Asset( "ATLAS", "images/inventoryimages/loramia_item_alloy_circuit_board.xml" ),
+    Asset("ANIM", "anim/loramia_item_luminous_alloy_board.zip"),
+    Asset( "IMAGE", "images/inventoryimages/loramia_item_luminous_alloy_board.tex" ),
+    Asset( "ATLAS", "images/inventoryimages/loramia_item_luminous_alloy_board.xml" ),
 }
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---- 速度加速器 
-    local speed_mult_inst = nil
-    local function GetSpeedMultInst()
-        if speed_mult_inst == nil or not speed_mult_inst:IsValid() then
-            speed_mult_inst = CreateEntity()
-        end
-        return speed_mult_inst
-    end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- 坐标检查
     local function Check_Can_Deploy_At_Point(x,y,z)
@@ -47,8 +37,8 @@ local assets =
 
         MakeInventoryPhysics(inst)
 
-        inst.AnimState:SetBank("loramia_item_alloy_circuit_board")
-        inst.AnimState:SetBuild("loramia_item_alloy_circuit_board")
+        inst.AnimState:SetBank("loramia_item_luminous_alloy_board")
+        inst.AnimState:SetBuild("loramia_item_luminous_alloy_board")
         inst.AnimState:PlayAnimation("idle")
 
         inst:AddTag("deploykititem")
@@ -65,8 +55,8 @@ local assets =
 
         inst:AddComponent("inventoryitem")
         -- inst.components.inventoryitem:ChangeImageName("bluegem")
-        inst.components.inventoryitem.imagename = "loramia_item_alloy_circuit_board"
-        inst.components.inventoryitem.atlasname = "images/inventoryimages/loramia_item_alloy_circuit_board.xml"
+        inst.components.inventoryitem.imagename = "loramia_item_luminous_alloy_board"
+        inst.components.inventoryitem.atlasname = "images/inventoryimages/loramia_item_luminous_alloy_board.xml"
         inst.components.inventoryitem:SetSinks(true)
 
         inst:AddComponent("fuel")
@@ -86,7 +76,7 @@ local assets =
                     local tx,ty = TheWorld.components.loramia_com_world_map_tile_sys:Get_Tile_XY_By_World_Point(pt)
                     if not TheWorld.components.loramia_com_world_map_tile_sys:Has_Tag_In_Tile_XY(tx,ty,"alloy_board") then
                         local fix_pt = TheWorld.components.loramia_com_world_map_tile_sys:Get_World_Point_By_Tile_XY(tx,ty)
-                        SpawnPrefab("loramia_tile_alloy_circuit_board"):PushEvent("on_deploy",{pt = fix_pt})
+                        SpawnPrefab("loramia_tile_luminous_alloy_board"):PushEvent("on_deploy",{pt = fix_pt})
                         inst.components.stackable:Get():Remove()
                     end
                 end            
@@ -112,8 +102,8 @@ local assets =
         -- inst.MiniMapEntity:SetIcon("little_garden_natural_resources_paving_stones_map_icon.tex")
         -- inst.MiniMapEntity:SetPriority(-1)
 
-        inst.AnimState:SetBank("loramia_item_alloy_circuit_board")
-        inst.AnimState:SetBuild("loramia_item_alloy_circuit_board")
+        inst.AnimState:SetBank("loramia_item_luminous_alloy_board")
+        inst.AnimState:SetBuild("loramia_item_luminous_alloy_board")
         inst.AnimState:PlayAnimation("yellow")
         inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
         inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
@@ -124,6 +114,15 @@ local assets =
         inst:AddTag("NOBLOCK")      -- 不会影响种植和放置
         -- inst:AddTag("little_garden_natural_resources_paving_stones")
 
+        ---------------------------------------------------------------------------------------------
+        -- 灯光
+            inst.entity:AddLight()    
+            inst.Light:SetFalloff(0.9)
+            inst.Light:SetIntensity(.7)
+            inst.Light:SetRadius(2.5)
+            inst.Light:SetColour(0 / 255, 255 / 255, 255 / 255)
+            inst.Light:Enable(false)
+        ---------------------------------------------------------------------------------------------
 
         inst.entity:SetPristine()
 
@@ -184,48 +183,44 @@ local assets =
             local function tile_color_switch()
                 if has_player_in_tile() then
                     inst.AnimState:PlayAnimation("blue")
-                else
-                    inst.AnimState:PlayAnimation("yellow")
-                end
-            end
-            local function add_speed_mult(player)
-                if player.components.locomotor then
-	                player.components.locomotor:SetExternalSpeedMultiplier(GetSpeedMultInst(), "alloy_circuit_board",TUNING.LORAMIA_DEBUGGING_MODE and 2 or 1.2)
-                end
-            end
-            local function remove_speed_mult(player)
-                if player.components.locomotor then
-                    if not TheWorld.components.loramia_com_world_map_tile_sys:Has_Tag_In_Point(Vector3(player.Transform:GetWorldPosition()),"alloy_circuit_board") then
-                        player.components.locomotor:RemoveExternalSpeedMultiplier(GetSpeedMultInst(), "alloy_circuit_board")
+                    inst.Light:Enable(true)
+                    if inst.light_off_task then
+                        inst.light_off_task:Cancel()
+                        inst.light_off_task = nil
                     end
+                else
+                    inst.light_off_task = inst:DoTaskInTime(3,function()
+                        inst.AnimState:PlayAnimation("yellow")
+                        inst.Light:Enable(false)
+                        inst.light_off_task = nil
+                    end)
                 end
             end
+
             inst.__player_enter_tile_fn = function(player,tx,ty)
                 -- print(" +++ player enter tile")
                 add_player_2_list(player)
                 tile_color_switch()
-                add_speed_mult(player)
             end
             inst.__player_leave_tile_fn = function(player,tx,ty)
                 -- print(" --- player leave tile")
                 inst:DoTaskInTime(0,function()
                     remove_player_from_list(player)
                     tile_color_switch()
-                    remove_speed_mult(player)
                 end)
             end
             inst:DoTaskInTime(0,function()
                 local tx,ty = TheWorld.components.loramia_com_world_map_tile_sys:Get_Tile_XY_By_World_Point(inst.Transform:GetWorldPosition())
                 TheWorld.components.loramia_com_world_map_tile_sys:Add_Join_Event_Fn_To_Tile_XY(tx,ty,inst.__player_enter_tile_fn)
                 TheWorld.components.loramia_com_world_map_tile_sys:Add_Leave_Event_Fn_To_Tile_XY(tx,ty,inst.__player_leave_tile_fn)
-                TheWorld.components.loramia_com_world_map_tile_sys:Add_Tag_To_Tile_XY(tx,ty,"alloy_circuit_board")
+                TheWorld.components.loramia_com_world_map_tile_sys:Add_Tag_To_Tile_XY(tx,ty,"luminous_alloy_board")
                 TheWorld.components.loramia_com_world_map_tile_sys:Add_Tag_To_Tile_XY(tx,ty,"alloy_board")
             end)
             inst:ListenForEvent("onremove",function()
                 local tx,ty = TheWorld.components.loramia_com_world_map_tile_sys:Get_Tile_XY_By_World_Point(inst.Transform:GetWorldPosition())
                 TheWorld.components.loramia_com_world_map_tile_sys:Remove_Join_Event_Fn_From_Tile_XY(tx,ty,inst.__player_enter_tile_fn)
                 TheWorld.components.loramia_com_world_map_tile_sys:Remove_Leave_Event_Fn_From_Tile_XY(tx,ty,inst.__player_leave_tile_fn)
-                TheWorld.components.loramia_com_world_map_tile_sys:Remove_Tag_From_Tile_XY(tx,ty,"alloy_circuit_board")
+                TheWorld.components.loramia_com_world_map_tile_sys:Remove_Tag_From_Tile_XY(tx,ty,"luminous_alloy_board")
                 TheWorld.components.loramia_com_world_map_tile_sys:Remove_Tag_From_Tile_XY(tx,ty,"alloy_board")
             end)
         ---------------------------------------------------------------------------------------------
@@ -250,6 +245,6 @@ local assets =
         end
     end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-return Prefab("loramia_item_alloy_circuit_board", item_fn, assets),
-    MakePlacer("loramia_item_alloy_circuit_board_placer", "loramia_item_alloy_circuit_board", "loramia_item_alloy_circuit_board", "yellow", true, nil, nil, nil, nil, nil, placer_postinit_fn, nil, nil),
-    Prefab("loramia_tile_alloy_circuit_board", ground_fn, assets)
+return Prefab("loramia_item_luminous_alloy_board", item_fn, assets),
+    MakePlacer("loramia_item_luminous_alloy_board_placer", "loramia_item_luminous_alloy_board", "loramia_item_luminous_alloy_board", "yellow", true, nil, nil, nil, nil, nil, placer_postinit_fn, nil, nil),
+    Prefab("loramia_tile_luminous_alloy_board", ground_fn, assets)
