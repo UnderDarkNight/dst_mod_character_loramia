@@ -87,7 +87,7 @@ local flg,error_code = pcall(function()
     ---
             -- local item = TheSim:FindFirstEntityWithTag("loramia_special_item")
             -- item.components.equippable.dapperness = TUNING.DAPPERNESS_HUGE
-        ThePlayer.components.loramia_com_recharge:DoDelta(-100)
+        -- ThePlayer.components.loramia_com_recharge:DoDelta(-100)
     ----------------------------------------------------------------------------------------------------------------
     ---
             -- TUNING.__light_test_fn = function(inst)
@@ -96,6 +96,20 @@ local flg,error_code = pcall(function()
             --     inst.Light:SetRadius(2.5)
             --     inst.Light:SetColour(0 / 255, 255 / 255, 255 / 255)
             -- end
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+            local battery = (TheSim:FindEntities(x,y,z,30,{"engineeringbattery"}) or {})[1]
+            local item = (TheSim:FindEntities(x,y,z,30,{"engineeringbatterypowered"}) or {})[1]
+            print(item,battery)
+            -- item.components.circuitnode:ConnectTo("engineeringbattery")
+            -- battery.components.circuitnode:ConnectTo("engineeringbatterypowered")
+            -- item.components.circuitnode:AddNode(battery)
+            -- battery.components.circuitnode:AddNode(item)
+            -- print("IsConnected",battery.components.circuitnode:IsConnected())
+
+            -- local battery_nodes = battery.components.circuitnode.nodes
+            -- print(battery_nodes)
+            print(battery:GetCurrentPlatform(),item:GetCurrentPlatform())
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

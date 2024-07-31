@@ -114,7 +114,7 @@ local assets =
 
         inst.AnimState:SetBank("loramia_item_alloy_circuit_board")
         inst.AnimState:SetBuild("loramia_item_alloy_circuit_board")
-        inst.AnimState:PlayAnimation("yellow")
+        inst.AnimState:PlayAnimation("turn_off")
         inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
         inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
         inst.AnimState:SetSortOrder(0)
@@ -141,6 +141,7 @@ local assets =
             inst.components.workable:SetWorkAction(ACTIONS.DIG)
             inst.components.workable:SetWorkLeft(1)
             inst.components.workable:SetOnFinishCallback(function()
+                inst.components.lootdropper:SpawnLootPrefab("loramia_item_alloy_circuit_board")
                 inst:Remove()
             end)
             --- 除非玩家主动敲打，否则不会掉落
@@ -183,9 +184,9 @@ local assets =
             end
             local function tile_color_switch()
                 if has_player_in_tile() then
-                    inst.AnimState:PlayAnimation("blue")
+                    inst.AnimState:PlayAnimation("turn_on")
                 else
-                    inst.AnimState:PlayAnimation("yellow")
+                    inst.AnimState:PlayAnimation("turn_off")
                 end
             end
             local function add_speed_mult(player)

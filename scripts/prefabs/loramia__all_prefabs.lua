@@ -10,6 +10,7 @@ local file_folders = {
     "02_items",             ---- 物品
     
     "05_spells",            ---- 技能物品    
+    "06_buildings",         ---- 建筑物    
 }
 
 

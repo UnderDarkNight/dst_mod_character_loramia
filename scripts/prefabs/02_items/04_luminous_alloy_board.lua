@@ -104,7 +104,7 @@ local assets =
 
         inst.AnimState:SetBank("loramia_item_luminous_alloy_board")
         inst.AnimState:SetBuild("loramia_item_luminous_alloy_board")
-        inst.AnimState:PlayAnimation("yellow")
+        inst.AnimState:PlayAnimation("turn_off")
         inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
         inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
         inst.AnimState:SetSortOrder(0)
@@ -140,6 +140,7 @@ local assets =
             inst.components.workable:SetWorkAction(ACTIONS.DIG)
             inst.components.workable:SetWorkLeft(1)
             inst.components.workable:SetOnFinishCallback(function()
+                inst.components.lootdropper:SpawnLootPrefab("loramia_item_luminous_alloy_board")
                 inst:Remove()
             end)
             --- 除非玩家主动敲打，否则不会掉落
@@ -182,7 +183,7 @@ local assets =
             end
             local function tile_color_switch()
                 if has_player_in_tile() then
-                    inst.AnimState:PlayAnimation("blue")
+                    inst.AnimState:PlayAnimation("turn_on")
                     inst.Light:Enable(true)
                     if inst.light_off_task then
                         inst.light_off_task:Cancel()
@@ -190,7 +191,7 @@ local assets =
                     end
                 else
                     inst.light_off_task = inst:DoTaskInTime(3,function()
-                        inst.AnimState:PlayAnimation("yellow")
+                        inst.AnimState:PlayAnimation("turn_off")
                         inst.Light:Enable(false)
                         inst.light_off_task = nil
                     end)
