@@ -48,7 +48,7 @@ local assets = {
             inst._circuittask = nil
         end
         -- print("info ++ UpdateCircuitPower")
-        if inst.components.circuitnode:IsConnected() and not inst.components.fueled:IsEmpty() then --- 有接入电路，开始计时
+        if (inst.components.circuitnode:IsConnected() and not inst.components.fueled:IsEmpty()) or inst:HasTag("has_light") then --- 有接入电路，开始计时
             inst.components.fueled:StartConsuming()  --- 开始燃料消耗
             StartBattery(inst)                       --- 开始电池充电
         else
@@ -401,8 +401,15 @@ local function fn()
     --- 接入点更变
         inst:ListenForEvent("engineeringcircuitchanged", OnCircuitChanged)
     -----------------------------------------------------------------------------------------
-    --- 官方的灯光刷新器
-        -- inst:AddComponent("updatelooper")
+    --- 灯光
+        inst:ListenForEvent("light_on", function()
+            inst:AddTag("has_light")
+            OnCircuitChanged(inst)
+        end)
+        inst:ListenForEvent("light_off", function()
+            inst:RemoveTag("has_light")
+            OnCircuitChanged(inst)
+        end)
     -----------------------------------------------------------------------------------------
     --- 作祟
         MakeHauntableWork(inst)
