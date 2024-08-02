@@ -57,5 +57,12 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["action_str"] = "发射激光",
             },
         --------------------------------------------------------------------
+        -- 06_buildings
+            ["loramia_building_sharpstrike_creation"] = {
+                ["name"] = "锋锐的创造物",
+                ["inspect_str"] = "一种发电器",
+                ["recipe_desc"] = "一种发电器",
+            },
+        --------------------------------------------------------------------
 }
 

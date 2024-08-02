@@ -105,11 +105,20 @@ local flg,error_code = pcall(function()
             -- battery.components.circuitnode:ConnectTo("engineeringbatterypowered")
             -- item.components.circuitnode:AddNode(battery)
             -- battery.components.circuitnode:AddNode(item)
-            -- print("IsConnected",battery.components.circuitnode:IsConnected())
+            print("IsConnected",battery.components.circuitnode:IsConnected())
+
+            battery.components.circuitnode:ForEachNode(function(inst, node)
+                print("++++",inst, node)
+            end)
+            -- battery.components.fueled:DoDelta(-1000)
+            -- battery.components.fueled:DoDelta(100)
+            -- battery.components.fueled:StartConsuming()
+            print(battery.components.fueled:GetDebugString())
+
 
             -- local battery_nodes = battery.components.circuitnode.nodes
             -- print(battery_nodes)
-            print(battery:GetCurrentPlatform(),item:GetCurrentPlatform())
+            -- print(battery:GetCurrentPlatform(),item:GetCurrentPlatform())
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)
