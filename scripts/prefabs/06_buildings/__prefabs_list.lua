@@ -29,6 +29,7 @@ local prefabs_name_list = {
 
 
     "01_sharpstrike_creation",                           --- 锋锐的创造物  发电机
+    "01_sharpstrike_creation_light",                           --- 锋锐的创造物  灯光inst
 
 
 }

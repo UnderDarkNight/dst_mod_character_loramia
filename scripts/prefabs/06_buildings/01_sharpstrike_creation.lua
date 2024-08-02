@@ -342,6 +342,12 @@ local function fn()
     ---- 燃料添加
         acceptable_com_install(inst)
     -----------------------------------------------------------------------------------------
+    ---- 容器和灯光安装
+        local temp_fn = require("prefabs/06_buildings/01_sharpstrike_creation_container_and_light")
+        if type(temp_fn) == "function" then
+            temp_fn(inst)
+        end
+    -----------------------------------------------------------------------------------------
 
     inst.entity:SetPristine()
 
@@ -394,6 +400,9 @@ local function fn()
     -----------------------------------------------------------------------------------------
     --- 接入点更变
         inst:ListenForEvent("engineeringcircuitchanged", OnCircuitChanged)
+    -----------------------------------------------------------------------------------------
+    --- 官方的灯光刷新器
+        -- inst:AddComponent("updatelooper")
     -----------------------------------------------------------------------------------------
     --- 作祟
         MakeHauntableWork(inst)

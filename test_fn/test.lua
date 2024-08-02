@@ -98,27 +98,54 @@ local flg,error_code = pcall(function()
             -- end
     ----------------------------------------------------------------------------------------------------------------
     ---
-            local battery = (TheSim:FindEntities(x,y,z,30,{"engineeringbattery"}) or {})[1]
-            local item = (TheSim:FindEntities(x,y,z,30,{"engineeringbatterypowered"}) or {})[1]
-            print(item,battery)
-            -- item.components.circuitnode:ConnectTo("engineeringbattery")
-            -- battery.components.circuitnode:ConnectTo("engineeringbatterypowered")
-            -- item.components.circuitnode:AddNode(battery)
-            -- battery.components.circuitnode:AddNode(item)
-            print("IsConnected",battery.components.circuitnode:IsConnected())
+            -- local battery = (TheSim:FindEntities(x,y,z,30,{"engineeringbattery"}) or {})[1]
+            -- local item = (TheSim:FindEntities(x,y,z,30,{"engineeringbatterypowered"}) or {})[1]
+            -- print(item,battery)
+            -- -- item.components.circuitnode:ConnectTo("engineeringbattery")
+            -- -- battery.components.circuitnode:ConnectTo("engineeringbatterypowered")
+            -- -- item.components.circuitnode:AddNode(battery)
+            -- -- battery.components.circuitnode:AddNode(item)
+            -- print("IsConnected",battery.components.circuitnode:IsConnected())
 
-            battery.components.circuitnode:ForEachNode(function(inst, node)
-                print("++++",inst, node)
-            end)
-            -- battery.components.fueled:DoDelta(-1000)
-            -- battery.components.fueled:DoDelta(100)
-            -- battery.components.fueled:StartConsuming()
-            print(battery.components.fueled:GetDebugString())
+            -- battery.components.circuitnode:ForEachNode(function(inst, node)
+            --     print("++++",inst, node)
+            -- end)
+            -- -- battery.components.fueled:DoDelta(-1000)
+            -- -- battery.components.fueled:DoDelta(100)
+            -- -- battery.components.fueled:StartConsuming()
+            -- print(battery.components.fueled:GetDebugString())
 
 
-            -- local battery_nodes = battery.components.circuitnode.nodes
-            -- print(battery_nodes)
-            -- print(battery:GetCurrentPlatform(),item:GetCurrentPlatform())
+            -- -- local battery_nodes = battery.components.circuitnode.nodes
+            -- -- print(battery_nodes)
+            -- -- print(battery:GetCurrentPlatform(),item:GetCurrentPlatform())
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+            -- local ents = TheSim:FindEntities(x,y,z,30,{"loramia_building_sharpstrike_creation_light"})
+            -- local light  = ents[1]
+            -- if light then                
+            --     light.components.sanityaura.GetAura = function()
+            --         return (TUNING.SANITYAURA_MED/4)*50
+            --     end
+            -- end
+
+            local ents = TheSim:FindEntities(x,y,z,30,nil,{"player"},{"hound","pig"})
+            for k, temp in pairs(ents) do
+                local tx, ty, tz = temp.Transform:GetWorldPosition()
+                local rot = temp.Transform:GetRotation()
+                if temp:HasTag("hound") then
+                    local new = SpawnPrefab(math.random() < 0.5 and "gargoyle_hounddeath" or "gargoyle_houndatk")
+                    new.Transform:SetPosition(tx,ty,tz)
+                    new.Transform:SetRotation(rot)
+                    temp:Remove()
+                elseif temp:HasTag("pig") then
+                    local new = SpawnPrefab(math.random() < 0.5 and "gargoyle_werepigdeath" or "gargoyle_werepigatk")
+                    new.Transform:SetPosition(tx,ty,tz)
+                    new.Transform:SetRotation(rot)
+                    temp:Remove()
+                end
+                SpawnPrefab("beefalo_transform_fx").Transform:SetPosition(tx,ty,tz)
+            end
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)
