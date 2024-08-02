@@ -9,6 +9,8 @@ local assets = {
 
 }
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- 
+    local RECHARGE_RADIUS = 8*4  -- 充电半径
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- 电池
     local PERIOD = .5
@@ -48,7 +50,7 @@ local assets = {
             inst._circuittask = nil
         end
         -- print("info ++ UpdateCircuitPower")
-        if (inst.components.circuitnode:IsConnected() and not inst.components.fueled:IsEmpty()) or inst:HasTag("has_light") then --- 有接入电路，开始计时
+        if (inst.components.circuitnode:IsConnected() and not inst.components.fueled:IsEmpty()) or inst:HasOneOfTags({"has_light","near_loramia"}) then --- 有接入电路，开始计时
             inst.components.fueled:StartConsuming()  --- 开始燃料消耗
             StartBattery(inst)                       --- 开始电池充电
         else
@@ -297,6 +299,27 @@ end
         end)
     end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--- 特定角色检查
+    local function near_loramia_checker_setup(inst)
+
+        inst:DoPeriodicTask(1,function()
+            local x,y,z = inst.Transform:GetWorldPosition()
+            local ents = TheSim:FindEntities(x,y,z,RECHARGE_RADIUS,{"loramia"},{"playerghost"})
+            if #ents > 0 then
+                inst:AddTag("near_loramia")
+            else
+                inst:RemoveTag("near_loramia")
+            end
+            OnCircuitChanged(inst)
+            if inst.components.fueled.consuming and inst:HasTag("near_loramia") then
+                for k, v in pairs(ents) do
+                    v.components.hunger:DoDelta(5,true)
+                end
+            end
+        end)
+
+    end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 local function fn()
     local inst = CreateEntity()
@@ -386,7 +409,7 @@ local function fn()
     -----------------------------------------------------------------------------------------
     --- 电路模块
         inst:AddComponent("circuitnode")
-        inst.components.circuitnode:SetRange(TUNING.WINONA_BATTERY_RANGE)
+        inst.components.circuitnode:SetRange(RECHARGE_RADIUS)
         inst.components.circuitnode:SetFootprint(TUNING.WINONA_ENGINEERING_FOOTPRINT)
         inst.components.circuitnode:SetOnConnectFn(OnConnectCircuit)
         inst.components.circuitnode:SetOnDisconnectFn(OnDisconnectCircuit)
@@ -410,6 +433,9 @@ local function fn()
             inst:RemoveTag("has_light")
             OnCircuitChanged(inst)
         end)
+    -----------------------------------------------------------------------------------------
+    --- 检测玩家
+        near_loramia_checker_setup(inst)
     -----------------------------------------------------------------------------------------
     --- 作祟
         MakeHauntableWork(inst)
