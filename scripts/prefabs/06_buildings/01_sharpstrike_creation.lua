@@ -214,12 +214,16 @@ end
 
                 inst.helper.AnimState:SetBank("winona_battery_placement")
                 inst.helper.AnimState:SetBuild("winona_battery_placement")
-                inst.helper.AnimState:PlayAnimation("idle")
+                -- inst.helper.AnimState:PlayAnimation("idle")
                 inst.helper.AnimState:SetLightOverride(1)
                 inst.helper.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
                 inst.helper.AnimState:SetLayer(LAYER_BACKGROUND)
                 inst.helper.AnimState:SetSortOrder(1)
                 inst.helper.AnimState:SetScale(PLACER_SCALE, PLACER_SCALE)
+
+                inst.helper:SpawnChild("loramia_sfx_dotted_circle_client"):PushEvent("Set",{
+                    radius = RECHARGE_RADIUS
+                })
 
                 inst.helper.entity:SetParent(inst.entity)
 
@@ -311,7 +315,7 @@ end
                 inst:RemoveTag("near_loramia")
             end
             OnCircuitChanged(inst)
-            if inst.components.fueled.consuming and inst:HasTag("near_loramia") then
+            if not inst.components.fueled:IsEmpty() and inst:HasTag("near_loramia") then
                 for k, v in pairs(ents) do
                     v.components.hunger:DoDelta(5,true)
                 end
@@ -390,6 +394,9 @@ local function fn()
         inst.components.fueled:SetTakeFuelFn(OnAddFuel)
         inst.components.fueled:SetUpdateFn(OnUpdateFueled)
         local fueled_time = 3*480
+        if TUNING.LORAMIA_DEBUGGING_MODE then
+            fueled_time = 60
+        end
         inst.components.fueled.maxfuel = fueled_time or  3*480 -- 默认每秒消耗1点。
         inst.components.fueled:StartConsuming()
     -----------------------------------------------------------------------------------------
@@ -409,12 +416,12 @@ local function fn()
     -----------------------------------------------------------------------------------------
     --- 电路模块
         inst:AddComponent("circuitnode")
-        inst.components.circuitnode:SetRange(RECHARGE_RADIUS)
-        inst.components.circuitnode:SetFootprint(TUNING.WINONA_ENGINEERING_FOOTPRINT)
+        inst.components.circuitnode:SetRange(RECHARGE_RADIUS) -- 电路连接半径
+        -- inst.components.circuitnode:SetFootprint(TUNING.WINONA_ENGINEERING_FOOTPRINT) --- 衰减梯度参数
         inst.components.circuitnode:SetOnConnectFn(OnConnectCircuit)
         inst.components.circuitnode:SetOnDisconnectFn(OnDisconnectCircuit)
-        inst.components.circuitnode.connectsacrossplatforms = false
-        inst.components.circuitnode.rangeincludesfootprint = true
+        -- inst.components.circuitnode.connectsacrossplatforms = false
+        -- inst.components.circuitnode.rangeincludesfootprint = true
     -----------------------------------------------------------------------------------------
     -- 电池模块
         inst:AddComponent("battery")

@@ -208,9 +208,21 @@
     local function OnUpdateLightServer(inst)
         --------------------------------------------------------------------
         --- 白天关灯
-            if TheWorld.state.isday then
+            -- if TheWorld.state.isday then
+            --     if inst.ligt_off_task == nil and inst.light_fx then
+            --         inst.ligt_off_task = inst:DoTaskInTime(3,function()
+            --             inst.light_fx:Remove()
+            --             inst.light_fx = nil
+            --             inst:PushEvent("light_off")
+            --         end)
+            --     end
+            --     return
+            -- end
+        --------------------------------------------------------------------
+        --- 
+            if inst.components.fueled:IsEmpty() then
                 if inst.ligt_off_task == nil and inst.light_fx then
-                    inst.ligt_off_task = inst:DoTaskInTime(3,function()
+                    inst.ligt_off_task = inst:DoTaskInTime(0,function()
                         inst.light_fx:Remove()
                         inst.light_fx = nil
                         inst:PushEvent("light_off")
