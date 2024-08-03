@@ -21,7 +21,7 @@ local assets = {
             node:AddBatteryPower(PERIOD + math.random(2, 6) * FRAMES)
         end
         if node.Loramia_AddBatteryPower then
-            node:Loramia_AddBatteryPower(PERIOD)
+            node:Loramia_AddBatteryPower(PERIOD,inst)
         end
         -- node:PushEvent("AddBatteryPower")
     end
@@ -50,7 +50,7 @@ local assets = {
             inst._circuittask = nil
         end
         -- print("info ++ UpdateCircuitPower")
-        if (inst.components.circuitnode:IsConnected() and not inst.components.fueled:IsEmpty()) or inst:HasOneOfTags({"has_light","near_loramia"}) then --- 有接入电路，开始计时
+        if (inst.components.circuitnode:IsConnected() or inst:HasOneOfTags({"has_light","near_loramia"}) ) and not inst.components.fueled:IsEmpty() then --- 有接入电路，开始计时
             inst.components.fueled:StartConsuming()  --- 开始燃料消耗
             StartBattery(inst)                       --- 开始电池充电
         else

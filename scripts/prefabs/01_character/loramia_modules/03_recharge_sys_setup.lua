@@ -3,7 +3,7 @@
 
     洛拉米亚有独属的100上限的充能值，
     每移动30格距离获得1点充能，
-    每有10点充能，饥饿速率+0.5，移动和攻击倍率+0.2，充能值达到100时每分钟回20san值。
+    每有10点充能，饥饿速率+0.2，移动和攻击倍率+0.2，充能值达到100时每分钟回20san值。
 
 ]]--
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -36,9 +36,9 @@ return function(inst)
             --  
                 local current = inst.components.loramia_com_recharge:GetCurrent()
             ---------------------------------------------------------------------------------------------------
-            --- 每有10点充能，饥饿速率+0.5
+            --- 每有10点充能，饥饿速率+0.2
                 local temp_num = math.floor(current / 10)
-                inst.components.hunger.hungerrate = 1 * TUNING.WILSON_HUNGER_RATE + temp_num * 0.5
+                inst.components.hunger.hungerrate = 1 * TUNING.WILSON_HUNGER_RATE + temp_num * 0.2
             ---------------------------------------------------------------------------------------------------
             --- 每有10点充能，移动 +0.2%
                 inst.components.locomotor:SetExternalSpeedMultiplier(mult_inst, "loramia_recharge_speed_mod", 1 + temp_num * 0.2)
