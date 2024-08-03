@@ -63,6 +63,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "一种发电器",
                 ["recipe_desc"] = "一种发电器",
             },
+            ["loramia_building_swiftstrike_creation"] = {
+                ["name"] = "迅袭的创造物",
+                ["inspect_str"] = "一种陷阱",
+                ["recipe_desc"] = "一种陷阱",
+            },
         --------------------------------------------------------------------
 }
 

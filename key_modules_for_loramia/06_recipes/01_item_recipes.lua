@@ -40,3 +40,22 @@ AddRecipe2(
     {"CHARACTER","WEAPONS"}
 )
 -- RemoveRecipeFromFilter("loramia_weapon_laser_cannon","MODS")                       -- -- 在【模组物品】标签里移除这个。
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+---- 【迅袭的创造物】【魔法2本】【配方：10狗牙，1蓝宝石，1电子元件】
+--------------------------------------------------------------------------------------------------------------------------------------------
+AddRecipeToFilter("loramia_building_swiftstrike_creation","CHARACTER")     ---- 添加物品到目标标签
+AddRecipe2(
+    "loramia_building_swiftstrike_creation",            --  --  inst.prefab  实体名字
+    { Ingredient("houndstooth", 10),Ingredient("bluegem", 1),Ingredient("transistor", 1)}, 
+    TECH.MAGIC_TWO, --- TECH.NONE
+    {
+        -- nounlock = true,
+        no_deconstruction = true,
+        builder_tag = "loramia",
+        atlas = "images/inventoryimages/loramia_building_swiftstrike_creation.xml",
+        image = "loramia_building_swiftstrike_creation.tex",
+    },
+    {"CHARACTER","WEAPONS"}
+)
+-- RemoveRecipeFromFilter("loramia_building_swiftstrike_creation","MODS")                       -- -- 在【模组物品】标签里移除这个。

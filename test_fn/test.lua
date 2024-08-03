@@ -98,8 +98,8 @@ local flg,error_code = pcall(function()
             -- end
     ----------------------------------------------------------------------------------------------------------------
     ---
-            local battery = (TheSim:FindEntities(x,y,z,30,{"engineeringbattery"}) or {})[1]
-            local item = (TheSim:FindEntities(x,y,z,30,{"engineeringbatterypowered"}) or {})[1]
+            local battery = (TheSim:FindEntities(x,y,z,10,{"engineeringbattery"}) or {})[1]
+            local item = (TheSim:FindEntities(x,y,z,10,{"engineeringbatterypowered"}) or {})[1]
             print(item,battery)
             -- -- item.components.circuitnode:ConnectTo("engineeringbattery")
             -- -- battery.components.circuitnode:ConnectTo("engineeringbatterypowered")
@@ -146,6 +146,34 @@ local flg,error_code = pcall(function()
             --     end
             --     SpawnPrefab("beefalo_transform_fx").Transform:SetPosition(tx,ty,tz)
             -- end
+    ----------------------------------------------------------------------------------------------------------------
+    
+        ---------------------------------------------------------------
+        --- 方案1
+            local function TestAB(a,b)
+                -------------------------------
+                --- 一大堆奇怪的算法
+                -------------------------------
+                return a+b
+            end
+            local function main_api()
+                local ret = TestAB(1,2)
+                return ret
+            end
+        ---------------------------------------------------------------
+        --- 方案2
+            local function main_api()
+                local function TestAB(a,b)
+                    -------------------------------
+                    --- 一大堆奇怪的算法
+                    -------------------------------
+                    return a+b
+                end
+                local ret = TestAB(1,2)
+                return ret
+            end
+        ---------------------------------------------------------------
+    
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

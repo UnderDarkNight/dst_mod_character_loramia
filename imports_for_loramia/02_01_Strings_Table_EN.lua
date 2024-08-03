@@ -49,5 +49,17 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
 
             },
         --------------------------------------------------------------------
+        -- 06_buildings
+            ["loramia_building_sharpstrike_creation"] = {
+                ["name"] = "Sharpstrike Creation",
+                ["inspect_str"] = "A power generator.",
+                ["recipe_desc"] = "A power generator.",
+            },
+            ["loramia_building_swiftstrike_creation"] = {
+                ["name"] = "Swiftstrike Creation",
+                ["inspect_str"] = "a kind of trap",
+                ["recipe_desc"] = "a kind of trap",
+            },
+        --------------------------------------------------------------------
 
 }
