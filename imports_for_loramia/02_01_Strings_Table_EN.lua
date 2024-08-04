@@ -62,8 +62,13 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
             },
             ["loramia_building_analytic_creation"] = {
                 ["name"] = " Analytic Creation",
-                ["inspect_str"] = "Used to knock",
-                ["recipe_desc"] = "Used to knock",
+                ["inspect_str"] = "It's used to knock out wisdom.",
+                ["recipe_desc"] = "It's used to knock out wisdom.",
+            },
+            ["loramia_building_mysterious_creation"] = {
+                ["name"] = "Mysterious Creation",
+                ["inspect_str"] = "For sleeping and charging",
+                ["recipe_desc"] = "For sleeping and charging",
             },
         --------------------------------------------------------------------
 

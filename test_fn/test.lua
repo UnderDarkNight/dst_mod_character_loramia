@@ -99,13 +99,13 @@ local flg,error_code = pcall(function()
     ----------------------------------------------------------------------------------------------------------------
     ---
             local battery = (TheSim:FindEntities(x,y,z,10,{"engineeringbattery"}) or {})[1]
-            local item = (TheSim:FindEntities(x,y,z,10,{"engineeringbatterypowered"}) or {})[1]
+            local item = (TheSim:FindEntities(x,y,z,10,{"loramia_building_mysterious_creation"}) or {})[1]
             print(item,battery)
             -- -- item.components.circuitnode:ConnectTo("engineeringbattery")
             -- -- battery.components.circuitnode:ConnectTo("engineeringbatterypowered")
             -- -- item.components.circuitnode:AddNode(battery)
             -- -- battery.components.circuitnode:AddNode(item)
-            print("IsConnected",battery.components.circuitnode:IsConnected())
+            -- print("IsConnected",item.components.circuitnode:IsConnected())
 
             -- battery.components.circuitnode:ForEachNode(function(inst, node)
             --     print("++++",inst, node)
@@ -119,6 +119,11 @@ local flg,error_code = pcall(function()
             -- -- local battery_nodes = battery.components.circuitnode.nodes
             -- -- print(battery_nodes)
             -- -- print(battery:GetCurrentPlatform(),item:GetCurrentPlatform())
+
+            item.components.circuitnode:ForEachNode(function(inst, node)
+                print("++++",inst, node)
+            end)
+            item.components.sleepingbag:SetSleepPhase("day")
     ----------------------------------------------------------------------------------------------------------------
     ---
             -- local ents = TheSim:FindEntities(x,y,z,30,{"loramia_building_sharpstrike_creation_light"})
@@ -147,33 +152,7 @@ local flg,error_code = pcall(function()
             --     SpawnPrefab("beefalo_transform_fx").Transform:SetPosition(tx,ty,tz)
             -- end
     ----------------------------------------------------------------------------------------------------------------
-    
-        ---------------------------------------------------------------
-        --- 方案1
-            local function TestAB(a,b)
-                -------------------------------
-                --- 一大堆奇怪的算法
-                -------------------------------
-                return a+b
-            end
-            local function main_api()
-                local ret = TestAB(1,2)
-                return ret
-            end
-        ---------------------------------------------------------------
-        --- 方案2
-            local function main_api()
-                local function TestAB(a,b)
-                    -------------------------------
-                    --- 一大堆奇怪的算法
-                    -------------------------------
-                    return a+b
-                end
-                local ret = TestAB(1,2)
-                return ret
-            end
-        ---------------------------------------------------------------
-    
+
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

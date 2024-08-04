@@ -19,8 +19,7 @@ local assets = {
         -- print(" +++ DoAddBatteryPower",node)
         if node.AddBatteryPower then
             node:AddBatteryPower(PERIOD + math.random(2, 6) * FRAMES)
-        end
-        if node.Loramia_AddBatteryPower then
+        elseif node.Loramia_AddBatteryPower then
             node:Loramia_AddBatteryPower(PERIOD,inst)
         end
         -- node:PushEvent("AddBatteryPower")
@@ -396,9 +395,9 @@ local function fn()
         inst.components.fueled:SetTakeFuelFn(OnAddFuel)
         inst.components.fueled:SetUpdateFn(OnUpdateFueled)
         local fueled_time = 3*480
-        if TUNING.LORAMIA_DEBUGGING_MODE then
-            fueled_time = 60
-        end
+        -- if TUNING.LORAMIA_DEBUGGING_MODE then
+        --     fueled_time = 60
+        -- end
         inst.components.fueled.maxfuel = fueled_time or  3*480 -- 默认每秒消耗1点。
         inst.components.fueled:StartConsuming()
     -----------------------------------------------------------------------------------------
@@ -424,6 +423,9 @@ local function fn()
         inst.components.circuitnode:SetOnDisconnectFn(OnDisconnectCircuit)
         -- inst.components.circuitnode.connectsacrossplatforms = false
         -- inst.components.circuitnode.rangeincludesfootprint = true
+        inst:DoPeriodicTask(3,function()
+            inst.components.circuitnode:ConnectTo("engineeringbatterypowered")
+        end)
     -----------------------------------------------------------------------------------------
     -- 电池模块
         inst:AddComponent("battery")

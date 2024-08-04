@@ -18,6 +18,7 @@ local files_name = {
 	---- 06_buildings
 		"loramia_building_sharpstrike_creation",						--- 发电机
 		"loramia_building_analytic_creation",							--- 解析的创造物
+		"loramia_building_mysterious_creation",							--- 神秘的创造物  帐篷
 
 	-------------------------------------------------------------------------------------------------
 

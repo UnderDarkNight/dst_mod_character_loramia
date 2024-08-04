@@ -129,6 +129,142 @@ local assets =
         end
         inst.components.fueled:DoDelta(4)  --- 开始充能
     end
+    local function Normal_AddBatteryPower(inst,value)
+        if inst.components.fueled:IsFull() then
+            if inst.components.loramia_data:Get("is_spring") and inst.__auto_reset_task == nil then
+                inst.__auto_reset_task = inst:DoTaskInTime(5,function()
+                    inst.components.mine:Reset()
+                    inst.components.fueled:DoDelta(-100)
+                    inst:DoTaskInTime(2,function()
+                        inst.__auto_reset_task = nil                        
+                    end)
+                end)
+            end
+            return
+        end
+        inst.components.fueled:DoDelta(0.1)  --- 开始充能
+    end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--- 指示器安装
+    local PLACER_SCALE = 1.5
+
+    local function OnUpdatePlacerHelper(helperinst)
+        if not helperinst.placerinst:IsValid() then
+            helperinst.components.updatelooper:RemoveOnUpdateFn(OnUpdatePlacerHelper)
+            helperinst.AnimState:SetAddColour(0, 0, 0, 0)
+        else
+            local range = TUNING.WINONA_BATTERY_RANGE - TUNING.WINONA_ENGINEERING_FOOTPRINT
+            local hx, hy, hz = helperinst.Transform:GetWorldPosition()
+            local px, py, pz = helperinst.placerinst.Transform:GetWorldPosition()
+            --<= match circuitnode FindEntities range tests
+            if distsq(hx, hz, px, pz) <= range * range and TheWorld.Map:GetPlatformAtPoint(hx, hz) == TheWorld.Map:GetPlatformAtPoint(px, pz) then
+                helperinst.AnimState:SetAddColour(helperinst.placerinst.AnimState:GetAddColour())
+            else
+                helperinst.AnimState:SetAddColour(0, 0, 0, 0)
+            end
+        end
+    end
+
+    local function CreatePlacerBatteryRing()
+        local inst = CreateEntity()
+
+        --[[Non-networked entity]]
+        inst.entity:SetCanSleep(false)
+        inst.persists = false
+
+        inst.entity:AddTransform()
+        inst.entity:AddAnimState()
+
+        inst:AddTag("CLASSIFIED")
+        inst:AddTag("NOCLICK")
+        inst:AddTag("placer")
+
+        inst.AnimState:SetBank("winona_battery_placement")
+        inst.AnimState:SetBuild("winona_battery_placement")
+        inst.AnimState:PlayAnimation("idle_small")
+        inst.AnimState:SetLightOverride(1)
+        inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
+        inst.AnimState:SetLayer(LAYER_BACKGROUND)
+        inst.AnimState:SetSortOrder(1)
+        inst.AnimState:SetScale(PLACER_SCALE, PLACER_SCALE)
+
+        return inst
+    end
+
+    local function CreatePlacerRing()
+        local inst = CreateEntity()
+
+        --[[Non-networked entity]]
+        inst.entity:SetCanSleep(false)
+        inst.persists = false
+
+        inst.entity:AddTransform()
+        inst.entity:AddAnimState()
+
+        inst:AddTag("CLASSIFIED")
+        inst:AddTag("NOCLICK")
+        inst:AddTag("placer")
+
+        inst.AnimState:SetBank("winona_spotlight_placement")
+        inst.AnimState:SetBuild("winona_spotlight_placement")
+        inst.AnimState:PlayAnimation("idle")
+        inst.AnimState:SetAddColour(0, .2, .5, 0)
+        inst.AnimState:SetLightOverride(1)
+        inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
+        inst.AnimState:SetLayer(LAYER_BACKGROUND)
+        inst.AnimState:SetSortOrder(1)
+        inst.AnimState:SetScale(PLACER_SCALE, PLACER_SCALE)
+
+        CreatePlacerBatteryRing().entity:SetParent(inst.entity)
+
+        return inst
+    end
+
+    local function OnEnableHelper(inst, enabled, recipename, placerinst)
+        if enabled then
+            if inst.helper == nil and inst:HasTag("HAMMER_workable") and not inst:HasTag("burnt") then
+                if recipename == "winona_spotlight" or (placerinst and placerinst.prefab == "winona_spotlight_item_placer") then
+                    inst.helper = CreatePlacerRing()
+                    inst.helper.entity:SetParent(inst.entity)
+                else
+                    inst.helper = CreatePlacerBatteryRing()
+                    inst.helper.entity:SetParent(inst.entity)
+                    if placerinst and (
+                        placerinst.prefab == "winona_battery_low_item_placer" or
+                        placerinst.prefab == "winona_battery_high_item_placer" or
+                        recipename == "winona_battery_low" or
+                        recipename == "winona_battery_high"
+                    ) then
+                        inst.helper:AddComponent("updatelooper")
+                        inst.helper.components.updatelooper:AddOnUpdateFn(OnUpdatePlacerHelper)
+                        inst.helper.placerinst = placerinst
+                        OnUpdatePlacerHelper(inst.helper)
+                    end
+                end
+            end
+        elseif inst.helper ~= nil then
+            inst.helper:Remove()
+            inst.helper = nil
+        end
+    end
+
+    local function OnStartHelper(inst)--, recipename, placerinst)
+        if inst.AnimState:IsCurrentAnimation("place") then
+            inst.components.deployhelper:StopHelper()
+        end
+    end
+    local function indicator_setup(inst)
+        if not TheNet:IsDedicated() then
+            inst:AddComponent("deployhelper")
+            inst.components.deployhelper:AddRecipeFilter("winona_spotlight")
+            inst.components.deployhelper:AddRecipeFilter("winona_catapult")
+            inst.components.deployhelper:AddRecipeFilter("winona_battery_low")
+            inst.components.deployhelper:AddRecipeFilter("winona_battery_high")
+            inst.components.deployhelper:AddKeyFilter("winona_battery_engineering")
+            inst.components.deployhelper.onenablehelper = OnEnableHelper
+            inst.components.deployhelper.onstarthelper = OnStartHelper
+        end
+    end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---
     local function fn()
@@ -155,7 +291,7 @@ local assets =
         inst.entity:SetPristine()
         ----------------------------------------------------------------------------------
         --- 放置指示器
-
+            indicator_setup(inst)
         ----------------------------------------------------------------------------------
         if not TheWorld.ismastersim then
             return inst
@@ -194,11 +330,11 @@ local assets =
         --- 电器节点
             inst:AddComponent("circuitnode")
             inst.components.circuitnode:SetRange(TUNING.WINONA_BATTERY_RANGE)
-            inst.components.circuitnode:SetFootprint(TUNING.WINONA_ENGINEERING_FOOTPRINT)
+            -- inst.components.circuitnode:SetFootprint(TUNING.WINONA_ENGINEERING_FOOTPRINT)
             inst.components.circuitnode:SetOnConnectFn(OnConnectCircuit)
             inst.components.circuitnode:SetOnDisconnectFn(OnDisconnectCircuit)
-            inst.components.circuitnode.connectsacrossplatforms = false
-            inst.components.circuitnode.rangeincludesfootprint = true
+            -- inst.components.circuitnode.connectsacrossplatforms = false
+            -- inst.components.circuitnode.rangeincludesfootprint = true
         ----------------------------------------------------------------------------------
         --- 物品切换
             inst:ListenForEvent("item_deployed",item_deployed)
@@ -206,6 +342,7 @@ local assets =
             --     print("++++",PERIOD,master_node)
             -- end
             inst.Loramia_AddBatteryPower = Loramia_AddBatteryPower
+            inst.AddBatteryPower = Normal_AddBatteryPower
         ----------------------------------------------------------------------------------
         --- 物品部署
             inst:AddComponent("deployable")
@@ -246,8 +383,44 @@ local assets =
     end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- placer
+    local function CreatePlacerSpotlight()
+        local inst = CreateEntity()
+
+        --[[Non-networked entity]]
+        inst.entity:SetCanSleep(false)
+        inst.persists = false
+
+        inst.entity:AddTransform()
+        inst.entity:AddAnimState()
+
+        inst:AddTag("CLASSIFIED")
+        inst:AddTag("NOCLICK")
+        inst:AddTag("placer")
+
+        inst.Transform:SetTwoFaced()
+
+        inst.AnimState:SetBank("loramia_building_swiftstrike_creation")
+        inst.AnimState:SetBuild("loramia_building_swiftstrike_creation")
+        inst.AnimState:PlayAnimation("down_loop")
+        inst.AnimState:SetLightOverride(1)
+
+        return inst
+    end
     local function placer_postinit_fn(inst)
-        
+        --Show the spotlight placer on top of the spotlight range ground placer
+        --Also add the small battery range indicator
+
+        local placer2 = CreatePlacerBatteryRing()
+        placer2.entity:SetParent(inst.entity)
+        inst.components.placer:LinkEntity(placer2)
+
+        placer2 = CreatePlacerSpotlight()
+        placer2.entity:SetParent(inst.entity)
+        inst.components.placer:LinkEntity(placer2)
+
+        inst.AnimState:SetScale(PLACER_SCALE, PLACER_SCALE)
+
+        inst.deployhelper_key = "winona_battery_engineering"
     end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 return Prefab("loramia_building_swiftstrike_creation", fn, assets),

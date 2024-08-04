@@ -70,8 +70,13 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
             },
             ["loramia_building_analytic_creation"] = {
                 ["name"] = "解析的创造物",
-                ["inspect_str"] = "用来敲",
-                ["recipe_desc"] = "用来敲",
+                ["inspect_str"] = "用来敲出智慧",
+                ["recipe_desc"] = "用来敲出智慧",
+            },
+            ["loramia_building_mysterious_creation"] = {
+                ["name"] = "神秘的创造物",
+                ["inspect_str"] = "用来睡觉和充电",
+                ["recipe_desc"] = "用来睡觉和充电",
             },
         --------------------------------------------------------------------
 }
