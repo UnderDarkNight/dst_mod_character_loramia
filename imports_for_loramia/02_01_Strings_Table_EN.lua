@@ -70,6 +70,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "For sleeping and charging",
                 ["recipe_desc"] = "For sleeping and charging",
             },
+            ["loramia_building_guardian_creation"] = {
+                ["name"] = " Guardian Creation",
+                ["inspect_str"] = "A kind of turret.",
+                ["recipe_desc"] = "A kind of turret.",
+            },
         --------------------------------------------------------------------
 
 }

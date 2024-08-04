@@ -33,6 +33,7 @@ local prefabs_name_list = {
     "02_swiftstrike_creation",                           --- 迅袭的创造物  陷阱
     "03_analytic_creation",                              --- 解析的创造物
     "04_mysterious_creation",                            --- 神秘的创造物  帐篷
+    "05_guardian_creation",                              --- 守御的创造物  炮台
 
 
 }

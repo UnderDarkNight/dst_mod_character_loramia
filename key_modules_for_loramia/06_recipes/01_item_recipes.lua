@@ -81,7 +81,7 @@ AddRecipe2(
 -- RemoveRecipeFromFilter("loramia_building_analytic_creation","MODS")                       -- -- 在【模组物品】标签里移除这个。
 
 --------------------------------------------------------------------------------------------------------------------------------------------
----- 【二本】【配方：1红宝石，1电器元件，1金子，3石板，无法被破坏，拆卸用铲子，返还红宝石】
+---- 帐篷 【二本】【配方：1红宝石，1电器元件，1金子，3石板，无法被破坏，拆卸用铲子，返还红宝石】
 --------------------------------------------------------------------------------------------------------------------------------------------
 AddRecipeToFilter("loramia_building_mysterious_creation","CHARACTER")     ---- 添加物品到目标标签
 AddRecipe2(
@@ -99,3 +99,23 @@ AddRecipe2(
     {"CHARACTER","STRUCTURES"}
 )
 -- RemoveRecipeFromFilter("loramia_building_mysterious_creation","MODS")                       -- -- 在【模组物品】标签里移除这个。
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+---- 【守御的创造物】【魔法2本】【配方：1黄宝石，1红宝石，10石板，拆卸用铲子，返还红、黄宝石】
+--------------------------------------------------------------------------------------------------------------------------------------------
+AddRecipeToFilter("loramia_building_guardian_creation","CHARACTER")     ---- 添加物品到目标标签
+AddRecipe2(
+    "loramia_building_guardian_creation",            --  --  inst.prefab  实体名字
+    TUNING.LORAMIA_DEBUGGING_MODE and {} or { Ingredient("goldnugget", 1),Ingredient("transistor", 1),Ingredient("cutstone", 3),Ingredient("redgem", 1)}, 
+    TUNING.LORAMIA_DEBUGGING_MODE and TECH.NONE or TECH.SCIENCE_TWO, --- TECH.NONE
+    {
+        -- nounlock = true,
+        no_deconstruction = true,
+        builder_tag = "loramia",
+        placer = "loramia_building_guardian_creation_placer",
+        atlas = "images/map_icons/loramia_building_guardian_creation.xml",
+        image = "loramia_building_guardian_creation.tex",
+    },
+    {"CHARACTER","STRUCTURES"}
+)
+-- RemoveRecipeFromFilter("loramia_building_guardian_creation","MODS")                       -- -- 在【模组物品】标签里移除这个。

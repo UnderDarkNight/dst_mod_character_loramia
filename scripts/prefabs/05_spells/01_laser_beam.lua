@@ -98,6 +98,10 @@ local function DoDamage(inst, targets, skiptoss, skipscorch)
                                 )
                             )
                         )
+                    --- 额外检查是否可摧毁
+                    if isworkable and inst:HasCustomWorkableDestroyCheckerFn() then
+                        isworkable = inst:CustomWorkableDestroy(v) or false
+                    end 
                 end
                 if isworkable then
                     targets[v] = true
@@ -244,7 +248,7 @@ local function common_fn(isempty)
     inst.Trigger = Trigger
     inst.persists = false
     ----------------------------------------
-    --
+    -- 自定义伤害组件
         function inst:SetCustomDoDamageFn(fn)
             if type(fn) == "function" then
                 self.__custom_do_damage_Fn = fn
@@ -257,6 +261,19 @@ local function common_fn(isempty)
         end
         function inst:HasCustomDamageFn()
             return self.__custom_do_damage_Fn ~= nil
+        end
+    ----------------------------------------
+    --- 自定义破坏组件
+        function inst:SetCustomWorkableDestroyCheckerFn(fn)
+            if type(fn) == "function" then
+                self.__custom_workable_destroy_checker_Fn = fn
+            end
+        end
+        function inst:HasCustomWorkableDestroyCheckerFn()
+            return self.__custom_workable_destroy_checker_Fn ~= nil
+        end
+        function inst:CustomWorkableDestroy(target)
+            return self.__custom_workable_destroy_checker_Fn(self, target)
         end
     ----------------------------------------
 

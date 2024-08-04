@@ -99,13 +99,13 @@ local flg,error_code = pcall(function()
     ----------------------------------------------------------------------------------------------------------------
     ---
             local battery = (TheSim:FindEntities(x,y,z,10,{"engineeringbattery"}) or {})[1]
-            local item = (TheSim:FindEntities(x,y,z,10,{"loramia_building_mysterious_creation"}) or {})[1]
+            local item = (TheSim:FindEntities(x,y,z,10,{"loramia_building_guardian_creation"}) or {})[1]
             print(item,battery)
             -- -- item.components.circuitnode:ConnectTo("engineeringbattery")
             -- -- battery.components.circuitnode:ConnectTo("engineeringbatterypowered")
             -- -- item.components.circuitnode:AddNode(battery)
             -- -- battery.components.circuitnode:AddNode(item)
-            -- print("IsConnected",item.components.circuitnode:IsConnected())
+            print("IsConnected",item.components.circuitnode:IsConnected())
 
             -- battery.components.circuitnode:ForEachNode(function(inst, node)
             --     print("++++",inst, node)
@@ -123,7 +123,6 @@ local flg,error_code = pcall(function()
             item.components.circuitnode:ForEachNode(function(inst, node)
                 print("++++",inst, node)
             end)
-            item.components.sleepingbag:SetSleepPhase("day")
     ----------------------------------------------------------------------------------------------------------------
     ---
             -- local ents = TheSim:FindEntities(x,y,z,30,{"loramia_building_sharpstrike_creation_light"})

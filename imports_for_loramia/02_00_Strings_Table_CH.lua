@@ -78,6 +78,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "用来睡觉和充电",
                 ["recipe_desc"] = "用来睡觉和充电",
             },
+            ["loramia_building_guardian_creation"] = {
+                ["name"] = "守御的创造物",
+                ["inspect_str"] = "一种炮台",
+                ["recipe_desc"] = "一种炮台",
+            },
         --------------------------------------------------------------------
 }
 

@@ -174,6 +174,11 @@ local assets =
         inst:DoTaskInTime(0,function()
             inst.components.circuitnode:ConnectTo("engineeringbattery")
         end)
+
+        inst.AddBatteryPower = function()
+            
+        end
+        
     end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- 指示器安装
@@ -362,6 +367,7 @@ local function fn()
 end
 
 ----------------------------------------------------------------------------------------------------------------------
+--- placer
     local function CreatePlacerSpotlight()
         local inst = CreateEntity()
 
@@ -404,6 +410,6 @@ end
 ----------------------------------------------------------------------------------------------------------------------
 
 return Prefab("loramia_building_mysterious_creation", fn, assets),
-    MakePlacer("loramia_building_mysterious_creation_placer", "loramia_building_mysterious_creation", "loramia_building_mysterious_creation", "idle", true, nil, nil, nil, nil, nil, placer_postinit_fn)
+    MakePlacer("loramia_building_mysterious_creation_placer", "loramia_building_mysterious_creation", "loramia_building_mysterious_creation", "idle", nil, nil, nil, nil, nil, nil, placer_postinit_fn)
 
 
