@@ -337,6 +337,7 @@ local function fn()
     -- inst.DynamicShadow:SetSize(1.3, 0.6)
     inst.DynamicShadow:SetSize(2, 1)
 
+    inst.MiniMapEntity:SetIcon("loramia_building_sharpstrike_creation.tex")
 
 	inst:SetPhysicsRadiusOverride(0.5)
 	MakeObstaclePhysics(inst, inst.physicsradiusoverride)
@@ -408,12 +409,27 @@ local function fn()
         inst.components.workable:SetWorkLeft(4)
         -- inst.components.workable:SetOnWorkCallback(OnWorked)
         inst.components.workable:SetOnFinishCallback(function(inst)
-            inst.components.lootdropper:DropLoot()
+            -- inst.components.lootdropper:DropLoot()
+            inst.components.lootdropper:SpawnLootPrefab("redgem")
+            inst.components.lootdropper:SpawnLootPrefab("bluegem")
             local fx = SpawnPrefab("collapse_small")
             fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
             fx:SetMaterial("wood")
             inst:Remove()
         end)
+        --- 除非玩家主动敲打，否则不会掉落
+        local old_WorkedBy = inst.components.workable.WorkedBy
+        inst.components.workable.WorkedBy = function(self,worker, numworks,...)
+            if worker and worker:HasTag("player") then
+                return old_WorkedBy(self,worker, numworks,...)
+            end
+        end
+        local old_WorkedBy_Internal = inst.components.workable.WorkedBy_Internal
+        inst.components.workable.WorkedBy_Internal = function(self,worker, numworks,...)
+            if worker and worker:HasTag("player") then
+                return old_WorkedBy_Internal(self,worker, numworks,...)
+            end
+        end
     -----------------------------------------------------------------------------------------
     --- 电路模块
         inst:AddComponent("circuitnode")
@@ -470,6 +486,43 @@ local function fn()
 end
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- placer
+    local function placer_postinit_fn(inst)
+        --Show the battery placer on top of the battery range ground placer
+
+        local placer2 = CreateEntity()
+
+        --[[Non-networked entity]]
+        placer2.entity:SetCanSleep(false)
+        placer2.persists = false
+
+        placer2.entity:AddTransform()
+        placer2.entity:AddAnimState()
+
+        placer2:AddTag("CLASSIFIED")
+        placer2:AddTag("NOCLICK")
+        placer2:AddTag("placer")
+
+        -- placer2.AnimState:SetBank("winona_battery_low")
+        -- placer2.AnimState:SetBuild("winona_battery_low")
+        -- placer2.AnimState:PlayAnimation("idle_placer")
+        placer2:SpawnChild("loramia_sfx_dotted_circle_client"):PushEvent("Set",{
+            radius = RECHARGE_RADIUS
+        })
 
 
-return Prefab("loramia_building_sharpstrike_creation", fn, assets)
+        placer2.AnimState:SetLightOverride(1)
+
+        placer2.entity:SetParent(inst.entity)
+
+        inst.components.placer:LinkEntity(placer2)
+
+        inst.AnimState:SetScale(PLACER_SCALE, PLACER_SCALE)
+
+        inst.deployhelper_key = "winona_battery_engineering"
+    end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+return Prefab("loramia_building_sharpstrike_creation", fn, assets),
+    MakePlacer("loramia_building_sharpstrike_creation_placer", "loramia_building_sharpstrike_creation", "loramia_building_sharpstrike_creation", "idle", nil, nil, nil, nil, nil, nil, placer_postinit_fn)

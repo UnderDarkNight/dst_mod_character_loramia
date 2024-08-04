@@ -272,6 +272,7 @@ local assets =
                             end
                             if workable_destroy_checker_fn then
                                 fx:SetCustomWorkableDestroyCheckerFn(function(fx,target)
+                                    print("6666666666",target)
                                     return workable_destroy_checker_fn(target)
                                 end)
                             end
@@ -312,7 +313,7 @@ local assets =
                 local angle = player.Transform:GetRotation() * DEGREES
                 target_pos = ipos + Vector3(OFFSET * math.cos(angle), 0, -OFFSET * math.sin(angle))
             end
-            SpawnBeam(player, target_pos,onhitfn)
+            SpawnBeam(player, target_pos,onhitfn,workable_destroy_checker_fn)
         ---------------------------------------------------
     end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -362,8 +363,17 @@ local assets =
     end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- combat and health
-
+    local ignore_action = {
+        [ACTIONS.CHOP] = true,
+        [ACTIONS.HAMMER] = true,
+        [ACTIONS.MINE] = true,
+        [ACTIONS.DIG] = true,
+    }
     local workable_destroy_checker_fn = function(target)
+        -- print("workable_destroy_checker_fn",target)
+        if ignore_action[target.components.workable:GetWorkAction()] then
+            return false
+        end
         if target:HasOneOfTags({"structure","engineering","wall","plant"}) then
             return false
         end

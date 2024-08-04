@@ -99,8 +99,9 @@ local function DoDamage(inst, targets, skiptoss, skipscorch)
                             )
                         )
                     --- 额外检查是否可摧毁
+                    -- print("test",v,isworkable,inst:HasCustomWorkableDestroyCheckerFn(),inst:HasCustomWorkableDestroyCheckerFn() and inst:CustomWorkable_CanDestroy(v))
                     if isworkable and inst:HasCustomWorkableDestroyCheckerFn() then
-                        isworkable = inst:CustomWorkableDestroy(v) or false
+                        isworkable = inst:CustomWorkable_CanDestroy(v) or false
                     end 
                 end
                 if isworkable then
@@ -272,7 +273,7 @@ local function common_fn(isempty)
         function inst:HasCustomWorkableDestroyCheckerFn()
             return self.__custom_workable_destroy_checker_Fn ~= nil
         end
-        function inst:CustomWorkableDestroy(target)
+        function inst:CustomWorkable_CanDestroy(target)
             return self.__custom_workable_destroy_checker_Fn(self, target)
         end
     ----------------------------------------
