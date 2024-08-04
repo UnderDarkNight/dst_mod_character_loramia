@@ -68,6 +68,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "一种陷阱",
                 ["recipe_desc"] = "一种陷阱",
             },
+            ["loramia_building_analytic_creation"] = {
+                ["name"] = "解析的创造物",
+                ["inspect_str"] = "用来敲",
+                ["recipe_desc"] = "用来敲",
+            },
         --------------------------------------------------------------------
 }
 

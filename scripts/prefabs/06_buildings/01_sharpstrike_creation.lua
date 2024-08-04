@@ -335,7 +335,9 @@ local function fn()
     inst.entity:AddNetwork()
 
     inst.entity:AddDynamicShadow()
-    inst.DynamicShadow:SetSize(1.3, 0.6)
+    -- inst.DynamicShadow:SetSize(1.3, 0.6)
+    inst.DynamicShadow:SetSize(2, 1)
+
 
 	inst:SetPhysicsRadiusOverride(0.5)
 	MakeObstaclePhysics(inst, inst.physicsradiusoverride)

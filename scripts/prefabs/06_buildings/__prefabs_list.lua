@@ -31,6 +31,7 @@ local prefabs_name_list = {
     "01_sharpstrike_creation",                           --- 锋锐的创造物  发电机
     "01_sharpstrike_creation_light",                     --- 锋锐的创造物  灯光inst
     "02_swiftstrike_creation",                           --- 迅袭的创造物  陷阱
+    "03_analytic_creation",                              --- 解析的创造物
 
 
 }

@@ -59,3 +59,23 @@ AddRecipe2(
     {"CHARACTER","WEAPONS"}
 )
 -- RemoveRecipeFromFilter("loramia_building_swiftstrike_creation","MODS")                       -- -- 在【模组物品】标签里移除这个。
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+---- 【解析的创造物】【一本】【配方：制造成本6金子，6电器元件，6石板，无法被破坏，拆卸用铲子，返还一半物资】
+--------------------------------------------------------------------------------------------------------------------------------------------
+AddRecipeToFilter("loramia_building_analytic_creation","CHARACTER")     ---- 添加物品到目标标签
+AddRecipe2(
+    "loramia_building_analytic_creation",            --  --  inst.prefab  实体名字
+    { Ingredient("goldnugget", 6),Ingredient("transistor", 6),Ingredient("cutstone", 6)}, 
+    TECH.SCIENCE_ONE, --- TECH.NONE
+    {
+        -- nounlock = true,
+        no_deconstruction = true,
+        builder_tag = "loramia",
+        placer = "loramia_building_analytic_creation_placer",
+        atlas = "images/map_icons/loramia_building_analytic_creation.xml",
+        image = "loramia_building_analytic_creation.tex",
+    },
+    {"CHARACTER","WEAPONS"}
+)
+-- RemoveRecipeFromFilter("loramia_building_analytic_creation","MODS")                       -- -- 在【模组物品】标签里移除这个。

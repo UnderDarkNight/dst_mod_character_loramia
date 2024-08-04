@@ -60,6 +60,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "a kind of trap",
                 ["recipe_desc"] = "a kind of trap",
             },
+            ["loramia_building_analytic_creation"] = {
+                ["name"] = " Analytic Creation",
+                ["inspect_str"] = "Used to knock",
+                ["recipe_desc"] = "Used to knock",
+            },
         --------------------------------------------------------------------
 
 }
