@@ -33,6 +33,7 @@ local prefabs_name_list = {
     "03_alloy_circuit_board",               --- 合金电路板
     "04_luminous_alloy_board",              --- 发光合金板
     "05_laser_cannon",                      --- 激光炮
+    "06_luminescent_crystal",               --- 发光结晶
 
 }
 

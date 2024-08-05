@@ -56,6 +56,10 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["recipe_desc"] = "聚合激光炮",
                 ["action_str"] = "发射激光",
             },
+		    ["loramia_item_luminescent_crystal"] = {
+                ["name"] = "发光结晶",
+                ["inspect_str"] = "发光结晶",
+            },
         --------------------------------------------------------------------
         -- 06_buildings
             ["loramia_building_sharpstrike_creation"] = {

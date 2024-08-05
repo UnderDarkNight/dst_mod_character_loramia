@@ -48,6 +48,10 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["action_str"] = "Shoot",
 
             },
+            ["loramia_item_luminescent_crystal"] = {
+                ["name"] = "Luminescent Crystal",
+                ["inspect_str"] = "Luminescent Crystal",
+            },
         --------------------------------------------------------------------
         -- 06_buildings
             ["loramia_building_sharpstrike_creation"] = {
