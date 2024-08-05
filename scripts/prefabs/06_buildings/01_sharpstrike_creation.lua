@@ -17,10 +17,10 @@ local assets = {
 
     local function DoAddBatteryPower(inst, node)
         -- print(" +++ DoAddBatteryPower",node)
-        if node.AddBatteryPower then
-            node:AddBatteryPower(PERIOD + math.random(2, 6) * FRAMES)
-        elseif node.Loramia_AddBatteryPower then
+        if node.Loramia_AddBatteryPower then
             node:Loramia_AddBatteryPower(PERIOD,inst)
+        elseif node.AddBatteryPower  then
+            node:AddBatteryPower(PERIOD + math.random(2, 6) * FRAMES)
         end
         -- node:PushEvent("AddBatteryPower")
     end

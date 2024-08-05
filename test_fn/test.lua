@@ -98,31 +98,31 @@ local flg,error_code = pcall(function()
             -- end
     ----------------------------------------------------------------------------------------------------------------
     ---
-            local battery = (TheSim:FindEntities(x,y,z,10,{"engineeringbattery"}) or {})[1]
-            local item = (TheSim:FindEntities(x,y,z,10,{"loramia_building_guardian_creation"}) or {})[1]
-            print(item,battery)
-            -- -- item.components.circuitnode:ConnectTo("engineeringbattery")
-            -- -- battery.components.circuitnode:ConnectTo("engineeringbatterypowered")
-            -- -- item.components.circuitnode:AddNode(battery)
-            -- -- battery.components.circuitnode:AddNode(item)
-            print("IsConnected",item.components.circuitnode:IsConnected())
+            -- local battery = (TheSim:FindEntities(x,y,z,10,{"engineeringbattery"}) or {})[1]
+            -- local item = (TheSim:FindEntities(x,y,z,10,{"loramia_building_guardian_creation"}) or {})[1]
+            -- print(item,battery)
+            -- -- -- item.components.circuitnode:ConnectTo("engineeringbattery")
+            -- -- -- battery.components.circuitnode:ConnectTo("engineeringbatterypowered")
+            -- -- -- item.components.circuitnode:AddNode(battery)
+            -- -- -- battery.components.circuitnode:AddNode(item)
+            -- print("IsConnected",item.components.circuitnode:IsConnected())
 
-            -- battery.components.circuitnode:ForEachNode(function(inst, node)
+            -- -- battery.components.circuitnode:ForEachNode(function(inst, node)
+            -- --     print("++++",inst, node)
+            -- -- end)
+            -- -- -- battery.components.fueled:DoDelta(-1000)
+            -- -- -- battery.components.fueled:DoDelta(100)
+            -- -- -- battery.components.fueled:StartConsuming()
+            -- -- print(battery.components.fueled:GetDebugString())
+
+
+            -- -- -- local battery_nodes = battery.components.circuitnode.nodes
+            -- -- -- print(battery_nodes)
+            -- -- -- print(battery:GetCurrentPlatform(),item:GetCurrentPlatform())
+
+            -- item.components.circuitnode:ForEachNode(function(inst, node)
             --     print("++++",inst, node)
             -- end)
-            -- -- battery.components.fueled:DoDelta(-1000)
-            -- -- battery.components.fueled:DoDelta(100)
-            -- -- battery.components.fueled:StartConsuming()
-            -- print(battery.components.fueled:GetDebugString())
-
-
-            -- -- local battery_nodes = battery.components.circuitnode.nodes
-            -- -- print(battery_nodes)
-            -- -- print(battery:GetCurrentPlatform(),item:GetCurrentPlatform())
-
-            item.components.circuitnode:ForEachNode(function(inst, node)
-                print("++++",inst, node)
-            end)
     ----------------------------------------------------------------------------------------------------------------
     ---
             -- local ents = TheSim:FindEntities(x,y,z,30,{"loramia_building_sharpstrike_creation_light"})
@@ -151,7 +151,26 @@ local flg,error_code = pcall(function()
             --     SpawnPrefab("beefalo_transform_fx").Transform:SetPosition(tx,ty,tz)
             -- end
     ----------------------------------------------------------------------------------------------------------------
-
+    ----------
+        SpawnPrefab("loramia_spell_laser_custom_caster"):PushEvent("Set",{
+            attacker = ThePlayer,
+            pt = Vector3(x,0,z+3),
+            onhitfn = function(target)
+                print("onhit",target)
+            end,
+            workable_destroy_checker_fn = function(target)
+                print("workable_can_destroy",target)
+                return true
+            end,
+            trailfn = function(inst)
+                inst.AnimState:SetAddColour(0, -1, 0, 0)
+                inst.AnimState:SetMultColour(0, 1, 0, 1)
+            end,
+            scorchfn = function(inst)
+                inst.AnimState:SetAddColour(0, -1, 0, 0)
+                inst.AnimState:SetMultColour(0, 1, 0, 1)
+            end,
+        })
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

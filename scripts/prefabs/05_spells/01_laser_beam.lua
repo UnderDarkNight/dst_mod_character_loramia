@@ -63,12 +63,17 @@ local function DoDamage(inst, targets, skiptoss, skipscorch)
         inst:DoTaskInTime(5 * FRAMES, DisableLight)
 
         if not skipscorch and TheWorld.Map:IsPassableAtPoint(x, 0, z, false) then
-            SpawnPrefab("loramia_spell_laserscorch").Transform:SetPosition(x, 0, z)
+            local laserscorch = SpawnPrefab("loramia_spell_laserscorch")
+            laserscorch.Transform:SetPosition(x, 0, z)
+            inst:ScorchSetting(laserscorch)
         end
 
         local fx = SpawnPrefab("loramia_spell_lasertrail")
         fx.Transform:SetPosition(x, 0, z)
         fx:FastForward(GetRandomMinMax(.3, .7))
+
+        inst:TrailSetting(fx)
+
     else
         inst:DoTaskInTime(2 * FRAMES, inst.Remove)
     end
@@ -277,6 +282,30 @@ local function common_fn(isempty)
             return self.__custom_workable_destroy_checker_Fn(self, target)
         end
     ----------------------------------------
+    --- trail fn
+        function inst:SetTrailFn(fn)
+            if type(fn) == "function" then
+                self.__trail_Fn = fn
+            end
+        end
+        function inst:TrailSetting(fx)
+            if self.__trail_Fn ~= nil then
+                self.__trail_Fn(fx)
+            end
+        end
+    ----------------------------------------
+    -- 地面印记执行函数
+        function inst:SetScorchFn(fn)
+            if type(fn) == "function" then
+                self.__scorch_Fn = fn
+            end
+        end
+        function inst:ScorchSetting(fx)
+            if self.__scorch_Fn ~= nil then
+                self.__scorch_Fn(fx)
+            end
+        end
+    ----------------------------------------
 
     return inst
 end
@@ -470,15 +499,147 @@ local function hitfn()
 
     return inst
 end
+------------------------------------------------------------------------------------------------------------------------
+--- 控制器
+    local function CreateLaser(_cmd_table)
+        ---------------------------------------------------
+        --- 控制表
+            local player = _cmd_table.attacker              --- 攻击者
+            local pt = _cmd_table.pt                        --- 目标坐标
+            local onhitfn = _cmd_table.onhitfn              --- 怪物击中执行函数 function(target) end
+            local workable_destroy_checker_fn = _cmd_table.workable_destroy_checker_fn  --- 带workable的检查 function(target) return true end
+            local trailfn = _cmd_table.trailfn              --- 尾部执行函数 function(fx) end
+            local scorchfn = _cmd_table.scorchfn            --- 地面印记执行函数 function(fx) end
+        ---------------------------------------------------
+        --- 修改自官方的激光代码
+            local SECOND_BLAST_TIME = 22*FRAMES
+            local NUM_STEPS = 10
+            local STEP = 1.0
+            local OFFSET = 2 - STEP
+            local function SpawnBeam(inst, target_pos)
+                if target_pos == nil then
+                    return
+                end
+            
+                local ix, iy, iz = inst.Transform:GetWorldPosition()
+            
+                -- This is the "step" of fx spawning that should align with the position the beam is targeting.
+                local target_step_num = RoundBiasedUp(NUM_STEPS * 2/5)
+            
+                local angle = nil
+            
+                -- gx, gy, gz is the point of the actual first beam fx
+                local gx, gy, gz = nil, 0, nil
+                local x_step = STEP
+                if inst:GetDistanceSqToPoint(target_pos:Get()) < 4 then
+                    angle = math.atan2(iz - target_pos.z, ix - target_pos.x)
+            
+                    -- If the target is too close, use the minimum distance
+                    gx, gy, gz = inst.Transform:GetWorldPosition()
+                    gx = gx + (2 * math.cos(angle))
+                    gz = gz + (2 * math.sin(angle))
+                else
+                    angle = math.atan2(iz - target_pos.z, ix - target_pos.x)
+            
+                    gx, gy, gz = target_pos:Get()
+                    gx = gx + (target_step_num * STEP * math.cos(angle))
+                    gz = gz + (target_step_num * STEP * math.sin(angle))
+                end
+            
+                local targets, skiptoss = {}, {}
+                local sbtargets, sbskiptoss = {}, {}
+                local x, z = nil, nil
+                local trigger_time = nil
+            
+                local i = -1
+                while i < NUM_STEPS do
+                    i = i + 1
+                    x = gx - i * x_step * math.cos(angle)
+                    z = gz - i * STEP * math.sin(angle)
+            
+                    local first = (i == 0)
+                    local prefab = (i > 0 and "loramia_spell_laser") or "loramia_spell_laserempty"
+                    local x1, z1 = x, z
+            
+                    trigger_time = math.max(0, i - 1) * FRAMES
+                    ---------------------------------------------------
+                    ---- 发射激光
+                        inst:DoTaskInTime(trigger_time, function(inst2)
+                            local fx = SpawnPrefab(prefab)
+                            -------------------------------------------------------------------
+                            --- 控制函数
+                                if onhitfn then
+                                    fx:SetCustomDoDamageFn(function(fx,target)
+                                        onhitfn(target)
+                                    end)
+                                end
+                                if workable_destroy_checker_fn then
+                                    fx:SetCustomWorkableDestroyCheckerFn(function(fx,target)
+                                        return workable_destroy_checker_fn(target)
+                                    end)
+                                end
+                                fx:SetTrailFn(trailfn)
+                            -------------------------------------------------------------------
+                            fx.caster = inst2
+                            fx.Transform:SetPosition(x1, 0, z1)
+                            fx:Trigger(0, targets, skiptoss)
+
+                        end)
+                    ---------------------------------------------------
+
+                end
+            
+                inst:DoTaskInTime(i*FRAMES, function(inst2)
+                    local fx = SpawnPrefab("loramia_spell_laser")
+                    fx.Transform:SetPosition(x, 0, z)
+                    fx:Trigger(0, targets, skiptoss)
+                end)
+            
+                inst:DoTaskInTime((i+1)*FRAMES, function(inst2)
+                    local fx = SpawnPrefab("loramia_spell_laser")
+                    fx.Transform:SetPosition(x, 0, z)
+                    fx:Trigger(0, targets, skiptoss)
+                end)
+            end
+        ---------------------------------------------------
+        ---- 官方的三叉代码
+            local TRIBEAM_ANGLEOFF = PI/5
+            local TRIBEAM_COS = math.cos(TRIBEAM_ANGLEOFF)
+            local TRIBEAM_SIN = math.sin(TRIBEAM_ANGLEOFF)
+            local TRIBEAM_COSNEG = math.cos(-TRIBEAM_ANGLEOFF)
+            local TRIBEAM_SINNEG = math.sin(-TRIBEAM_ANGLEOFF)
+
+            local ipos = player:GetPosition()
+            -- local target_pos = inst.sg.statemem.target_pos
+            local target_pos = pt
+            
+            if target_pos == nil then
+                local angle = player.Transform:GetRotation() * DEGREES
+                target_pos = ipos + Vector3(OFFSET * math.cos(angle), 0, -OFFSET * math.sin(angle))
+            end
+            SpawnBeam(player, target_pos)
+        ---------------------------------------------------
+    end
+    local function laser_spell_caster()
+        local inst = CreateEntity()
+        if not TheWorld.ismastersim then
+            return inst
+        end
+        inst:ListenForEvent("Set",function(inst,_table)
+            CreateLaser(_table)
+            inst:Remove()
+        end)
+        inst:DoTaskInTime(0,inst.Remove)
+        return inst
+    end
+------------------------------------------------------------------------------------------------------------------------
 
 return Prefab("loramia_spell_laser", fn, assets, prefabs),
     Prefab("loramia_spell_laserempty", emptyfn, assets, prefabs),
     Prefab("loramia_spell_laserscorch", scorchfn, assets_scorch),
     Prefab("loramia_spell_lasertrail", trailfn, assets_trail),
-    Prefab("loramia_spell_laserhit", hitfn)
+    Prefab("loramia_spell_laserhit", hitfn),
 
--- return Prefab("alterguardian_laser", fn, assets, prefabs),
---     Prefab("alterguardian_laserempty", emptyfn, assets, prefabs),
---     Prefab("alterguardian_laserscorch", scorchfn, assets_scorch),
---     Prefab("alterguardian_lasertrail", trailfn, assets_trail),
---     Prefab("alterguardian_laserhit", hitfn)
+    Prefab("loramia_spell_laser_custom_caster", laser_spell_caster) -- 施法器
+
+
