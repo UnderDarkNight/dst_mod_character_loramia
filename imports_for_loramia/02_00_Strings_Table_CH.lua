@@ -92,6 +92,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "和月亮有关",
                 ["recipe_desc"] = "和月亮有关",
             },
+            ["loramia_building_esoteric_creation"] = {
+                ["name"] = "精奥的创造物",
+                ["inspect_str"] = "部分物品转换",
+                ["recipe_desc"] = "部分物品转换",
+            },
         --------------------------------------------------------------------
 }
 

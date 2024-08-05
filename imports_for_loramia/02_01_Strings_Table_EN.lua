@@ -46,7 +46,6 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "Laser Cannon",
                 ["recipe_desc"] = "Laser Cannon",
                 ["action_str"] = "Shoot",
-
             },
             ["loramia_item_luminescent_crystal"] = {
                 ["name"] = "Luminescent Crystal",
@@ -83,6 +82,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["name"] = "Primordial Creation",
                 ["inspect_str"] = "It's about the moon.",
                 ["recipe_desc"] = "It's about the moon.",
+            },
+            ["loramia_building_esoteric_creation"] = {
+                ["name"] = "Esoteric Creation",
+                ["inspect_str"] = "Partial conversion of items",
+                ["recipe_desc"] = "Partial conversion of items",
             },
         --------------------------------------------------------------------
 

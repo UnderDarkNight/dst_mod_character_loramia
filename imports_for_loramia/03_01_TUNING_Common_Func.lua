@@ -49,5 +49,74 @@ TUNING.LORAMIA_FN = TUNING.LORAMIA_FN or {}
         end
     end
 --------------------------------------------------------------------------------------------
---- 
+---  通用物品给予
+    function TUNING.LORAMIA_FN:GiveItemByName(target, name, num, item_fn)
+        -- 参数检查
+        if type(name) ~= "string" or type(num) ~= "number" or num <= 0 or not PrefabExists(name) then
+            return
+        end
+    
+        -- 查找目标身上的容器组件（库存或通用容器）
+        local container = target.components.inventory or target.components.container
+        if not container then
+            return
+        end
+    
+        -- 如果只需要一个物品
+        if num == 1 then
+            local item = SpawnPrefab(name)
+            if item_fn and type(item_fn) == "function" then
+                item_fn(item)
+            end
+            container:GiveItem(item)
+        else
+            -- 如果需要多个物品
+            local stackableItem = SpawnPrefab(name)
+            if not stackableItem then
+                return
+            end
+    
+            local stackComponent = stackableItem.components.stackable
+            if not stackComponent then
+                -- 非可堆叠物品
+                for i = 1, num do
+                    local item = SpawnPrefab(name)
+                    if item_fn and type(item_fn) == "function" then
+                        item_fn(item)
+                    end
+                    container:GiveItem(item or SpawnPrefab("log"))
+                end
+            else
+                -- 可堆叠物品
+                local maxStackSize = stackComponent.maxsize
+                local fullStacks = math.floor(num / maxStackSize)  -- 完整堆叠的数量
+                local remainder = num % maxStackSize                 -- 剩余的数量
+    
+                if fullStacks > 0 then
+                    -- 创建完整的堆叠物品
+                    for i = 1, fullStacks do
+                        local item = SpawnPrefab(name)
+                        item.components.stackable.stacksize = maxStackSize
+                        if item_fn and type(item_fn) == "function" then
+                            item_fn(item)
+                        end
+                        container:GiveItem(item)
+                    end
+                end
+    
+                -- 创建剩余部分的堆叠物品
+                if remainder > 0 then
+                    local item = SpawnPrefab(name)
+                    item.components.stackable.stacksize = remainder
+                    if item_fn and type(item_fn) == "function" then
+                        item_fn(item)
+                    end
+                    container:GiveItem(item)
+                end
+            end
+    
+            -- 清理临时创建的物品
+            stackableItem:Remove()
+        end
+    end
 --------------------------------------------------------------------------------------------

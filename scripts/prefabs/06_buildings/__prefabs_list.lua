@@ -35,6 +35,7 @@ local prefabs_name_list = {
     "04_mysterious_creation",                               --- 神秘的创造物  帐篷
     "05_guardian_creation",                                 --- 守御的创造物  炮台
     "06_primordial_creation",                               --- 创世的创造物  月台
+    "07_esoteric_creation",                                 --- 精奥的创造物
 
 
 }
