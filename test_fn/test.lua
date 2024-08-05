@@ -152,25 +152,48 @@ local flg,error_code = pcall(function()
             -- end
     ----------------------------------------------------------------------------------------------------------------
     ----------
-        SpawnPrefab("loramia_spell_laser_custom_caster"):PushEvent("Set",{
-            attacker = ThePlayer,
-            pt = Vector3(x,0,z+3),
-            onhitfn = function(target)
-                print("onhit",target)
-            end,
-            workable_destroy_checker_fn = function(target)
-                print("workable_can_destroy",target)
-                return true
-            end,
-            trailfn = function(inst)
-                inst.AnimState:SetAddColour(0, -1, 0, 0)
-                inst.AnimState:SetMultColour(0, 1, 0, 1)
-            end,
-            scorchfn = function(inst)
-                inst.AnimState:SetAddColour(0, -1, 0, 0)
-                inst.AnimState:SetMultColour(0, 1, 0, 1)
-            end,
-        })
+        -- SpawnPrefab("loramia_spell_laser_custom_caster"):PushEvent("Set",{
+        --     attacker = ThePlayer,
+        --     pt = Vector3(x,0,z+3),
+        --     onhitfn = function(target)
+        --         print("onhit",target)
+        --     end,
+        --     workable_destroy_checker_fn = function(target)
+        --         print("workable_can_destroy",target)
+        --         return true
+        --     end,
+        --     trailfn = function(inst)
+        --         inst.AnimState:SetAddColour(0, -1, 0, 0)
+        --         inst.AnimState:SetMultColour(0, 1, 0, 1)
+        --     end,
+        --     scorchfn = function(inst)
+        --         inst.AnimState:SetAddColour(0, -1, 0, 0)
+        --         inst.AnimState:SetMultColour(0, 1, 0, 1)
+        --     end,
+        -- })
+    ----------------------------------------------------------------------------------------------------------------
+    --
+        -- local inst = TheSim:FindFirstEntityWithTag("loramia_building_electromagnetic_tower_of_creation")
+        -- print("++++",inst)
+        -- -- inst.components.constructionsite:DropAllMaterials()
+        -- for k, v in pairs(inst.components.constructionsite.materials) do
+        --     -- print("+++",k,v)
+        --     -- for k2, v2 in pairs(v) do
+        --     --     print("+++",k2,v2)
+        --     -- end
+
+        --     -- v.amount = 0
+        --     inst.components.constructionsite:RemoveMaterial(k,v.amount)
+        -- end
+        -- inst.components.constructionsite:DropAllMaterials()
+
+        -- local scion = SpawnPrefab("rook_nightmare")
+        -- scion.Transform:SetPosition(x,y,z)
+        -- ThePlayer:PushEvent("makefriend")
+        -- scion.components.follower:SetLeader(ThePlayer)
+        for k, v in pairs(ThePlayer.__electromagnetic_tower_of_creation_pet_task) do
+            print(k,v)
+        end
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

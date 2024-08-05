@@ -97,6 +97,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "部分物品转换",
                 ["recipe_desc"] = "部分物品转换",
             },
+            ["loramia_building_electromagnetic_tower_of_creation"] = {
+                ["name"] = "创造物电磁塔",
+                ["inspect_str"] = "避雷和弄出机械生物",
+                ["recipe_desc"] = "避雷和弄出机械生物",
+            },
         --------------------------------------------------------------------
 }
 

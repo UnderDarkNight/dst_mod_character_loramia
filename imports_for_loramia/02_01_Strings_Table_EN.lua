@@ -88,6 +88,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "Partial conversion of items",
                 ["recipe_desc"] = "Partial conversion of items",
             },
+            ["loramia_building_electromagnetic_tower_of_creation"] = {
+                ["name"] = "Electromagnetic Tower of Creation",
+                ["inspect_str"] = "Lightning protection and mechanical creatures",
+                ["recipe_desc"] = "Lightning protection and mechanical creatures",
+            },
         --------------------------------------------------------------------
 
 }

@@ -11,7 +11,8 @@ local file_folders = {
     "03_sfx",               ---- 特效
     
     "05_spells",            ---- 技能物品    
-    "06_buildings",         ---- 建筑物    
+    "06_buildings",         ---- 建筑物
+    "07_debuffs",           ---- debuffs
 }
 
 

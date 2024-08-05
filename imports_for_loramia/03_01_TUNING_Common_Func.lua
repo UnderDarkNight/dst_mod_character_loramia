@@ -120,3 +120,49 @@ TUNING.LORAMIA_FN = TUNING.LORAMIA_FN or {}
         end
     end
 --------------------------------------------------------------------------------------------
+---  -- 获取一圈坐标
+    function TUNING.LORAMIA_FN:GetSurroundPoints(CMD_TABLE)
+        -- local CMD_TABLE = {
+        --     target = inst or Vector3(),
+        --     range = 8,
+        --     num = 8
+        -- }
+        if CMD_TABLE == nil then
+            return
+        end
+        if CMD_TABLE.pt then
+            CMD_TABLE.target = CMD_TABLE.pt
+        end
+        local theMid = nil
+        if CMD_TABLE.target == nil then
+            theMid = Vector3( self.inst.Transform:GetWorldPosition() )
+        elseif CMD_TABLE.target.x then
+            theMid = CMD_TABLE.target
+        elseif CMD_TABLE.target.prefab then
+            theMid = Vector3( CMD_TABLE.target.Transform:GetWorldPosition() )
+        else
+            return
+        end
+        -- --------------------------------------------------------------------------------------------------------------------
+        -- -- 8 points
+        -- local retPoints = {}
+        -- for i = 1, 8, 1 do
+        --     local tempDeg = (PI/4)*(i-1)
+        --     local tempPoint = theMidPoint + Vector3( Range*math.cos(tempDeg) ,  0  ,  Range*math.sin(tempDeg)    )
+        --     table.insert(retPoints,tempPoint)
+        -- end
+        -- --------------------------------------------------------------------------------------------------------------------
+        local num = CMD_TABLE.num or 8
+        local range = CMD_TABLE.range or 8
+        local retPoints = {}
+        for i = 1, num, 1 do
+            local tempDeg = (2*PI/num)*(i-1)
+            local tempPoint = theMid + Vector3( range*math.cos(tempDeg) ,  0  ,  range*math.sin(tempDeg)    )
+            table.insert(retPoints,tempPoint)
+        end
+
+        return retPoints
+
+
+    end
+--------------------------------------------------------------------------------------------
