@@ -28,12 +28,13 @@ local Prefabs_addr_base = string.sub(temp_addr,1,temp_str_index2) .. "/"    --- 
 local prefabs_name_list = {
 
 
-    "01_sharpstrike_creation",                           --- 锋锐的创造物  发电机
-    "01_sharpstrike_creation_light",                     --- 锋锐的创造物  灯光inst
-    "02_swiftstrike_creation",                           --- 迅袭的创造物  陷阱
-    "03_analytic_creation",                              --- 解析的创造物
-    "04_mysterious_creation",                            --- 神秘的创造物  帐篷
-    "05_guardian_creation",                              --- 守御的创造物  炮台
+    "01_sharpstrike_creation",                              --- 锋锐的创造物  发电机
+    "01_sharpstrike_creation_light",                        --- 锋锐的创造物  灯光inst
+    "02_swiftstrike_creation",                              --- 迅袭的创造物  陷阱
+    "03_analytic_creation",                                 --- 解析的创造物
+    "04_mysterious_creation",                               --- 神秘的创造物  帐篷
+    "05_guardian_creation",                                 --- 守御的创造物  炮台
+    "06_primordial_creation",                               --- 创世的创造物  月台
 
 
 }

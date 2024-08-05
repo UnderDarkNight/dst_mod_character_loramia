@@ -83,6 +83,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "一种炮台",
                 ["recipe_desc"] = "一种炮台",
             },
+            ["loramia_building_primordial_creation"] = {
+                ["name"] = "创世的创造物",
+                ["inspect_str"] = "和月亮有关",
+                ["recipe_desc"] = "和月亮有关",
+            },
         --------------------------------------------------------------------
 }
 

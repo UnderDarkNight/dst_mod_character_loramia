@@ -28,7 +28,8 @@ local Prefabs_addr_base = string.sub(temp_addr,1,temp_str_index2) .. "/"    --- 
 local prefabs_name_list = {
 
 
-    "01_dotted_circle",                           --- 指示圈圈
+    "01_dotted_circle",                             --- 指示圈圈
+    "02_terra_beam",                                --- 泰拉激光
 
 
 }

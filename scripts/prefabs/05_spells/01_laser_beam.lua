@@ -636,8 +636,8 @@ end
 
 return Prefab("loramia_spell_laser", fn, assets, prefabs),
     Prefab("loramia_spell_laserempty", emptyfn, assets, prefabs),
-    Prefab("loramia_spell_laserscorch", scorchfn, assets_scorch),
-    Prefab("loramia_spell_lasertrail", trailfn, assets_trail),
+    Prefab("loramia_spell_laserscorch", scorchfn, assets_scorch),   --- 地面烧焦的痕迹
+    Prefab("loramia_spell_lasertrail", trailfn, assets_trail),      --- 冒出的火焰
     Prefab("loramia_spell_laserhit", hitfn),
 
     Prefab("loramia_spell_laser_custom_caster", laser_spell_caster) -- 施法器

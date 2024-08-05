@@ -20,6 +20,7 @@ local files_name = {
 		"loramia_building_analytic_creation",							--- 解析的创造物
 		"loramia_building_mysterious_creation",							--- 神秘的创造物  帐篷
 		"loramia_building_guardian_creation",							--- 守御的创造物  炮台
+		"loramia_building_primordial_creation",							--- 创世的创造物  月台
 
 	-------------------------------------------------------------------------------------------------
 

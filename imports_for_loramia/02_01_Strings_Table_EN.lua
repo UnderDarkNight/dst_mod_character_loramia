@@ -75,6 +75,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "A kind of turret.",
                 ["recipe_desc"] = "A kind of turret.",
             },
+            ["loramia_building_primordial_creation"] = {
+                ["name"] = "Primordial Creation",
+                ["inspect_str"] = "It's about the moon.",
+                ["recipe_desc"] = "It's about the moon.",
+            },
         --------------------------------------------------------------------
 
 }
