@@ -191,7 +191,7 @@ local flg,error_code = pcall(function()
         -- scion.Transform:SetPosition(x,y,z)
         -- ThePlayer:PushEvent("makefriend")
         -- scion.components.follower:SetLeader(ThePlayer)
-        for k, v in pairs(ThePlayer.__electromagnetic_tower_of_creation_pet_task) do
+        for k, v in pairs(TUNING["loramia.Config"]) do
             print(k,v)
         end
     ----------------------------------------------------------------------------------------------------------------

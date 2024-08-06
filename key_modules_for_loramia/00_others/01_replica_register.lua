@@ -23,6 +23,8 @@ AddReplicableComponent("loramia_com_workable")  --- 通用右键交互
 AddReplicableComponent("loramia_com_acceptable")  --- 通用物品接受
 AddReplicableComponent("loramia_com_point_and_target_spell_caster")  --- 通用点、目标施法组件
 
+AddReplicableComponent("loramia_com_rpc_event")  --- RPC通道
+
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

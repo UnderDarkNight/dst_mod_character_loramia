@@ -77,37 +77,70 @@ local the_version = "0.00.00.00000"
 
 name = GetName() or "Loramia"
 description = GetDesc() or "Loramia"
-
+version = the_version or 0.1 ------ MOD版本，上传的时候必须和已经在工坊的版本不一样
+api_version = 10
+icon_atlas = "modicon.xml"
+icon = "modicon.tex"
+forumthread = ""
+dont_starve_compatible = true
+dst_compatible = true
+all_clients_require_mod = true
 priority = 0  -- MOD加载优先级 影响某些功能的兼容性，比如官方Com 的 Hook
 
 
   ----------------------------------------------------------------------------------------------------------
   --- options
-    local function Create_Number_Setting(start_num,stop_num,delta_num)
-      local temp_options = {}
-      local temp_index = 1
-      delta_num = delta_num or 1
-      for i = start_num, stop_num, delta_num do
-          temp_options[temp_index] = {description = tostring(i), data = i}
-          temp_index = temp_index + 1
-      end
-      return temp_options
-  end
-  local options_number_0_to_100 = Create_Number_Setting(0,100)
-  local options_number_1_to_100 = Create_Number_Setting(1,100)
-  local options_number_1_to_20 = Create_Number_Setting(1,20)
+    -- local function Create_Number_Setting(start_num,stop_num,delta_num)
+    --     local temp_options = {}
+    --     local temp_index = 1
+    --     delta_num = delta_num or 1
+    --     for i = start_num, stop_num, delta_num do
+    --         temp_options[temp_index] = {description = tostring(i), data = i}
+    --         temp_index = temp_index + 1
+    --     end
+    --     return temp_options
+    -- end
+    local function Create_Number_Setting(start_num, stop_num, delta_num)
+        local temp_options = {}
+        local temp_index = 1
+        delta_num = delta_num or 1
+        local i = start_num
+    
+        -- 使用 while 循环代替 for 循环
+        while i <= stop_num do
+            temp_options[temp_index] = {description = tostring(i), data = i}
+            temp_index = temp_index + 1
+            i = i + delta_num
+        end
+    
+        return temp_options
+    end
+    local options_number_0_to_100 = Create_Number_Setting(0,100)
+    local options_number_1_to_100 = Create_Number_Setting(1,100)
+    local options_number_1_to_20 = Create_Number_Setting(1,20)
 ----------------------------------------------------------------------------------------------------------
 --- options percent
-  local function Create_Percent_Setting(start_num,stop_num,delta_num)
-      local temp_options = {}
-      local temp_index = 1
-      delta_num = delta_num or 0.01
-      for i = start_num, stop_num, delta_num do
-          temp_options[temp_index] = {description = tostring(i*100).."%", data = i}
-          temp_index = temp_index + 1
+  local function Create_Percent_Setting(start_num, stop_num, delta_num)
+    local temp_options = {}
+    local temp_index = 1
+    delta_num = delta_num or 0.01  -- 设置默认值
+    local i = start_num
+    local epsilon = 0.000001  -- 精度容差
+    -- 使用 while 循环代替 for 循环
+    while i < stop_num + epsilon do
+        temp_options[temp_index] = {description = tostring(i * 100) .. "%", data = i}
+        temp_index = temp_index + 1
+        i = i + delta_num
+    end
+    return temp_options
+  end
+  local function Create_Percent_Setting_With_1000_Mult(start_num, stop_num, delta_num)
+      local temp_options = Create_Number_Setting(start_num, stop_num, delta_num)
+      for i, option in ipairs(temp_options) do
+          option.description = (option.data/10) .. "%"
       end
       return temp_options
-  end
+  end  
 ----------------------------------------------------------------------------------------------------------
 --- 按键
   local keys_option = {
@@ -150,12 +183,32 @@ priority = 0  -- MOD加载优先级 影响某些功能的兼容性，比如官�
   }
 ----------------------------------------------------------------------------------------------------------
 --- title
-  local function GetTitle(name)
-     local origin_length = "                                              "
-     ---- 根据name的文本长度，替换空格前面的部分
-     local length = string.len(name)
-     local temp_length = origin_length:sub(1,length)
-     return temp_length .. name .. origin_length:sub(length+1,origin_length:len())
+  -- local function GetTitle(name)
+  --    local origin_length = "                                              "
+  --    ---- 根据name的文本长度，替换空格前面的部分
+  --    local length = string.len(name)
+  --    local temp_length = origin_length:sub(1,length)
+  --    return temp_length .. name .. origin_length:sub(length+1,origin_length:len())
+  -- end
+    local function GetTitle(name)
+      -- 定义原始字符串的长度和填充字符
+      local origin_length = 65  -- 原始字符串的总长度
+      local padding_char = ' '  -- 用于填充的字符
+
+      -- 获取 name 的长度
+      local length = 0
+      for _ in name:gmatch(".") do
+          length = length + 1
+      end
+
+      -- 计算右边需要的空格数量
+      local right_padding = origin_length - length
+
+      -- 创建右侧的填充
+      local right_padding_str = padding_char:rep(right_padding)
+
+      -- 返回格式化后的字符串
+      return name .. right_padding_str
   end
 ----------------------------------------------------------------------------------------------------------
 
@@ -192,17 +245,17 @@ configuration_options =
       },
       {
         name = "SPEED_BY_RECHARGE_VALUE",
-        label = IsChinese() and "充能值加速" or "Speed by Recharge Value",
-        hover = IsChinese() and "充能值加速" or "Speed by Recharge Value",
-        options = Create_Percent_Setting(0,0.5,0.01),
-        default = 0.1,
+        label = IsChinese() and "充能值速度加成" or "Speed by Recharge Value",
+        hover = IsChinese() and "充能值速度加成" or "Speed by Recharge Value",
+        options = Create_Percent_Setting_With_1000_Mult(0,500,10),
+        default = 100,
       },
       {
         name = "HUNGER_BY_RECHARGE_VALUE",
-        label = IsChinese() and "充能值饥饿加成" or "Hunger by Recharge Value",
-        hover = IsChinese() and "充能值饥饿加成" or "Hunger by Recharge Value",
-        options = Create_Percent_Setting(0,0.5,0.01),
-        default = 0.2,
+        label = IsChinese() and "充能值耗电量加成" or "Hunger by Recharge Value",
+        hover = IsChinese() and "充能值耗电量加成" or "Hunger by Recharge Value",
+        options = Create_Percent_Setting_With_1000_Mult(0,500,10),
+        default = 200,
       },
     ---------------------------------------------------------------------------
       {name = "AAAA",label = IsChinese() and GetTitle("激光炮") or GetTitle("Laser Cannon") ,hover = "",options = {{description = "", data = 0}},default = 0,},
@@ -234,8 +287,8 @@ configuration_options =
         name = "WING_OF_THE_UNIVERSE_SPEED_MULT",
         label = IsChinese() and "速度加成" or "Speed Bonus",
         hover = IsChinese() and "速度加成" or "Speed Bonus",
-        options = Create_Percent_Setting(0,2,0.01),
-        default = 0.5,
+        options = Create_Percent_Setting_With_1000_Mult(0,1000,100),
+        default = 500,
       },
       {
         name = "WING_OF_THE_UNIVERSE_OCEAN_WALK",
@@ -253,8 +306,8 @@ configuration_options =
         name = "LORAMIA_UNIFORM_DAMAGETAKEN_MULT",
         label = IsChinese() and "伤害减免" or "Damage Reduction",
         hover = IsChinese() and "伤害减免" or "Damage Reduction",
-        options = Create_Percent_Setting(0.01,0.95,0.01),
-        default = 0.5,
+        options = Create_Percent_Setting_With_1000_Mult(10,950,10),
+        default = 500,
       },
     ---------------------------------------------------------------------------
       {name = "AAAA",label = IsChinese() and GetTitle("神秘的创造物(帐篷)") or GetTitle("Mysterious Creation (tent)") ,hover = "",options = {{description = "", data = 0}},default = 0,},
@@ -262,8 +315,8 @@ configuration_options =
         name = "MYSTERIOUS_CREATION_COST_PERCENT",
         label = IsChinese() and "每秒消耗" or "Consumption per second",
         hover = IsChinese() and "每秒消耗" or "Consumption per second",
-        options = Create_Percent_Setting(0.001,0.05,0.001),
-        default = 0.01,
+        options = Create_Percent_Setting_With_1000_Mult(1,50,1),
+        default = 10,
       },
       {
         name = "MYSTERIOUS_CREATION_HUNGER_VALUE_UP",
@@ -273,17 +326,48 @@ configuration_options =
         default = 50,
       },
     ---------------------------------------------------------------------------
-
-    {
-      name = "DEBUGGING_MOD",
-      label = "开发者模式",
-      hover = "开发者模式" ,
-      options =  {
-        {description = "OFF", data = false},
-        {description = "ON", data = true},
+      {name = "AAAA",label = IsChinese() and GetTitle("钢铁犀牛") or GetTitle("Iron Rhino") ,hover = "",options = {{description = "", data = 0}},default = 0,},
+      {
+        name = "IRON_RHINO_MAX_HEALTH",
+        label = IsChinese() and "生命值" or "Health",
+        hover = IsChinese() and "生命值" or "Health",
+        options = Create_Number_Setting(1000,20000,1000),
+        default = 1000,
       },
-      default = false,
-  },
+      {
+        name = "IRON_RHINO_DAMAGE",
+        label = IsChinese() and "伤害" or "Damage",
+        hover = IsChinese() and "伤害" or "Damage",
+        options = Create_Number_Setting(10,500,10),
+        default = 100,
+      },
+      {
+        name = "IRON_RHINO_HEALTH_REGEN_PER_SECOND",
+        label = IsChinese() and "生命每秒回复" or "Health Regeneration Per Second",
+        hover = IsChinese() and "生命每秒回复" or "Health Regeneration Per Second",
+        options = Create_Number_Setting(0.1,20,0.1),
+        default = 1,
+      },
+      {
+        name = "IRON_RHINO_CLOSE_2_PLAYER_HOTKEY",
+        label = IsChinese() and "召回快捷键" or "Recall Hotkey",
+        hover = IsChinese() and "召回快捷键" or "Recall Hotkey",
+        options = keys_option,
+        default = "KEY_F7",
+      },
+
+    ---------------------------------------------------------------------------
+      {name = "AAAA",label = IsChinese() and GetTitle("其他") or GetTitle("Other") ,hover = "",options = {{description = "", data = 0}},default = 0,},
+      {
+        name = "DEBUGGING_MOD",
+        label = "开发者模式",
+        hover = "开发者模式" ,
+        options =  {
+          {description = "OFF", data = false},
+          {description = "ON", data = true},
+        },
+        default = false,
+      },
 
 ----------------------------------------------------------------------------------------------------------
 -- ----- 角色相关的管理设置

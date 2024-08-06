@@ -1,4 +1,13 @@
 ------------------------------------------------------------------------------------------------------------------------------------------------
+--[[
+
+]]--
+------------------------------------------------------------------------------------------------------------------------------------------------
+--
+    local IRON_RHINO_MAX_HEALTH = TUNING["loramia.Config"].IRON_RHINO_MAX_HEALTH or 1000
+    local IRON_RHINO_DAMAGE = TUNING["loramia.Config"].IRON_RHINO_DAMAGE or 100
+    local IRON_RHINO_HEALTH_REGEN_PER_SECOND = TUNING["loramia.Config"].IRON_RHINO_HEALTH_REGEN_PER_SECOND or 1
+------------------------------------------------------------------------------------------------------------------------------------------------
 
 local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿越洞穴、重新进存档 也会执行。
     inst.entity:SetParent(target.entity)
@@ -21,8 +30,8 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
             target:RemoveTag("monster")     -- 避免被中立怪主动攻击
         -----------------------------------------------------
         ---重置怪物血量、伤害
-            target.components.health:SetMaxHealth(1000)
-            target.components.combat:SetDefaultDamage(100)
+            target.components.health:SetMaxHealth(IRON_RHINO_MAX_HEALTH)
+            target.components.combat:SetDefaultDamage(IRON_RHINO_DAMAGE)
         -----------------------------------------------------
         --- 靠近玩家
             target:ListenForEvent("pet_close_2_player", function(target)
@@ -31,7 +40,7 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
                 end
                 local temp_points = TUNING.LORAMIA_FN:GetSurroundPoints({
                     target = player,
-                    range = 8,
+                    range = 5,
                     num = 10
                 })
                 local ret_points = {}
@@ -102,6 +111,13 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
                     self:SpawnLootPrefab("trinket_6")
                 end
             end
+        -----------------------------------------------------
+        -- 恢复血量
+            target:DoPeriodicTask(5,function()
+                if not target.components.health:IsDead() then
+                    target.components.health:DoDelta(5*IRON_RHINO_HEALTH_REGEN_PER_SECOND,true)
+                end
+            end)
         -----------------------------------------------------
     end)
 end

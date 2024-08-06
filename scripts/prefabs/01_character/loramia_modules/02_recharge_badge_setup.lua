@@ -166,7 +166,7 @@
                                     root.x_percent = x/scrnw
                                     root.y_percent = y/scrnh
 
-                                    -- owner:PushEvent("bogd_wellness_bars.save_cmd",{    --- 发送储存坐标。
+                                    -- owner:PushEvent("loramia_wellness_bars.save_cmd",{    --- 发送储存坐标。
                                     --     pt = {x_percent = root.x_percent,y_percent = root.y_percent},
                                     -- })
                                     SetHUDLoation(root.x_percent,root.y_percent)
