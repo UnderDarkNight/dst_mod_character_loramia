@@ -7,6 +7,10 @@
 
 ]]--
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---
+    local SPEED_BY_RECHARGE_VALUE = TUNING["loramia.Config"].SPEED_BY_RECHARGE_VALUE or 0.2
+    local HUNGER_BY_RECHARGE_VALUE = TUNING["loramia.Config"].HUNGER_BY_RECHARGE_VALUE or 0.2
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 return function(inst)
     if not TheWorld.ismastersim then
@@ -38,10 +42,10 @@ return function(inst)
             ---------------------------------------------------------------------------------------------------
             --- 每有10点充能，饥饿速率+0.2
                 local temp_num = math.floor(current / 10)
-                inst.components.hunger.hungerrate = 1 * TUNING.WILSON_HUNGER_RATE + temp_num * 0.2
+                inst.components.hunger.hungerrate = 1 * TUNING.WILSON_HUNGER_RATE + temp_num * HUNGER_BY_RECHARGE_VALUE
             ---------------------------------------------------------------------------------------------------
             --- 每有10点充能，移动 +0.2%
-                inst.components.locomotor:SetExternalSpeedMultiplier(mult_inst, "loramia_recharge_speed_mod", 1 + temp_num * 0.2)
+                inst.components.locomotor:SetExternalSpeedMultiplier(mult_inst, "loramia_recharge_speed_mod", 1 + temp_num * SPEED_BY_RECHARGE_VALUE)
             ---------------------------------------------------------------------------------------------------
             --- 每有10点充能，攻击倍率+0.2%
                 inst.components.combat.externaldamagemultipliers:SetModifier(mult_inst, 1 + temp_num * 0.2 )

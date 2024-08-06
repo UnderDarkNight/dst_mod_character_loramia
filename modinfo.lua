@@ -11,65 +11,154 @@ author = "幕夜之下"
 local the_version = "0.00.00.00000"
 
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+-- 语言相关的基础API  ---- 参数表： loc.lua 里面的localizations 表，code 为 这里用的index
+  local function IsChinese()
+    if locale == nil then
+      return true
+    else
+      return locale == "zh" or locate == "zht" or locate == "zhr" or false
+    end
+  end
+  local function ChooseTranslationTable_Test(_table)
+    if ChooseTranslationTable then
+      return ChooseTranslationTable(_table)
+    else
+      return _table["zh"]
+    end
+  end
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+-- from stringutil.lua
+  local function tostring(arg)
+    if arg == true then
+      return "true"
+    elseif arg == false then
+      return "false"
+    elseif arg == nil then
+      return "nil"
+    end    
+    return arg .. ""
+  end
+  local function ipairs(tbl)
+    return function(tbl, index)
+      index = index + 1
+      local next = tbl[index]
+      if next then
+        return index, next
+      end
+    end, tbl, 0
+  end
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
-name = "洛拉米亚"
-description = [[
+  local function GetName()  
+    local temp_table = {
+        "Loramia",                               ----- 默认情况下(英文)
+        ["zh"] = "洛拉米亚",                                 ----- 中文
+    }
+    return ChooseTranslationTable_Test(temp_table)
+  end
 
-  洛拉米亚
-  
-]]
+  local function GetDesc()
+    local temp_table = {
+      [[
 
-version = the_version ------ MOD版本，上传的时候必须和已经在工坊的版本不一样
+        Loramia
 
-api_version = 10
-icon_atlas = "modicon.xml"
-icon = "modicon.tex"
-forumthread = ""
-dont_starve_compatible = true
-dst_compatible = true
-all_clients_require_mod = true
+      ]],
+      ["zh"] = [[
+
+        洛拉米亚
+
+      ]]
+    }
+    local ret = the_version .. "  \n\n"..ChooseTranslationTable_Test(temp_table)
+    return ret
+  end
+
+name = GetName() or "Loramia"
+description = GetDesc() or "Loramia"
 
 priority = 0  -- MOD加载优先级 影响某些功能的兼容性，比如官方Com 的 Hook
 
 
-local keys_option = {
-  {description = "KEY_A", data = "KEY_A"},
-  {description = "KEY_B", data = "KEY_B"},
-  {description = "KEY_C", data = "KEY_C"},
-  {description = "KEY_D", data = "KEY_D"},
-  {description = "KEY_E", data = "KEY_E"},
-  {description = "KEY_F", data = "KEY_F"},
-  {description = "KEY_G", data = "KEY_G"},
-  {description = "KEY_H", data = "KEY_H"},
-  {description = "KEY_I", data = "KEY_I"},
-  {description = "KEY_J", data = "KEY_J"},
-  {description = "KEY_K", data = "KEY_K"},
-  {description = "KEY_L", data = "KEY_L"},
-  {description = "KEY_M", data = "KEY_M"},
-  {description = "KEY_N", data = "KEY_N"},
-  {description = "KEY_O", data = "KEY_O"},
-  {description = "KEY_P", data = "KEY_P"},
-  {description = "KEY_Q", data = "KEY_Q"},
-  {description = "KEY_R", data = "KEY_R"},
-  {description = "KEY_S", data = "KEY_S"},
-  {description = "KEY_T", data = "KEY_T"},
-  {description = "KEY_U", data = "KEY_U"},
-  {description = "KEY_V", data = "KEY_V"},
-  {description = "KEY_W", data = "KEY_W"},
-  {description = "KEY_X", data = "KEY_X"},
-  {description = "KEY_Y", data = "KEY_Y"},
-  {description = "KEY_Z", data = "KEY_Z"},
-  {description = "KEY_F1", data = "KEY_F1"},
-  {description = "KEY_F2", data = "KEY_F2"},
-  {description = "KEY_F3", data = "KEY_F3"},
-  {description = "KEY_F4", data = "KEY_F4"},
-  {description = "KEY_F5", data = "KEY_F5"},
-  {description = "KEY_F6", data = "KEY_F6"},
-  {description = "KEY_F7", data = "KEY_F7"},
-  {description = "KEY_F8", data = "KEY_F8"},
-  {description = "KEY_F9", data = "KEY_F9"},
+  ----------------------------------------------------------------------------------------------------------
+  --- options
+    local function Create_Number_Setting(start_num,stop_num,delta_num)
+      local temp_options = {}
+      local temp_index = 1
+      delta_num = delta_num or 1
+      for i = start_num, stop_num, delta_num do
+          temp_options[temp_index] = {description = tostring(i), data = i}
+          temp_index = temp_index + 1
+      end
+      return temp_options
+  end
+  local options_number_0_to_100 = Create_Number_Setting(0,100)
+  local options_number_1_to_100 = Create_Number_Setting(1,100)
+  local options_number_1_to_20 = Create_Number_Setting(1,20)
+----------------------------------------------------------------------------------------------------------
+--- options percent
+  local function Create_Percent_Setting(start_num,stop_num,delta_num)
+      local temp_options = {}
+      local temp_index = 1
+      delta_num = delta_num or 0.01
+      for i = start_num, stop_num, delta_num do
+          temp_options[temp_index] = {description = tostring(i*100).."%", data = i}
+          temp_index = temp_index + 1
+      end
+      return temp_options
+  end
+----------------------------------------------------------------------------------------------------------
+--- 按键
+  local keys_option = {
+    {description = "KEY_A", data = "KEY_A"},
+    {description = "KEY_B", data = "KEY_B"},
+    {description = "KEY_C", data = "KEY_C"},
+    {description = "KEY_D", data = "KEY_D"},
+    {description = "KEY_E", data = "KEY_E"},
+    {description = "KEY_F", data = "KEY_F"},
+    {description = "KEY_G", data = "KEY_G"},
+    {description = "KEY_H", data = "KEY_H"},
+    {description = "KEY_I", data = "KEY_I"},
+    {description = "KEY_J", data = "KEY_J"},
+    {description = "KEY_K", data = "KEY_K"},
+    {description = "KEY_L", data = "KEY_L"},
+    {description = "KEY_M", data = "KEY_M"},
+    {description = "KEY_N", data = "KEY_N"},
+    {description = "KEY_O", data = "KEY_O"},
+    {description = "KEY_P", data = "KEY_P"},
+    {description = "KEY_Q", data = "KEY_Q"},
+    {description = "KEY_R", data = "KEY_R"},
+    {description = "KEY_S", data = "KEY_S"},
+    {description = "KEY_T", data = "KEY_T"},
+    {description = "KEY_U", data = "KEY_U"},
+    {description = "KEY_V", data = "KEY_V"},
+    {description = "KEY_W", data = "KEY_W"},
+    {description = "KEY_X", data = "KEY_X"},
+    {description = "KEY_Y", data = "KEY_Y"},
+    {description = "KEY_Z", data = "KEY_Z"},
+    {description = "KEY_F1", data = "KEY_F1"},
+    {description = "KEY_F2", data = "KEY_F2"},
+    {description = "KEY_F3", data = "KEY_F3"},
+    {description = "KEY_F4", data = "KEY_F4"},
+    {description = "KEY_F5", data = "KEY_F5"},
+    {description = "KEY_F6", data = "KEY_F6"},
+    {description = "KEY_F7", data = "KEY_F7"},
+    {description = "KEY_F8", data = "KEY_F8"},
+    {description = "KEY_F9", data = "KEY_F9"},
+  
+  }
+----------------------------------------------------------------------------------------------------------
+--- title
+  local function GetTitle(name)
+     local origin_length = "                                              "
+     ---- 根据name的文本长度，替换空格前面的部分
+     local length = string.len(name)
+     local temp_length = origin_length:sub(1,length)
+     return temp_length .. name .. origin_length:sub(length+1,origin_length:len())
+  end
+----------------------------------------------------------------------------------------------------------
 
-}
 configuration_options =
 {
     {
@@ -84,30 +173,105 @@ configuration_options =
         },
         default = "auto",
     },
-
-    -- {
-    --     name = "LEVEL_RETENTION",
-    --     label = "换角色等级保留 Level retention",
-    --     hover = "Saving character levels when changing characters",
-    --     options =  {
-    --       {description = "OFF", data = false},
-    --       {description = "ON", data = true},
-    --     },
-    --     default = true,
-    -- },
-    {
-      name = "FFFFFFF",
-      label = "", --- 隔断测试
-      hover = "",
-      options = {{description = "", data = 0}},
-      default = 0,
-    },
-
     ---------------------------------------------------------------------------
-
-
+      {name = "AAAA",label = IsChinese() and GetTitle("角色") or GetTitle("Character") ,hover = "",options = {{description = "", data = 0}},default = 0,},
     ---------------------------------------------------------------------------
-
+      {
+        name = "RECHARGE_UP_BY_TILES",
+        label = IsChinese() and "按地块充能" or "Recharge by Tiles",
+        hover = IsChinese() and "按地块充能" or "Recharge by Tiles",
+        options =  {
+          {description = "1", data = 1},
+          {description = "5", data = 5},
+          {description = "10", data = 10},
+          {description = "20", data = 20},
+          {description = "30", data = 30},
+          {description = "40", data = 40},
+        },
+        default = 30,
+      },
+      {
+        name = "SPEED_BY_RECHARGE_VALUE",
+        label = IsChinese() and "充能值加速" or "Speed by Recharge Value",
+        hover = IsChinese() and "充能值加速" or "Speed by Recharge Value",
+        options = Create_Percent_Setting(0,0.5,0.01),
+        default = 0.1,
+      },
+      {
+        name = "HUNGER_BY_RECHARGE_VALUE",
+        label = IsChinese() and "充能值饥饿加成" or "Hunger by Recharge Value",
+        hover = IsChinese() and "充能值饥饿加成" or "Hunger by Recharge Value",
+        options = Create_Percent_Setting(0,0.5,0.01),
+        default = 0.2,
+      },
+    ---------------------------------------------------------------------------
+      {name = "AAAA",label = IsChinese() and GetTitle("激光炮") or GetTitle("Laser Cannon") ,hover = "",options = {{description = "", data = 0}},default = 0,},
+    ---------------------------------------------------------------------------
+      {
+        name = "LASER_CANNON_HUNGER_VALUE_COST",
+        label = IsChinese() and "电池消耗" or "Battery Value Cost",
+        hover = IsChinese() and "电池消耗" or "Battery Value Cost",
+        options = Create_Number_Setting(0,300,10),
+        default = 150,
+      },
+      {
+        name = "LASER_CANNON_RECHARGE_VALUE_COST",
+        label = IsChinese() and "充能值消耗" or "Recharge Value Cost",
+        hover = IsChinese() and "充能值消耗" or "Recharge Value Cost",
+        options = Create_Number_Setting(1,20,1),
+        default = 5,
+      },
+      {
+        name = "LASER_CANNON_DAMAGE",
+        label = IsChinese() and "伤害" or "Damage",
+        hover = IsChinese() and "伤害" or "Damage",
+        options = Create_Number_Setting(50,500,10),
+        default = 200,
+      },
+    ---------------------------------------------------------------------------
+      {name = "AAAA",label = IsChinese() and GetTitle("宇宙之翼") or GetTitle("Wing of the Universe") ,hover = "",options = {{description = "", data = 0}},default = 0,},
+      {
+        name = "WING_OF_THE_UNIVERSE_SPEED_MULT",
+        label = IsChinese() and "速度加成" or "Speed Bonus",
+        hover = IsChinese() and "速度加成" or "Speed Bonus",
+        options = Create_Percent_Setting(0,2,0.01),
+        default = 0.5,
+      },
+      {
+        name = "WING_OF_THE_UNIVERSE_OCEAN_WALK",
+        label = IsChinese() and "水上行走" or "Ocean Walk",
+        hover = IsChinese() and "水上行走" or "Ocean Walk",
+        options =  {
+          {description = IsChinese() and "关" or "OFF", data = false},
+          {description = IsChinese() and "开" or "ON", data = true},
+        },
+        default = true,
+      },
+    ---------------------------------------------------------------------------
+      {name = "AAAA",label = IsChinese() and GetTitle("洛拉米亚的制服") or GetTitle("Loramia's Uniform") ,hover = "",options = {{description = "", data = 0}},default = 0,},
+      {
+        name = "LORAMIA_UNIFORM_DAMAGETAKEN_MULT",
+        label = IsChinese() and "伤害减免" or "Damage Reduction",
+        hover = IsChinese() and "伤害减免" or "Damage Reduction",
+        options = Create_Percent_Setting(0.01,0.95,0.01),
+        default = 0.5,
+      },
+    ---------------------------------------------------------------------------
+      {name = "AAAA",label = IsChinese() and GetTitle("神秘的创造物(帐篷)") or GetTitle("Mysterious Creation (tent)") ,hover = "",options = {{description = "", data = 0}},default = 0,},
+      {
+        name = "MYSTERIOUS_CREATION_COST_PERCENT",
+        label = IsChinese() and "每秒消耗" or "Consumption per second",
+        hover = IsChinese() and "每秒消耗" or "Consumption per second",
+        options = Create_Percent_Setting(0.001,0.05,0.001),
+        default = 0.01,
+      },
+      {
+        name = "MYSTERIOUS_CREATION_HUNGER_VALUE_UP",
+        label = IsChinese() and "电池每秒恢复" or "Battery Recovery Per Second",
+        hover = IsChinese() and "电池每秒恢复" or "Battery Recovery Per Second",
+        options = Create_Number_Setting(30,120,10),
+        default = 50,
+      },
     ---------------------------------------------------------------------------
 
     {

@@ -6,7 +6,7 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
     inst.target = target
 
 
-    target:ListenForEvent("startleashing",function() -- 成功连接到玩家
+    target:ListenForEvent("startleashing",function() -- 成功连接到玩家,是follower发出的
         -----------------------------------------------------
         --- 获取绑定的玩家
             local player = target.components.follower:GetLeader()

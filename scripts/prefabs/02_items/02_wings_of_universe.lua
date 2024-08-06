@@ -11,7 +11,14 @@ local assets =
 }
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- 水上行走
+    local OCEAN_WALK = TUNING["loramia.Config"].WING_OF_THE_UNIVERSE_OCEAN_WALK or false
+    local SPEED_MULT = (1 + TUNING["loramia.Config"].WING_OF_THE_UNIVERSE_SPEED_MULT ) or 2
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- 水上行走
     local function turn_on_player_ocean_walk(owner)
+        if not OCEAN_WALK then
+            return
+        end
         if owner.components.drownable and owner.components.drownable.enabled ~= false then
             owner.components.drownable.enabled = false
         end
@@ -24,6 +31,9 @@ local assets =
         owner.Physics:Teleport(owner.Transform:GetWorldPosition())
     end
     local function turn_off_player_ocean_walk(owner)
+        if not OCEAN_WALK then
+            return
+        end
         if owner.components.drownable then
             owner.components.drownable.enabled = true
         end
@@ -129,7 +139,7 @@ local function fn()
         inst.components.equippable:SetOnEquip(onequip)
         inst.components.equippable:SetOnUnequip(onunequip)
         
-        inst.components.equippable.walkspeedmult = 2
+        inst.components.equippable.walkspeedmult = SEED_MULT
 
     ---------------------------------------------------------------------------------------------------
     MakeHauntableLaunch(inst)

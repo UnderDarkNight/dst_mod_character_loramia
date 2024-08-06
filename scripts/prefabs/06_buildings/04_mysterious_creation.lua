@@ -8,6 +8,9 @@ local assets =
     Asset("ANIM", "anim/loramia_building_mysterious_creation.zip"),
 }
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---
+    local MYSTERIOUS_CREATION_COST_PERCENT =  TUNING["loramia.Config"].MYSTERIOUS_CREATION_COST_PERCENT or 0.01
+    local MYSTERIOUS_CREATION_HUNGER_VALUE_UP = TUNING["loramia.Config"].MYSTERIOUS_CREATION_HUNGER_VALUE_UP or 50
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- workable
     local function OnFinishCallback(inst,worker)
@@ -62,8 +65,11 @@ local assets =
                 inst.components.sleepingbag.sanity_tick = TUNING.SLEEP_SANITY_PER_TICK
             else
                 if battery_node and battery_node.components.fueled and not battery_node.components.fueled:IsEmpty() then
-                    inst.components.sleepingbag.hunger_tick = 50
-                    battery_node.components.fueled:DoDelta(-1)
+                    inst.components.sleepingbag.hunger_tick = MYSTERIOUS_CREATION_HUNGER_VALUE_UP or 50
+                    -- battery_node.components.fueled:DoDelta(-1)
+                    local battery_node_max = battery_node.components.fueled.maxfuel
+                    local battery_node_cost = battery_node_max*MYSTERIOUS_CREATION_COST_PERCENT
+                    battery_node.components.fueled:DoDelta(-battery_node_cost)
                 else
                     inst.components.sleepingbag.hunger_tick = TUNING.SLEEP_HUNGER_PER_TICK
                 end

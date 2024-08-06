@@ -5,6 +5,8 @@
 
 ]]--
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    local LORAMIA_UNIFORM_DAMAGETAKEN_MULT = (1 - TUNING["loramia.Config"].LORAMIA_UNIFORM_DAMAGETAKEN_MULT ) or 0.5
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 return function(inst)
     if not TheWorld.ismastersim then
@@ -23,7 +25,7 @@ return function(inst)
                 inst.components.loramia_data:Set("loramia_item_uniform_first_time",true)
                 inst.components.hunger:SetPercent(1,true)
             end
-            inst.components.combat.externaldamagetakenmultipliers:SetModifier(item,0.5)
+            inst.components.combat.externaldamagetakenmultipliers:SetModifier(item,LORAMIA_UNIFORM_DAMAGETAKEN_MULT)
             inited_flag = true
         end)
     end)

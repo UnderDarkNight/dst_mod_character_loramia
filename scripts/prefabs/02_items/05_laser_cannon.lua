@@ -24,8 +24,8 @@ local assets =
     end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- 施法消耗
-    local HUNGER_COST = 150
-    local RECHARGE_COST = 5
+    local HUNGER_COST = TUNING["loramia.Config"].LASER_CANNON_HUNGER_VALUE_COST or 150
+    local RECHARGE_COST = TUNING["loramia.Config"].LASER_CANNON_RECHARGE_VALUE_COST or 5
     local function CheckCanCastSpell(inst,doer)
         if doer.replica.hunger:GetCurrent() < HUNGER_COST then
             return false
@@ -110,7 +110,7 @@ local assets =
                 DoSpellCastCost(inst,doer)
                 local laser_on_hit_fn = function(target)
                     if target.components.health and target.components.combat then
-                        target.components.combat:GetAttacked(doer, 200, inst)
+                        target.components.combat:GetAttacked(doer, TUNING["loramia.Config"].LASER_CANNON_DAMAGE or 200, inst)
                     end
                 end
                 CreateLaser(doer,ret_pt,laser_on_hit_fn)

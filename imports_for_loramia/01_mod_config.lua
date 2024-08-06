@@ -4,31 +4,26 @@ TUNING["loramia.Config"].Language = GetModConfigData("LANGUAGE")
 
 
 
--- TUNING["loramia.Config"].WHITE_TEMPLATE = GetModConfigData("WHITE_TEMPLATE")     --- 白模板
 
--- -- TUNING["loramia.Config"].LEVEL_RETENTION = GetModConfigData("LEVEL_RETENTION")     --- 等级保留
-
--- TUNING["loramia.Config"].FLY_RUN = GetModConfigData("FLY_RUN")     --- 走路动画
-
-
--- TUNING["loramia.Config"].SCYTHE_DMG = GetModConfigData("SCYTHE_DMG")     --- 冥界之镰 伤害
-
--- TUNING["loramia.Config"].SCYTHE_BLOODSUCKING = GetModConfigData("SCYTHE_BLOODSUCKING")     --- 冲破禁锢吸血倍数
--- TUNING["loramia.Config"].KEY_SCYTHE_SPELL_AOE = GetModConfigData("KEY_SCYTHE_SPELL_AOE")     --- 冲破禁锢【魂飞魄散】
--- TUNING["loramia.Config"].KEY_SCYTHE_SPELL_SHACKLES = GetModConfigData("KEY_SCYTHE_SPELL_SHACKLES")     --- 冲破禁锢【断罪之链】
--- TUNING["loramia.Config"].SPELL_CD_SOUND = GetModConfigData("SPELL_CD_SOUND")     --- 技能CD 声音
-
--- TUNING["loramia.Config"].SERIOUSLY_HURT_TIME = GetModConfigData("SERIOUSLY_HURT_TIME")     --- 重伤时间
--- TUNING["loramia.Config"].PILLAR_TIME = GetModConfigData("PILLAR_TIME")     --- 禁锢时间
-
--- TUNING["loramia.Config"].IMMORTALITY_BUFF_DMG = GetModConfigData("IMMORTALITY_BUFF_DMG")     --- 不死权能的 buff 参数
--- TUNING["loramia.Config"].IMMORTALITY_BUFF_SPEED = GetModConfigData("IMMORTALITY_BUFF_SPEED")     --- 不死权能的 buff 参数
+TUNING["loramia.Config"].RECHARGE_UP_BY_TILES = GetModConfigData("RECHARGE_UP_BY_TILES")     --- 跑动XX地块后回复充能值
+TUNING["loramia.Config"].SPEED_BY_RECHARGE_VALUE = GetModConfigData("SPEED_BY_RECHARGE_VALUE")     --- 充能值速度加成
+TUNING["loramia.Config"].HUNGER_BY_RECHARGE_VALUE = GetModConfigData("HUNGER_BY_RECHARGE_VALUE")     --- 充能值饥饿速度加成
 
 
----- 角色相关的操作
--- TUNING["loramia.Config"].ALLOW_CHARACTERS = GetModConfigData("ALLOW_CHARACTERS")     --- 允许使用角色
--- TUNING["loramia.Config"].SPELL_KEY_A = GetModConfigData("SPELL_KEY_A")     --- 允许使用角色
--- TUNING["loramia.Config"].SPELL_KEY_B = GetModConfigData("SPELL_KEY_B")     --- 允许使用角色
+TUNING["loramia.Config"].LASER_CANNON_HUNGER_VALUE_COST = GetModConfigData("LASER_CANNON_HUNGER_VALUE_COST")     --- 激光炮 饥饿值消耗
+TUNING["loramia.Config"].LASER_CANNON_RECHARGE_VALUE_COST = GetModConfigData("LASER_CANNON_RECHARGE_VALUE_COST")     --- 激光炮 充能值消耗
+TUNING["loramia.Config"].LASER_CANNON_DAMAGE = GetModConfigData("LASER_CANNON_DAMAGE")     --- 激光炮 伤害
+
+TUNING["loramia.Config"].WING_OF_THE_UNIVERSE_SPEED_MULT = GetModConfigData("WING_OF_THE_UNIVERSE_SPEED_MULT")     --- 宇宙之翼 速度加成
+TUNING["loramia.Config"].WING_OF_THE_UNIVERSE_OCEAN_WALK = GetModConfigData("WING_OF_THE_UNIVERSE_OCEAN_WALK")     --- 宇宙之翼 水上行走
+
+TUNING["loramia.Config"].LORAMIA_UNIFORM_DAMAGETAKEN_MULT = GetModConfigData("LORAMIA_UNIFORM_DAMAGETAKEN_MULT")     --- 洛瑞米亚套装 伤害减免
+
+TUNING["loramia.Config"].MYSTERIOUS_CREATION_COST_PERCENT = GetModConfigData("MYSTERIOUS_CREATION_COST_PERCENT")     --- 帐篷耗电
+TUNING["loramia.Config"].MYSTERIOUS_CREATION_HUNGER_VALUE_UP = GetModConfigData("MYSTERIOUS_CREATION_HUNGER_VALUE_UP")     --- 帐篷充电
+
+
+
 
 
 

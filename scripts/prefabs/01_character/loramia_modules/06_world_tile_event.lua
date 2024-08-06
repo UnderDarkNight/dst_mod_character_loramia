@@ -7,14 +7,8 @@
 ]]--
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- 参数表
-    local TILE_NUM = 30
-    if TUNING.LORAMIA_DEBUGGING_MODE then
-        TILE_NUM = 30
-    end
-    local TILE_NUM_WINGS = 20
-    if TUNING.LORAMIA_DEBUGGING_MODE then
-        TILE_NUM_WINGS = 2
-    end
+    local TILE_NUM = TUNING["loramia.Config"].RECHARGE_UP_BY_TILES or 30
+    local TILE_NUM_WINGS = TILE_NUM/2 or 20
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 return function(inst)
     if not TheWorld.ismastersim then
