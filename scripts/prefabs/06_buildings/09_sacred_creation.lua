@@ -12,6 +12,40 @@
 --- 参数表
     local AREA_RADIUS = 4*8
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
+--- 控制器
+    local AllTileNodeController = {}
+    function AllTileNodeController:AddNode(inst)
+        self.nodes = self.nodes or {}
+        self.nodes_index = self.nodes_index or {}
+        if self.nodes_index[inst] then
+            return
+        end
+        table.insert(self.nodes, inst)
+        self.nodes_index[inst] = true
+
+        inst:ListenForEvent("onremove",function()
+            self.nodes_index[inst] = nil
+            local new_table = {}
+            for k, v in ipairs(self.nodes) do
+                if v ~= inst then
+                    table.insert(new_table, v)
+                end
+            end
+            self.nodes = new_table
+        end)
+    end
+    function AllTileNodeController:GetNearestNode(x,y,z,radius)
+        self.nodes = self.nodes or {}
+        radius = radius or 2
+        local radius_sq = radius*radius
+        for k, v in pairs(self.nodes) do
+            if v and v:IsValid() and v:GetDistanceSqToPoint(x,y,z) <= radius_sq then
+                return v
+            end
+        end
+        return nil
+    end
+------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- 获取地块坐标
     local function Get_Tile_Center_Pos(x, y, z, radius)
         local temp_tiles = {}
@@ -218,6 +252,15 @@
         --- 初始化
             init_event_install(inst)
         -----------------------------------------------------------
+        --- 水果生成逻辑
+            local fn = require("prefabs/06_buildings/09_sacred_creation_fruit_spawn_logic")
+            if type(fn) == "function" then
+                fn(inst)
+            end
+        -----------------------------------------------------------
+        -- 
+            inst.AllTileNodeController = AllTileNodeController
+        -----------------------------------------------------------
 
         return inst
     end
@@ -307,6 +350,7 @@
             inst.Ready = true
         end)
         -------------------------------------------------------------------------------------
+        ---- 初始化
             inst:DoTaskInTime(0,function()
                 if not inst.Ready then
                     inst:Remove()
@@ -335,6 +379,30 @@
                     end
                 -----------------------------------------------------------------
             end)
+        -------------------------------------------------------------------------------------
+        ---- 生成水果
+            inst:ListenForEvent("spawn_fruit",function(inst)
+                local fruit_node = inst.fruit_node
+                if not (fruit_node == nil or not fruit_node:IsValid()) then
+                    return
+                end
+                local x,y,z = inst.Transform:GetWorldPosition()
+                local offset_x = math.random(-20,20)/10
+                local offset_z = math.random(-20,20)/10
+                SpawnPrefab("loramia_building_sacred_creation_fruit"):PushEvent("Set",{
+                    pt = Vector3(x+offset_x,y,z+offset_z),
+                    father = inst,
+                })
+            end)
+            inst:ListenForEvent("onremove",function(inst)
+                if inst.fruit_node and inst.fruit_node:IsValid() then
+                    inst.fruit_node:PushEvent("fall")
+                end
+            end)
+        -------------------------------------------------------------------------------------
+        ----
+            inst.AllTileNodeController = AllTileNodeController
+            AllTileNodeController:AddNode(inst)
         -------------------------------------------------------------------------------------
         return inst
     end

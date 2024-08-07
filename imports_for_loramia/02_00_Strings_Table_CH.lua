@@ -107,6 +107,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "神圣的创造物",
                 ["recipe_desc"] = "神圣的创造物",
             },
+            ["loramia_building_sacred_creation_fruit"] = {
+                ["name"] = "增殖的创造物",
+                ["inspect_str"] = "增殖的创造物",
+                ["recipe_desc"] = "增殖的创造物",
+            },
         --------------------------------------------------------------------
 }
 

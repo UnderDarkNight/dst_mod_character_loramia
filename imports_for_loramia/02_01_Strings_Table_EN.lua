@@ -98,6 +98,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "Sacred Creation",
                 ["recipe_desc"] = "Sacred Creation",
             },
+            ["loramia_building_sacred_creation_fruit"] = {
+                ["name"] = "Proliferating Creation",
+                ["inspect_str"] = "Proliferating Creation",
+                ["recipe_desc"] = "Proliferating Creation",
+            },
         --------------------------------------------------------------------
 
 }
