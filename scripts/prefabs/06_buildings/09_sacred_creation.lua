@@ -246,6 +246,38 @@
         end)
     end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
+--- workable
+    local function OnFinishCallback(inst,worker)
+        for i = 1, 10, 1 do
+            inst.components.lootdropper:SpawnLootPrefab("loramia_item_alloy_circuit_board")            
+        end
+        for i = 1, 2, 1 do
+            inst.components.lootdropper:SpawnLootPrefab("loramia_item_luminous_alloy_board")            
+        end
+        local fx = SpawnPrefab("collapse_small")
+        fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
+        inst:Remove()
+    end
+    local function workable_install(inst)
+        inst:AddComponent("workable")
+        inst.components.workable:SetWorkAction(ACTIONS.DIG)
+        inst.components.workable:SetWorkLeft(1)
+        -- inst.components.workable:SetOnWorkCallback(onhit)
+        inst.components.workable:SetOnFinishCallback(OnFinishCallback)
+        local old_WorkedBy = inst.components.workable.WorkedBy
+        inst.components.workable.WorkedBy = function(self,worker, numworks,...)
+            if worker and worker:HasTag("player") then
+                return old_WorkedBy(self,worker, numworks,...)
+            end
+        end
+        local old_WorkedBy_Internal = inst.components.workable.WorkedBy_Internal
+        inst.components.workable.WorkedBy_Internal = function(self,worker, numworks,...)
+            if worker and worker:HasTag("player") then
+                return old_WorkedBy_Internal(self,worker, numworks,...)
+            end
+        end
+    end
+------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- building
     local function building_fn()
         local inst = CreateEntity()
@@ -280,6 +312,9 @@
         -----------------------------------------------------------
         --- 
             inst:AddComponent("inspectable")
+        -----------------------------------------------------------
+        --- 
+            workable_install(inst)
         -----------------------------------------------------------
         --- 
             inst:AddComponent("lootdropper")

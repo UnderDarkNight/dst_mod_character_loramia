@@ -14,7 +14,8 @@ local files_name = {
 	--- 02_items
 		"loramia_item_uniform",											--- 专属制服
 		"loramia_item_wings_of_universe",								--- 宇宙之翼
-		"loramia_item_alloy_circuit_board",								--- 合金电路板
+		"loramia_item_alloy_circuit_board",								--- 加速合金板
+		"loramia_item_luminous_alloy_board",							--- 发光合金板
 		"loramia_weapon_laser_cannon",									--- 激光炮
 		"loramia_item_luminescent_crystal",								--- 发光结晶
 	---------------------------------------------------------------------------------------
