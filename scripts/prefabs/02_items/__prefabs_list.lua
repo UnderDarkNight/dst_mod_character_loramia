@@ -34,6 +34,7 @@ local prefabs_name_list = {
     "04_luminous_alloy_board",              --- 发光合金板
     "05_laser_cannon",                      --- 激光炮
     "06_luminescent_crystal",               --- 发光结晶
+    "07_sacred_creation_fruit",             --- 增殖的创造物 孢子
 
 }
 

@@ -81,9 +81,50 @@
     end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
+--- 下雨保护器
+    local moisture_inst = nil
+    local function GetMoistureInst()
+        if moisture_inst == nil then
+            moisture_inst = CreateEntity()
+        end
+        return moisture_inst
+    end
+    local function Moisture_Protecter_Active(player)
+        if player.components.moisture then
+            player.components.moisture:ForceDry(true,GetMoistureInst())
+        end
+    end
+    local function Moisture_Protecter_Deactive(player)
+        if player.components.moisture then
+            player.components.moisture:ForceDry(false,GetMoistureInst())
+        end
+    end
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+--- 过热保护器
+    local OVERHEAT_TEMPERATURE = 35
+    local function Overheat_Protecter_Active(player)
+        if player.loramia_building_sacred_creation_overheat_task or player.components.temperature == nil then
+            return
+        end
+        player.loramia_building_sacred_creation_overheat_task = player:DoPeriodicTask(0.1, function()
+            local current_temperature = player.components.temperature:GetCurrent()
+            if current_temperature > OVERHEAT_TEMPERATURE then
+                player.components.temperature:DoDelta(-(current_temperature - OVERHEAT_TEMPERATURE)/2)
+            end
+        end)
+    end
+    local function Overheat_Protecter_Deactive(player)
+        if player.loramia_building_sacred_creation_overheat_task then
+            player.loramia_building_sacred_creation_overheat_task:Cancel()
+            player.loramia_building_sacred_creation_overheat_task = nil
+        end
+    end
+------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- 玩家出入地块触发函数
     local function tile_enter_fn(player,tx,ty)
         player.components.loramia_com_rpc_event:PushEvent("loramia_event.starry_night_filter",true)
+        Overheat_Protecter_Active(player)
+        Moisture_Protecter_Active(player)
     end
     local function tile_leave_fn(player,tx,ty)
         player:DoTaskInTime(0,function()
@@ -93,7 +134,9 @@
                     return
             else
                 player.components.loramia_com_rpc_event:PushEvent("loramia_event.starry_night_filter",false)
-            end                        
+                Overheat_Protecter_Deactive(player)
+                Moisture_Protecter_Deactive(player)
+            end
         end)
     end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -260,6 +303,16 @@
         -----------------------------------------------------------
         -- 
             inst.AllTileNodeController = AllTileNodeController
+        -----------------------------------------------------------
+        -- 雨水屏蔽 （会产生屏蔽圈圈）
+            -- inst:AddComponent("raindome")
+            -- inst.components.raindome:SetRadius(AREA_RADIUS)
+            -- inst.components.raindome:Enable()
+        -----------------------------------------------------------
+        --- 屏蔽雷击
+            inst:AddComponent("lightningblocker")
+            inst.components.lightningblocker:SetBlockRange(AREA_RADIUS)
+            -- inst.components.lightningblocker:SetOnLightningStrike(OnLightningStrike)
         -----------------------------------------------------------
 
         return inst

@@ -231,19 +231,24 @@ local flg,error_code = pcall(function()
             -- ThePlayer.components.loramia_com_rpc_event:PushEvent("loramia_event.starry_night_filter",false)
     ----------------------------------------------------------------------------------------------------------------
     ---
-        local ents = TheSim:FindEntities(x,y,z,40,{"loramia_building_sacred_creation"})
-        local inst = ents[1]
-        print(inst)
-        if inst then
-            local nodes = {}
-            for k, v in pairs(inst.child_nodes) do
-                table.insert(nodes,k)
-            end
-            local ret_node = nodes[math.random(#nodes)]
-            if ret_node then
-                ret_node:PushEvent("spawn_fruit")
-            end
-        end
+        -- local ents = TheSim:FindEntities(x,y,z,40,{"loramia_building_sacred_creation"})
+        -- local inst = ents[1]
+        -- print(inst)
+        -- if inst then
+        --     local nodes = {}
+        --     for k, v in pairs(inst.child_nodes) do
+        --         table.insert(nodes,k)
+        --     end
+        --     local ret_node = nodes[math.random(#nodes)]
+        --     if ret_node then
+        --         ret_node:PushEvent("spawn_fruit")
+        --     end
+        -- end
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+            -- print(ThePlayer.components.raindomewatcher)
+            local ents = TheSim:FindEntities(x,y,z,3,{"loramia_building_sacred_creation_marker"})
+            print(#ents)
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)
