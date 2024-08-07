@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Atlas>
+	<Texture filename="loramia_starry_night_filter.tex" />
+	<Elements>
+		<Element name="loramia_starry_night_filter.tex" u1="0.001" u2="0.9365" v2="0.999" v1="0.47365625" variant="" />
+	</Elements>
+</Atlas>

@@ -23,7 +23,11 @@ local temp_assets = {
 	--- 从老王的MOD中提取来的 RPG 动作和声音
 		Asset("ANIM", "anim/player_homura_rpg.zip"),	--- RPG动作
 		Asset("SOUNDPACKAGE", "sound/lw_homura.fev"), 
-		Asset("SOUND", "sound/lw_homura.fsb") 
+		Asset("SOUND", "sound/lw_homura.fsb"),
+	---------------------------------------------------------------------------
+	--- 星空滤镜
+		Asset("IMAGE", "images/widgets/loramia_starry_night_filter.tex"),
+		Asset("ATLAS", "images/widgets/loramia_starry_night_filter.xml"),
 	---------------------------------------------------------------------------
 	-- Asset("SOUNDPACKAGE", "sound/dontstarve_DLC002.fev"),	--- 单机声音集
 	---------------------------------------------------------------------------

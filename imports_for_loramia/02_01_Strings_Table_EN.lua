@@ -93,6 +93,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "Lightning protection and mechanical creatures",
                 ["recipe_desc"] = "Lightning protection and mechanical creatures",
             },
+            ["loramia_building_sacred_creation"] = {
+                ["name"] = "Sacred Creation",
+                ["inspect_str"] = "Sacred Creation",
+                ["recipe_desc"] = "Sacred Creation",
+            },
         --------------------------------------------------------------------
 
 }

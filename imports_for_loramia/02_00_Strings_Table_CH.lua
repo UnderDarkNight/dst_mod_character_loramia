@@ -102,6 +102,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "避雷和弄出机械生物",
                 ["recipe_desc"] = "避雷和弄出机械生物",
             },
+            ["loramia_building_sacred_creation"] = {
+                ["name"] = "神圣的创造物",
+                ["inspect_str"] = "神圣的创造物",
+                ["recipe_desc"] = "神圣的创造物",
+            },
         --------------------------------------------------------------------
 }
 

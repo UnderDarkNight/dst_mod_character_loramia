@@ -55,10 +55,11 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
                 end
                 local pt = ret_points[math.random(#ret_points)]
                 target.Transform:SetPosition(pt.x, pt.y, pt.z)
-                target:DoTaskInTime(0.1,function()
+                target:DoTaskInTime(0,function()
                     SpawnPrefab("spawn_fx_medium").Transform:SetPosition(pt.x, pt.y, pt.z)
                     target:RestartBrain()                
                 end)
+                target.components.combat:DropTarget()
             end)
         -----------------------------------------------------
         --- 超出加载范围

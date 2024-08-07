@@ -49,7 +49,7 @@ TUNING.LORAMIA_FN = TUNING.LORAMIA_FN or {}
         end
     end
 --------------------------------------------------------------------------------------------
----  通用物品给予
+--- 通用物品给予
     function TUNING.LORAMIA_FN:GiveItemByName(target, name, num, item_fn)
         -- 参数检查
         if type(name) ~= "string" or type(num) ~= "number" or num <= 0 or not PrefabExists(name) then
@@ -120,7 +120,7 @@ TUNING.LORAMIA_FN = TUNING.LORAMIA_FN or {}
         end
     end
 --------------------------------------------------------------------------------------------
----  -- 获取一圈坐标
+--- 获取一圈坐标
     function TUNING.LORAMIA_FN:GetSurroundPoints(CMD_TABLE)
         -- local CMD_TABLE = {
         --     target = inst or Vector3(),

@@ -191,9 +191,44 @@ local flg,error_code = pcall(function()
         -- scion.Transform:SetPosition(x,y,z)
         -- ThePlayer:PushEvent("makefriend")
         -- scion.components.follower:SetLeader(ThePlayer)
-        for k, v in pairs(TUNING["loramia.Config"]) do
-            print(k,v)
-        end
+        -- for k, v in pairs(TUNING["loramia.Config"]) do
+        --     print(k,v)
+        -- end
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+            local front_root = ThePlayer.HUD.controls
+
+            if front_root.__test_root then
+                front_root.__test_root:Kill()
+            end
+
+            ---------------------------------------------------------------
+            ---
+                local main_scale = 0.8
+            ---------------------------------------------------------------
+            ---
+                local root = front_root:AddChild(Widget())
+                root:SetHAnchor(0) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
+                root:SetVAnchor(0) -- 设置原点y坐标位置，0、1、2分别对应屏幕中、上、下
+                root:SetPosition(0,0)
+                root:MoveToBack()
+                root:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC) --- 缩放模式
+                root:SetClickable(false)
+            ---------------------------------------------------------------
+            --- 
+                local bg = root:AddChild(Image())
+                bg:SetTexture("images/widgets/loramia_starry_night_filter.xml","loramia_starry_night_filter.tex")
+                bg:SetScale(main_scale,main_scale,main_scale)
+                bg:SetPosition(0,100)
+                bg:SetTint(1,1,1,1)
+
+            ---------------------------------------------------------------
+
+
+
+            front_root.__test_root = root
+
+            -- ThePlayer.components.loramia_com_rpc_event:PushEvent("loramia_event.starry_night_filter",false)
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

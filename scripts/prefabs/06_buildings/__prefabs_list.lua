@@ -37,6 +37,7 @@ local prefabs_name_list = {
     "06_primordial_creation",                               --- 创世的创造物  月台
     "07_esoteric_creation",                                 --- 精奥的创造物
     "08_electromagnetic_tower_of_creation",                 --- 创造物电磁塔  避雷针
+    "09_sacred_creation",                                   --- 神圣的创造物  水中木改版
 
 
 }

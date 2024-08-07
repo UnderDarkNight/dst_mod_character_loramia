@@ -30,6 +30,7 @@ local prefabs_name_list = {
 
     "01_dotted_circle",                             --- 指示圈圈
     "02_terra_beam",                                --- 泰拉激光
+    "03_tile_outline",                              --- 方块框框
 
 
 }

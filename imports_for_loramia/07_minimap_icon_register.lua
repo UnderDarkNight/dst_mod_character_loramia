@@ -21,6 +21,7 @@ local files_name = {
 		"loramia_building_mysterious_creation",							--- 神秘的创造物  帐篷
 		"loramia_building_guardian_creation",							--- 守御的创造物  炮台
 		"loramia_building_primordial_creation",							--- 创世的创造物  月台
+		"loramia_building_sacred_creation",								--- 神圣的创造物  改版水中木
 
 	-------------------------------------------------------------------------------------------------
 

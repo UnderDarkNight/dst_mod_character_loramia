@@ -159,3 +159,26 @@ AddRecipe2(
     {"CHARACTER","STRUCTURES"}
 )
 -- RemoveRecipeFromFilter("loramia_building_primordial_creation","MODS")                       -- -- 在【模组物品】标签里移除这个。
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+---- 【神圣的创造物】【魔法2本】【配方：10合金板，2电路板，1红宝石，1蓝宝石，1电线】
+--------------------------------------------------------------------------------------------------------------------------------------------
+AddRecipeToFilter("loramia_building_sacred_creation","CHARACTER")     ---- 添加物品到目标标签
+AddRecipe2(
+    "loramia_building_sacred_creation",            --  --  inst.prefab  实体名字
+    TUNING.LORAMIA_DEBUGGING_MODE and {} or { Ingredient("redgem", 1),Ingredient("bluegem", 1),Ingredient("greengem", 1),Ingredient("purplegem", 1),Ingredient("orangegem", 1),Ingredient("yellowgem", 1),Ingredient("transistor", 1)}, 
+    TUNING.LORAMIA_DEBUGGING_MODE and TECH.NONE or TECH.MAGIC_TWO, --- TECH.NONE
+    {
+        -- nounlock = true,
+        no_deconstruction = true,
+        builder_tag = "loramia",
+        placer = "loramia_building_sacred_creation_placer",
+        atlas = "images/map_icons/loramia_building_sacred_creation.xml",
+        image = "loramia_building_sacred_creation.tex",
+        testfn = function(pt,rot)
+            return true
+        end
+    },
+    {"CHARACTER","STRUCTURES"}
+)
+-- RemoveRecipeFromFilter("loramia_building_primordial_creation","MODS")                       -- -- 在【模组物品】标签里移除这个。
