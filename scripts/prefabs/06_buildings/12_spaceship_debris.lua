@@ -57,6 +57,9 @@ local assets =
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- hammer workable
     local function hammer_workable_install(inst)
+        if not TUNING["loramia.Config"].SPACESHIP_DEBRIS_WORKABLE_COM then
+            return
+        end
         inst:AddComponent("workable")
         inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
         inst.components.workable:SetWorkLeft(WORK_TIME+5)

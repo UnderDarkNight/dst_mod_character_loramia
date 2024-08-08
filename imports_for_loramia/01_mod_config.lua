@@ -31,6 +31,9 @@ TUNING["loramia.Config"].IRON_RHINO_CLOSE_2_PLAYER_HOTKEY = GetModConfigData("IR
 TUNING["loramia.Config"].ANCIENT_CREATION_SPAWN_LOOT_SWTICH = GetModConfigData("ANCIENT_CREATION_SPAWN_LOOT_SWTICH")     --- 古老的创造物 刷掉落物开关
 TUNING["loramia.Config"].ANCIENT_CREATION_SPAWN_LOOT_CD_DAY = GetModConfigData("ANCIENT_CREATION_SPAWN_LOOT_CD_DAY")     --- 古老的创造物 刷掉落物天数间隔
 
+TUNING["loramia.Config"].SPACESHIP_DEBRIS_DAILY_SPAWN_NUM = GetModConfigData("SPACESHIP_DEBRIS_DAILY_SPAWN_NUM")     --- 飞船残骸 每日最大数量
+TUNING["loramia.Config"].SPACESHIP_DEBRIS_WORKABLE_COM = GetModConfigData("SPACESHIP_DEBRIS_WORKABLE_COM")     --- 飞船残骸 可敲打
+
 
 
 

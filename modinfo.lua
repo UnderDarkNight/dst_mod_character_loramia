@@ -376,6 +376,25 @@ configuration_options =
         default = 0,
       },
     ---------------------------------------------------------------------------
+      {name = "AAAA",label = IsChinese() and GetTitle("飞船残骸") or GetTitle("Spaceship Debris") ,hover = "",options = {{description = "", data = 0}},default = 0,},
+      {
+        name = "SPACESHIP_DEBRIS_DAILY_SPAWN_NUM",
+        label = IsChinese() and "每日最大生成数量" or "Daily Maximum Spawn Number",
+        hover = IsChinese() and "每日最大生成数量" or "Daily Maximum Spawn Number",
+        options = Create_Number_Setting(1,30,1),
+        default = 3,
+      },
+      {
+        name = "SPACESHIP_DEBRIS_WORKABLE_COM",
+        label = IsChinese() and "可被陨石摧毁和锤击" or "Can be destroyed and hammered by meteorites",
+        hover = IsChinese() and "可被陨石摧毁和锤击" or "Can be destroyed and hammered by meteorites",
+        options =  {
+          {description = "OFF", data = false},
+          {description = "ON", data = true},
+        },
+        default = false,
+      },
+    ---------------------------------------------------------------------------
       {name = "AAAA",label = IsChinese() and GetTitle("其他") or GetTitle("Other") ,hover = "",options = {{description = "", data = 0}},default = 0,},
       {
         name = "DEBUGGING_MOD",
