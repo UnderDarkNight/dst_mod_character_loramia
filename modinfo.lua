@@ -357,6 +357,25 @@ configuration_options =
       },
 
     ---------------------------------------------------------------------------
+      {name = "AAAA",label = IsChinese() and GetTitle("古老的创造物") or GetTitle("Ancient Creation") ,hover = "",options = {{description = "", data = 0}},default = 0,},
+      {
+        name = "ANCIENT_CREATION_SPAWN_LOOT_SWTICH",
+        label = IsChinese() and "刷掉落物开关" or "Loot Spawn Switch",
+        hover = IsChinese() and "刷掉落物开关" or "Loot Spawn Switch",
+        options =  {
+          {description = "OFF", data = false},
+          {description = "ON", data = true},
+        },
+        default = true,
+      },
+      {
+        name = "ANCIENT_CREATION_SPAWN_LOOT_CD_DAY",
+        label = IsChinese() and "刷掉落物天数CD" or "Loot Spawn Day CD",
+        hover = IsChinese() and "刷掉落物天数CD" or "Loot Spawn Day CD",
+        options = Create_Number_Setting(0,30,1),
+        default = 0,
+      },
+    ---------------------------------------------------------------------------
       {name = "AAAA",label = IsChinese() and GetTitle("其他") or GetTitle("Other") ,hover = "",options = {{description = "", data = 0}},default = 0,},
       {
         name = "DEBUGGING_MOD",

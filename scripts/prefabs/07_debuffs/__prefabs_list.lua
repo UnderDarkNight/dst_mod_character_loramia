@@ -30,6 +30,7 @@ local prefabs_name_list = {
 
 
     "01_electromagnetic_tower_of_creation",                 --- 创造物电磁塔  召唤的debuff
+    "02_ancient_creation",                                  --- 古老的创造物  的变种buff
 
 
 }

@@ -39,6 +39,7 @@ local prefabs_name_list = {
     "08_electromagnetic_tower_of_creation",                 --- 创造物电磁塔  避雷针
     "09_sacred_creation",                                   --- 神圣的创造物  水中木改版
     "10_sacred_creation_fruit",                             --- 神圣的创造物  水果
+    "11_ancient_creation",                                  --- 古老的创造物  改版圣诞树
 
 
 }

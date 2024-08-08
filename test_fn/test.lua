@@ -247,8 +247,31 @@ local flg,error_code = pcall(function()
     ----------------------------------------------------------------------------------------------------------------
     ---
             -- print(ThePlayer.components.raindomewatcher)
-            local ents = TheSim:FindEntities(x,y,z,3,{"loramia_building_sacred_creation_marker"})
-            print(#ents)
+            local ents = TheSim:FindEntities(x,y,z,3,{"has_ancient_creation_buff"})
+            local ret_tree = ents[1]
+            if ret_tree then
+                -- print("tree",ret_tree)
+                local debuff = ret_tree.loramia_debuff_ancient_creation
+                -- print(debuff,debuff.components.loramia_data:Get("ret_plant"))
+
+                local loots = ret_tree.components.lootdropper:GenerateLoot() 
+                for k, v in pairs(loots) do
+                    print(k,v)
+                end
+
+                local ret_prefab = loots[math.random(#loots)] or "log"
+                debuff.components.lootdropper:SpawnLootPrefab(ret_prefab,Vector3(ret_tree.Transform:GetWorldPosition()))
+
+                -- local current_stage = ret_tree.components.growable.stage
+                -- local nex_stage = ret_tree.components.growable:GetNextStage()
+                -- print("current_stage",current_stage)
+                -- print("nex_stage",nex_stage)
+                -- ret_tree.components.growable:DoGrowth()
+
+                -- local max_stage = #(ret_tree.components.growable.stages or {})
+                -- print(ret_tree,max_stage)
+                -- ret_tree.components.growable:DoGrowth()
+            end
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

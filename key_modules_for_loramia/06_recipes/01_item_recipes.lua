@@ -182,3 +182,23 @@ AddRecipe2(
     {"CHARACTER","STRUCTURES"}
 )
 -- RemoveRecipeFromFilter("loramia_building_primordial_creation","MODS")                       -- -- 在【模组物品】标签里移除这个。
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+---- 【古老的创造物】【一本】【配方：1蓝宝石，1电器元件，1金子，无法被破坏，拆卸用铲子，返还蓝宝石】
+--------------------------------------------------------------------------------------------------------------------------------------------
+AddRecipeToFilter("loramia_building_ancient_creation","CHARACTER")     ---- 添加物品到目标标签
+AddRecipe2(
+    "loramia_building_ancient_creation",            --  --  inst.prefab  实体名字
+    TUNING.LORAMIA_DEBUGGING_MODE and {} or { Ingredient("bluegem", 1),Ingredient("transistor", 1),Ingredient("goldnugget", 1)}, 
+    TUNING.LORAMIA_DEBUGGING_MODE and TECH.NONE or TECH.SCIENCE_ONE, --- TECH.NONE
+    {
+        -- nounlock = true,
+        no_deconstruction = true,
+        builder_tag = "loramia",
+        placer = "loramia_building_ancient_creation_placer",
+        atlas = "images/map_icons/loramia_building_ancient_creation.xml",
+        image = "loramia_building_ancient_creation.tex",
+    },
+    {"CHARACTER","STRUCTURES"}
+)
+-- RemoveRecipeFromFilter("loramia_building_ancient_creation","MODS")                       -- -- 在【模组物品】标签里移除这个。

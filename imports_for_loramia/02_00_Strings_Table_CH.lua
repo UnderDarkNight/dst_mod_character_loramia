@@ -117,6 +117,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "增殖的创造物",
                 ["recipe_desc"] = "增殖的创造物",
             },
+            ["loramia_building_ancient_creation"] = {
+                ["name"] = "古老的创造物",
+                ["inspect_str"] = "让某些植物生长并长期掉落物品",
+                ["recipe_desc"] = "让某些植物生长并长期掉落物品",
+            },
         --------------------------------------------------------------------
 }
 

@@ -22,6 +22,7 @@ local files_name = {
 		"loramia_building_guardian_creation",							--- 守御的创造物  炮台
 		"loramia_building_primordial_creation",							--- 创世的创造物  月台
 		"loramia_building_sacred_creation",								--- 神圣的创造物  改版水中木
+		"loramia_building_ancient_creation",							--- 古老的创造物  改版圣诞树
 
 	-------------------------------------------------------------------------------------------------
 

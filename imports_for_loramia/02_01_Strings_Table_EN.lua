@@ -108,6 +108,11 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "Proliferating Creation",
                 ["recipe_desc"] = "Proliferating Creation",
             },
+            ["loramia_building_ancient_creation"] = {
+                ["name"] = " Ancient Creation",
+                ["inspect_str"] = "Make certain plants grow and drop items over time",
+                ["recipe_desc"] = "Make certain plants grow and drop items over time",
+            },
         --------------------------------------------------------------------
 
 }
