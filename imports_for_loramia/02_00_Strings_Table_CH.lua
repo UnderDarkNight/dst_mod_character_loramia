@@ -122,6 +122,10 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "让某些植物生长并长期掉落物品",
                 ["recipe_desc"] = "让某些植物生长并长期掉落物品",
             },
+            ["loramia_building_spaceship_debris"] = {
+                ["name"] = "飞船残骸",
+                ["inspect_str"] = "飞船残骸",
+            },
         --------------------------------------------------------------------
 }
 

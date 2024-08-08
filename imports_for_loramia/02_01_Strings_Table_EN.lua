@@ -113,6 +113,10 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "Make certain plants grow and drop items over time",
                 ["recipe_desc"] = "Make certain plants grow and drop items over time",
             },
+            ["loramia_building_spaceship_debris"] = {
+                ["name"] = "Spaceship Debris",
+                ["inspect_str"] = "Spaceship Debris",
+            },
         --------------------------------------------------------------------
 
 }

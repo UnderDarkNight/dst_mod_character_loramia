@@ -6,3 +6,6 @@ modimport("key_modules_for_loramia/03_origin_components_upgrade/01_areaaware.lua
 
 modimport("key_modules_for_loramia/03_origin_components_upgrade/02_raindomewatcher.lua")
 --- 玩家检查雨遮蔽器
+
+-- modimport("key_modules_for_loramia/03_origin_components_upgrade/03_worldmeteorshower.lua")
+-- --- 陨石掉落刷新物品

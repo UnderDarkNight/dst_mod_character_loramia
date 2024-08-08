@@ -15,3 +15,6 @@ modimport("key_modules_for_loramia/04_origin_prefab_upgrade/01_wold_tile_tag_sys
     modimport("key_modules_for_loramia/04_origin_prefab_upgrade/02_03_player_starry_night_filter.lua")
     --- 星空滤镜
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+modimport("key_modules_for_loramia/04_origin_prefab_upgrade/03_spaceship_debris_spawner.lua")
+--- 宇宙飞船碎片 刷新器
