@@ -22,6 +22,27 @@ AddRecipe2(
 -- RemoveRecipeFromFilter("loramia_item_uniform","MODS")                       -- -- 在【模组物品】标签里移除这个。
 
 
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+---- 【宇宙之翼】【二本】【护符栏】【配方：10月亮碎片，2电线，2电器元件】
+--------------------------------------------------------------------------------------------------------------------------------------------
+AddRecipeToFilter("loramia_item_wings_of_universe","CHARACTER")     ---- 添加物品到目标标签
+AddRecipe2(
+    "loramia_item_wings_of_universe",            --  --  inst.prefab  实体名字
+    TUNING.LORAMIA_DEBUGGING_MODE and {} or { Ingredient("moonglass", 10),Ingredient("trinket_6", 2),Ingredient("transistor", 2) }, 
+    TUNING.LORAMIA_DEBUGGING_MODE and TECH.NONE or TECH.SCIENCE_TWO, --- TECH.NONE
+    {
+        nounlock = true,
+        no_deconstruction = true,
+        builder_tag = "loramia",
+        atlas = "images/inventoryimages/loramia_item_wings_of_universe.xml",
+        image = "loramia_item_wings_of_universe.tex",
+    },
+    {"CHARACTER","ARMOUR"}
+)
+-- RemoveRecipeFromFilter("loramia_item_wings_of_universe","MODS")                       -- -- 在【模组物品】标签里移除这个。
+
+
 --------------------------------------------------------------------------------------------------------------------------------------------
 ---- 聚合光炮  【配方：5电器元件，5破烂的电线，5金子，5燧石】
 --------------------------------------------------------------------------------------------------------------------------------------------
