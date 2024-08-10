@@ -8,6 +8,12 @@
     local IRON_RHINO_DAMAGE = TUNING["loramia.Config"].IRON_RHINO_DAMAGE or 100
     local IRON_RHINO_HEALTH_REGEN_PER_SECOND = TUNING["loramia.Config"].IRON_RHINO_HEALTH_REGEN_PER_SECOND or 1
 ------------------------------------------------------------------------------------------------------------------------------------------------
+local assets = {
+
+    Asset("ANIM", "anim/loramia_debuff_electromagnetic_tower_of_creation.zip"),
+
+}
+------------------------------------------------------------------------------------------------------------------------------------------------
 
 local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿越洞穴、重新进存档 也会执行。
     inst.entity:SetParent(target.entity)
@@ -24,6 +30,9 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
                 inst:Remove()
                 return
             end
+        -----------------------------------------------------
+        --- 切换外观
+            target.AnimState:SetBuild("loramia_debuff_electromagnetic_tower_of_creation")
         -----------------------------------------------------
         --- 上tag
             target:AddTag("companion")      -- 友方tag,避免被炮台打
@@ -166,4 +175,4 @@ local function fn()
     return inst
 end
 
-return Prefab("loramia_debuff_electromagnetic_tower_of_creation", fn)
+return Prefab("loramia_debuff_electromagnetic_tower_of_creation", fn,assets)
