@@ -6,9 +6,10 @@
     require "prefabutil"
     local assets =
     {
-        Asset("ANIM", "anim/lightning_rod.zip"),
-        Asset("ANIM", "anim/lightning_rod_fx.zip"),
-        Asset("MINIMAP_IMAGE", "lightningrod"),
+        Asset("ANIM", "anim/loramia_building_electromagnetic_tower_of_creation.zip"),
+        -- Asset("ANIM", "anim/lightning_rod.zip"),
+        -- Asset("ANIM", "anim/lightning_rod_fx.zip"),
+        -- Asset("MINIMAP_IMAGE", "lightningrod"),
     }
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- 官方的雷电模块
@@ -133,7 +134,10 @@
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- workable
     local function OnFinishCallback(inst,worker)
-        inst.components.lootdropper:SpawnLootPrefab("redgem")
+        for i = 1, 5, 1 do
+            inst.components.lootdropper:SpawnLootPrefab("loramia_item_alloy_circuit_board")            
+        end
+        inst.components.lootdropper:SpawnLootPrefab("loramia_item_luminous_alloy_board")
         local fx = SpawnPrefab("collapse_small")
         fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
         inst:Remove()
@@ -207,7 +211,8 @@
 
         inst:SetDeploySmartRadius(0.5) --recipe min_spacing/2
 
-        inst.MiniMapEntity:SetIcon("lightningrod.png")
+        -- inst.MiniMapEntity:SetIcon("lightningrod.png")
+        inst.MiniMapEntity:SetIcon("loramia_building_electromagnetic_tower_of_creation.tex")
 
         inst.Light:Enable(false)
         inst.Light:SetRadius(1.5)
@@ -219,8 +224,11 @@
         inst:AddTag("lightningrod")
         inst:AddTag("loramia_building_electromagnetic_tower_of_creation")
 
-        inst.AnimState:SetBank("lightning_rod")
-        inst.AnimState:SetBuild("lightning_rod")
+        -- inst.AnimState:SetBank("lightning_rod")
+        -- inst.AnimState:SetBuild("lightning_rod")
+        -- inst.AnimState:PlayAnimation("idle")
+        inst.AnimState:SetBank("loramia_building_electromagnetic_tower_of_creation")
+        inst.AnimState:SetBuild("loramia_building_electromagnetic_tower_of_creation")
         inst.AnimState:PlayAnimation("idle")
 
         MakeSnowCoveredPristine(inst)
@@ -385,5 +393,5 @@
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 return Prefab("loramia_building_electromagnetic_tower_of_creation", building_fn, assets),
-    Prefab("loramia_building_electromagnetic_tower_of_creation_container", container_fn, assets)
--- ,MakePlacer("lightning_rod_placer", "lightning_rod", "lightning_rod", "idle")
+    Prefab("loramia_building_electromagnetic_tower_of_creation_container", container_fn, assets),
+    MakePlacer("loramia_building_electromagnetic_tower_of_creation_placer", "loramia_building_electromagnetic_tower_of_creation", "loramia_building_electromagnetic_tower_of_creation", "idle")

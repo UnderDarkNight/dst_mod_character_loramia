@@ -5,8 +5,7 @@
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 local assets =
 {
-    Asset("ANIM", "anim/cane.zip"),
-    Asset("ANIM", "anim/swap_cane.zip"),
+    Asset("ANIM", "anim/loramia_building_spaceship_debris.zip"),
 }
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -80,9 +79,12 @@ local function fn()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.AnimState:SetBank("scrappile")
-    inst.AnimState:SetBuild("scrappile")
-    inst.AnimState:PlayAnimation("idle1")
+    -- inst.AnimState:SetBank("scrappile")
+    -- inst.AnimState:SetBuild("scrappile")
+    -- inst.AnimState:PlayAnimation("idle1")
+    inst.AnimState:SetBank("loramia_building_spaceship_debris")
+    inst.AnimState:SetBuild("loramia_building_spaceship_debris")
+    -- inst.AnimState:PlayAnimation("idle1")
 
     inst.entity:SetPristine()
 
@@ -98,6 +100,14 @@ local function fn()
     inst:AddComponent("lootdropper")
     hammer_workable_install(inst)
 
+    ------------------------------------------------------------------
+    -- 动画初始化
+        inst:DoTaskInTime(0,function()
+            local anim = inst.components.loramia_data:Get("anim") or "idle_"..math.random(3)
+            inst.AnimState:PlayAnimation(anim)
+            inst.components.loramia_data:Set("anim",anim)
+        end)
+    ------------------------------------------------------------------
 
     MakeHauntableLaunch(inst)
 

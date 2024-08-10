@@ -223,3 +223,43 @@ AddRecipe2(
     {"CHARACTER","STRUCTURES"}
 )
 -- RemoveRecipeFromFilter("loramia_building_ancient_creation","MODS")                       -- -- 在【模组物品】标签里移除这个。
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+---- 【精奥的创造物】【科学二本】【配方：2石砖，2合金板，1电路板，无法被破坏，拆卸用铲子，返还电路板和合金板】
+--------------------------------------------------------------------------------------------------------------------------------------------
+AddRecipeToFilter("loramia_building_esoteric_creation","CHARACTER")     ---- 添加物品到目标标签
+AddRecipe2(
+    "loramia_building_esoteric_creation",            --  --  inst.prefab  实体名字
+    TUNING.LORAMIA_DEBUGGING_MODE and {} or { Ingredient("cutstone", 2),Ingredient("loramia_item_alloy_circuit_board", 2),Ingredient("loramia_item_luminous_alloy_board", 1)}, 
+    TUNING.LORAMIA_DEBUGGING_MODE and TECH.NONE or TECH.SCIENCE_ONE, --- TECH.NONE
+    {
+        -- nounlock = true,
+        no_deconstruction = true,
+        builder_tag = "loramia",
+        placer = "loramia_building_esoteric_creation_placer",
+        atlas = "images/map_icons/loramia_building_esoteric_creation.xml",
+        image = "loramia_building_esoteric_creation.tex",
+    },
+    {"CHARACTER","STRUCTURES"}
+)
+-- RemoveRecipeFromFilter("loramia_building_esoteric_creation","MODS")                       -- -- 在【模组物品】标签里移除这个。
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+---- 【创造物电磁塔】【科学二本】【配方：5合金板，1电路板，10石砖，无法破坏，拆卸用铲子，返还合金板和电路板】
+--------------------------------------------------------------------------------------------------------------------------------------------
+AddRecipeToFilter("loramia_building_electromagnetic_tower_of_creation","CHARACTER")     ---- 添加物品到目标标签
+AddRecipe2(
+    "loramia_building_electromagnetic_tower_of_creation",            --  --  inst.prefab  实体名字
+    TUNING.LORAMIA_DEBUGGING_MODE and {} or { Ingredient("cutstone", 10),Ingredient("loramia_item_alloy_circuit_board", 5),Ingredient("loramia_item_luminous_alloy_board", 1)}, 
+    TUNING.LORAMIA_DEBUGGING_MODE and TECH.NONE or TECH.SCIENCE_ONE, --- TECH.NONE
+    {
+        -- nounlock = true,
+        no_deconstruction = true,
+        builder_tag = "loramia",
+        placer = "loramia_building_electromagnetic_tower_of_creation_placer",
+        atlas = "images/map_icons/loramia_building_electromagnetic_tower_of_creation.xml",
+        image = "loramia_building_electromagnetic_tower_of_creation.tex",
+    },
+    {"CHARACTER","STRUCTURES"}
+)
+-- RemoveRecipeFromFilter("loramia_building_electromagnetic_tower_of_creation","MODS")                       -- -- 在【模组物品】标签里移除这个。

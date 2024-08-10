@@ -5,13 +5,15 @@
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 local assets =
 {
-    -- Asset("ANIM", "anim/loramia_building_esoteric_creation.zip"),
+    Asset("ANIM", "anim/loramia_building_esoteric_creation.zip"),
 }
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- workable
     local function OnFinishCallback(inst,worker)
-        inst.components.lootdropper:SpawnLootPrefab("redgem")
+        inst.components.lootdropper:SpawnLootPrefab("loramia_item_alloy_circuit_board")
+        inst.components.lootdropper:SpawnLootPrefab("loramia_item_alloy_circuit_board")
+        inst.components.lootdropper:SpawnLootPrefab("loramia_item_luminous_alloy_board")
         local fx = SpawnPrefab("collapse_small")
         fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
         inst:Remove()
@@ -381,8 +383,8 @@ local function fn()
     -- inst.AnimState:SetBuild("loramia_building_esoteric_creation")
     -- inst.AnimState:PlayAnimation("idle",true)
 
-    inst.AnimState:SetBank("cane")
-    inst.AnimState:SetBuild("swap_cane")
+    inst.AnimState:SetBank("loramia_building_esoteric_creation")
+    inst.AnimState:SetBuild("loramia_building_esoteric_creation")
     inst.AnimState:PlayAnimation("idle",true)
 
     inst:AddTag("tent")
