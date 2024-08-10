@@ -15,14 +15,11 @@ local assets =
         -- 50%概率翻找出合金板，40%概率翻找出电线，10%概率翻找出电路板
         local ret_precent = math.random(10000)/10000
         if ret_precent <= 0.5 then
-            -- doer.components.inventory:GiveItem(SpawnPrefab("loramia_item_alloy_circuit_board"))
-            inst.components.lootdropper:SpawnLootPrefab("loramia_item_alloy_circuit_board")
+            inst.components.lootdropper:SpawnLootPrefab("loramia_item_luminous_alloy_board")
         elseif ret_precent <= 0.9 then
-            -- doer.components.inventory:GiveItem(SpawnPrefab("trinket_6"))
             inst.components.lootdropper:SpawnLootPrefab("trinket_6")
         else
-            -- doer.components.inventory:GiveItem(SpawnPrefab("loramia_item_luminous_alloy_board"))
-            inst.components.lootdropper:SpawnLootPrefab("loramia_item_luminous_alloy_board")
+            inst.components.lootdropper:SpawnLootPrefab("loramia_item_alloy_circuit_board")
         end
 
         local fx = SpawnPrefab("collapse_small")
