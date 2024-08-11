@@ -38,37 +38,61 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
             target:AddTag("companion")      -- 友方tag,避免被炮台打
             target:RemoveTag("monster")     -- 避免被中立怪主动攻击
         -----------------------------------------------------
+        --- 修改名字
+            if target.components.named == nil then
+                target:AddComponent("named")
+            end
+            target.components.named:SetName(TUNING.LORAMIA_FN:GetStringsTable("loramia_debuff_electromagnetic_tower_of_creation","name"))
+        -----------------------------------------------------
         ---重置怪物血量、伤害
             target.components.health:SetMaxHealth(IRON_RHINO_MAX_HEALTH)
             target.components.combat:SetDefaultDamage(IRON_RHINO_DAMAGE)
         -----------------------------------------------------
         --- 靠近玩家
-            target:ListenForEvent("pet_close_2_player", function(target)
+            target:ListenForEvent("pet_close_2_player", function(target,_table)
                 if player == nil then
                     return
                 end
-                local temp_points = TUNING.LORAMIA_FN:GetSurroundPoints({
-                    target = player,
-                    range = 5,
-                    num = 10
-                })
-                local ret_points = {}
-                for k, temp_pt in pairs(temp_points) do
+                _table = _table or {}
+                local mouse_pt = _table.mouse_pt
+                local pt = nil
+                if mouse_pt == nil then
+                    local temp_points = TUNING.LORAMIA_FN:GetSurroundPoints({
+                        target = player,
+                        range = 5,
+                        num = 10
+                    })
+                    local ret_points = {}
+                    for k, temp_pt in pairs(temp_points) do
+                        if TheWorld.Map:IsLandTileAtPoint(temp_pt.x, temp_pt.y,temp_pt.z) 
+                            and TheWorld.Map:IsPassableAtPoint(temp_pt.x,temp_pt.y,temp_pt.z) then
+                            table.insert(ret_points, temp_pt)
+                        end
+                    end
+                    if #ret_points == 0 then
+                        return
+                    end
+                    pt = ret_points[math.random(#ret_points)]
+                else
+                    local temp_pt = mouse_pt
                     if TheWorld.Map:IsLandTileAtPoint(temp_pt.x, temp_pt.y,temp_pt.z) 
-                        and TheWorld.Map:IsPassableAtPoint(temp_pt.x,temp_pt.y,temp_pt.z) then
-                        table.insert(ret_points, temp_pt)
+                            and TheWorld.Map:IsPassableAtPoint(temp_pt.x,temp_pt.y,temp_pt.z) then
+                                pt = mouse_pt
                     end
                 end
-                if #ret_points == 0 then
+                if pt == nil then
                     return
                 end
-                local pt = ret_points[math.random(#ret_points)]
                 target.Transform:SetPosition(pt.x, pt.y, pt.z)
                 target:DoTaskInTime(0,function()
-                    SpawnPrefab("spawn_fx_medium").Transform:SetPosition(pt.x, pt.y, pt.z)
+                    if not _table.destroy then
+                        SpawnPrefab("spawn_fx_medium").Transform:SetPosition(pt.x, pt.y, pt.z)
+                    else
+                        target.components.groundpounder:GroundPound()
+                    end
+                    target.components.combat:DropTarget()
                     target:RestartBrain()                
                 end)
-                target.components.combat:DropTarget()
             end)
         -----------------------------------------------------
         --- 超出加载范围
@@ -128,6 +152,20 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
                     target.components.health:DoDelta(5*IRON_RHINO_HEALTH_REGEN_PER_SECOND,true)
                 end
             end)
+        -----------------------------------------------------
+        -- 震荡圈圈组件
+            if target.components.groundpounder == nil then
+                target:AddComponent("groundpounder")                
+            end
+            target.components.groundpounder:UseRingMode()
+            target.components.groundpounder.destroyer = true
+            target.components.groundpounder.damageRings = 3
+            target.components.groundpounder.destructionRings = 3
+            target.components.groundpounder.platformPushingRings = 3
+            target.components.groundpounder.numRings = 3
+            target.components.groundpounder.radiusStepDistance = 2
+            target.components.groundpounder.ringWidth = 1.5
+            target.components.groundpounder.noTags = { "FX", "NOCLICK", "DECOR", "INLIMBO","player","companion" }
         -----------------------------------------------------
     end)
 end

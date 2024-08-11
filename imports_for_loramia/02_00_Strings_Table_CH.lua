@@ -127,5 +127,10 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "真的坏了，我甚至没启动废弃协议",
             },
         --------------------------------------------------------------------
+        -- 07_debuffs
+            ["loramia_debuff_electromagnetic_tower_of_creation"] = {
+                ["name"] = "电磁巨犀创造物",
+            },
+        --------------------------------------------------------------------
 }
 

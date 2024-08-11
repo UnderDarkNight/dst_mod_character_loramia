@@ -198,6 +198,46 @@
         --------------------------------------------------------------------------------------------------------
     end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
+--- acceptable
+    local function acceptable_com_install(inst)
+        local accept_item = {
+                ["loramia_item_luminescent_crystal"] = true,
+        }
+
+        inst:ListenForEvent("Loramia_OnEntityReplicated.loramia_com_acceptable",function(inst,replica_com)
+            replica_com:SetTestFn(function(inst,item,doer,right_click)
+                if item and accept_item[item.prefab] then
+                    return true
+                end
+                return false
+            end)
+            replica_com:SetText("loramia_building_electromagnetic_tower_of_creation",STRINGS.ACTIONS.ADDFUEL)
+        end)
+        if not TheWorld.ismastersim then
+            return
+        end
+        inst:AddComponent("loramia_com_acceptable")
+        inst.components.loramia_com_acceptable:SetOnAcceptFn(function(inst,item,doer)
+            if not ( item and accept_item[item.prefab] )then
+                return false
+            end
+            if inst.components.fueled:IsFull() then
+                return false
+            end
+            ---------------------------------------------------------
+            --- 物品消耗
+                local item_num = item.components.stackable:StackSize()
+                item:Remove()
+            ---------------------------------------------------------
+            ---
+                -- inst.components.fueled:SetPercent(1)
+                inst.components.fueled:DoDelta(10*item_num)
+            ---------------------------------------------------------
+
+            return true
+        end)
+    end
+------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---- building_fn
     local function building_fn()
         local inst = CreateEntity()
@@ -264,6 +304,9 @@
         ---------------------------------------------------
         --- 容器界面安装
             constructionsite_install(inst)
+        ---------------------------------------------------
+        --- 物品充能
+            acceptable_com_install(inst)
         ---------------------------------------------------
 
         MakeHauntableWork(inst)
@@ -385,10 +428,10 @@
         1电线
     ]]--
     CONSTRUCTION_PLANS["loramia_building_electromagnetic_tower_of_creation"] = { 
-        Ingredient("nitre", 3),
-        Ingredient("rocks", 1),
-        Ingredient("goldnugget", 1),
-        Ingredient("marble", 1),
+        Ingredient("loramia_item_alloy_circuit_board", 3),
+        Ingredient("loramia_item_luminous_alloy_board", 1),
+        Ingredient("trinket_6", 1),
+        Ingredient("gears", 1),
     }
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 

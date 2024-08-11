@@ -12,7 +12,7 @@
         if cd_task then
             return
         end
-        cd_task = inst:DoTaskInTime(5,function()
+        cd_task = inst:DoTaskInTime(TUNING.LORAMIA_DEBUGGING_MODE and 1 or 10,function()
             cd_task = nil
         end)
         inst.replica.loramia_com_rpc_event:PushEvent("loramia_event.rhion_recall")
@@ -51,7 +51,10 @@ AddPlayerPostInit(function(inst)
         for monster,v in pairs(inst.__electromagnetic_tower_of_creation_pet_task) do
             if monster and monster:IsValid() then
                 new_table[monster] = v
-                monster:PushEvent("pet_close_2_player")
+                monster:PushEvent("pet_close_2_player",{
+                    destroy = true,
+                    mouse_pt = TheInput and TheInput:GetWorldPosition(),
+                })
             end
         end
 

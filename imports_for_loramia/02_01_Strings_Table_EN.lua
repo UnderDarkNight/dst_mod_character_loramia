@@ -118,5 +118,10 @@ TUNING["loramia.Strings"][this_language] = TUNING["loramia.Strings"][this_langua
                 ["inspect_str"] = "It's really broken. I didn't even use the scrap protocol",
             },
         --------------------------------------------------------------------
+        -- 07_debuffs
+            ["loramia_debuff_electromagnetic_tower_of_creation"] = {
+                ["name"] = "Electromagnetic Giant Rhinoceros Creation",
+            },
+        --------------------------------------------------------------------
 
 }
