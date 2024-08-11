@@ -338,6 +338,7 @@ local assets =
 
 
         inst:AddComponent("inspectable")
+        inst:AddComponent("lootdropper")
         ----------------------------------------------------------
         --- 战斗控制系统
             combat_install(inst)
