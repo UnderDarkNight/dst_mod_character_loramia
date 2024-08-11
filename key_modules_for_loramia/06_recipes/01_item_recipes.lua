@@ -170,7 +170,7 @@ AddRecipe2(
     TUNING.LORAMIA_DEBUGGING_MODE and {} or { Ingredient("redgem", 1),Ingredient("bluegem", 1),Ingredient("greengem", 1),Ingredient("purplegem", 1),Ingredient("orangegem", 1),Ingredient("yellowgem", 1),Ingredient("transistor", 1)}, 
     TUNING.LORAMIA_DEBUGGING_MODE and TECH.NONE or TECH.MAGIC_TWO, --- TECH.NONE
     {
-        nounlock = true,
+        -- nounlock = true,
         no_deconstruction = true,
         builder_tag = "loramia",
         placer = "loramia_building_primordial_creation_placer",
