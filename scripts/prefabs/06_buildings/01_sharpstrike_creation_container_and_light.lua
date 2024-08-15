@@ -188,7 +188,9 @@
             if inst.light_fx == nil or not inst.light_fx:IsValid() then
                 inst.light_fx = SpawnPrefab("loramia_building_sharpstrike_creation_light")
                 inst:ListenForEvent("onremove",function()
-                    inst.light_fx:Remove()
+                    if inst.light_fx then
+                        inst.light_fx:Remove()
+                    end
                 end)
                 inst.light_fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
                 inst.light_fx.Ready = true
