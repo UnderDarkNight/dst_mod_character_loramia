@@ -25,6 +25,10 @@ local temp_assets = {
 		Asset("SOUNDPACKAGE", "sound/lw_homura.fev"), 
 		Asset("SOUND", "sound/lw_homura.fsb"),
 	---------------------------------------------------------------------------
+	--- 角色专属音源
+		Asset("SOUNDPACKAGE", "sound/loramia_sound.fev"), 
+		Asset("SOUND", "sound/loramia_sound.fsb"),
+	---------------------------------------------------------------------------
 	--- 星空滤镜
 		Asset("IMAGE", "images/widgets/loramia_starry_night_filter.tex"),
 		Asset("ATLAS", "images/widgets/loramia_starry_night_filter.xml"),

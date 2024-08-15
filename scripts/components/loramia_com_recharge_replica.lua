@@ -18,10 +18,10 @@ local loramia_com_recharge = Class(function(self, inst)
         self.__update_fns = {}
     ------------------------------------------------------------------------------------------------------------
     ---
-        self.__net_current = net_float(inst.GUID,"loramia_com_recharge_current","loramia_com_recharge_update")
-        self.__net_max = net_float(inst.GUID,"loramia_com_recharge_max","loramia_com_recharge_update")
+        self.__net_current = net_float(inst.GUID,"loramia_com_recharge_current","loramia_com_recharge_update_net")
+        self.__net_max = net_float(inst.GUID,"loramia_com_recharge_max","loramia_com_recharge_update_net")
         if not TheNet:IsDedicated() then
-            self.inst:ListenForEvent("loramia_com_recharge_update",function()           
+            self.inst:ListenForEvent("loramia_com_recharge_update_net",function()           
                 self.current = self.__net_current:value()
                 self.max = self.__net_max:value()
                 self:ActiveUpdate()

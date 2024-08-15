@@ -230,6 +230,16 @@ configuration_options =
       {name = "AAAA",label = IsChinese() and GetTitle("角色") or GetTitle("Character") ,hover = "",options = {{description = "", data = 0}},default = 0,},
     ---------------------------------------------------------------------------
       {
+        name = "LORAMIA_CUSTOM_SOUNDS",
+        label = IsChinese() and "客制化角色声音" or "Custom Character Sounds",
+        hover = IsChinese() and "客制化角色声音" or "Custom Character Sounds",
+        options =  {
+          {description = "ON", data = true},
+          {description = "OFF", data = false},
+        },
+        default = true,
+      },
+      {
         name = "RECHARGE_UP_BY_TILES",
         label = IsChinese() and "按地块充能" or "Recharge by Tiles",
         hover = IsChinese() and "按地块充能" or "Recharge by Tiles",

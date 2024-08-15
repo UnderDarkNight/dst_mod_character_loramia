@@ -65,6 +65,9 @@ local function onequip(inst, owner)
             world_tile_check_fn_in_player(owner)
             owner:ListenForEvent("loramia_event.enter_new_tile",world_tile_check_fn_in_player)
         -----------------------------------------------------------------------------------------------
+        --
+            owner:PushEvent("loramia_event.wings_of_universe_onequip",inst)
+        -----------------------------------------------------------------------------------------------
     end
 end
 
@@ -76,6 +79,9 @@ local function onunequip(inst, owner)
         --- 地上行走
             turn_off_player_ocean_walk(owner)
             owner:RemoveEventCallback("loramia_event.enter_new_tile",world_tile_check_fn_in_player)
+        -----------------------------------------------------------------------------------------------
+        ---
+            owner:PushEvent("loramia_event.wings_of_universe_onunequip",inst)
         -----------------------------------------------------------------------------------------------
     end
 end

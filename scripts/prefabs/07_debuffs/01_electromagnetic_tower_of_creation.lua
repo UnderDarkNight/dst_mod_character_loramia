@@ -89,9 +89,10 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
                         SpawnPrefab("spawn_fx_medium").Transform:SetPosition(pt.x, pt.y, pt.z)
                     else
                         target.components.groundpounder:GroundPound()
+                        player:PushEvent("loramia_event.recall_rhino_by_hotkey")
                     end
                     target.components.combat:DropTarget()
-                    target:RestartBrain()                
+                    target:RestartBrain()
                 end)
             end)
         -----------------------------------------------------

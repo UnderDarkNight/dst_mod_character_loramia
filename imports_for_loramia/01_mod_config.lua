@@ -5,6 +5,8 @@ TUNING["loramia.Config"].Language = GetModConfigData("LANGUAGE")
 
 
 
+TUNING["loramia.Config"].LORAMIA_CUSTOM_SOUNDS = GetModConfigData("LORAMIA_CUSTOM_SOUNDS")     --- 客制化角色声音
+
 TUNING["loramia.Config"].RECHARGE_UP_BY_TILES = GetModConfigData("RECHARGE_UP_BY_TILES")     --- 跑动XX地块后回复充能值
 TUNING["loramia.Config"].SPEED_BY_RECHARGE_VALUE = GetModConfigData("SPEED_BY_RECHARGE_VALUE")/1000     --- 充能值速度加成
 TUNING["loramia.Config"].HUNGER_BY_RECHARGE_VALUE = GetModConfigData("HUNGER_BY_RECHARGE_VALUE")/1000     --- 充能值饥饿速度加成

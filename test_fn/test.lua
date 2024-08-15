@@ -163,12 +163,12 @@ local flg,error_code = pcall(function()
         --         return true
         --     end,
         --     trailfn = function(inst)
-        --         inst.AnimState:SetAddColour(0, -1, 0, 0)
-        --         inst.AnimState:SetMultColour(0, 1, 0, 1)
+        --         -- inst.AnimState:SetAddColour(0, -1, 0, 0)
+        --         -- inst.AnimState:SetMultColour(0, 1, 0, 1)
         --     end,
         --     scorchfn = function(inst)
-        --         inst.AnimState:SetAddColour(0, -1, 0, 0)
-        --         inst.AnimState:SetMultColour(0, 1, 0, 1)
+        --         -- inst.AnimState:SetAddColour(0, -1, 0, 0)
+        --         -- inst.AnimState:SetMultColour(0, 1, 0, 1)
         --     end,
         -- })
     ----------------------------------------------------------------------------------------------------------------
@@ -247,31 +247,37 @@ local flg,error_code = pcall(function()
     ----------------------------------------------------------------------------------------------------------------
     ---
             -- print(ThePlayer.components.raindomewatcher)
-            local ents = TheSim:FindEntities(x,y,z,3,{"has_ancient_creation_buff"})
-            local ret_tree = ents[1]
-            if ret_tree then
-                -- print("tree",ret_tree)
-                local debuff = ret_tree.loramia_debuff_ancient_creation
-                -- print(debuff,debuff.components.loramia_data:Get("ret_plant"))
+            -- local ents = TheSim:FindEntities(x,y,z,3,{"has_ancient_creation_buff"})
+            -- local ret_tree = ents[1]
+            -- if ret_tree then
+            --     -- print("tree",ret_tree)
+            --     local debuff = ret_tree.loramia_debuff_ancient_creation
+            --     -- print(debuff,debuff.components.loramia_data:Get("ret_plant"))
 
-                local loots = ret_tree.components.lootdropper:GenerateLoot() 
-                for k, v in pairs(loots) do
-                    print(k,v)
-                end
+            --     local loots = ret_tree.components.lootdropper:GenerateLoot() 
+            --     for k, v in pairs(loots) do
+            --         print(k,v)
+            --     end
 
-                local ret_prefab = loots[math.random(#loots)] or "log"
-                debuff.components.lootdropper:SpawnLootPrefab(ret_prefab,Vector3(ret_tree.Transform:GetWorldPosition()))
+            --     local ret_prefab = loots[math.random(#loots)] or "log"
+            --     debuff.components.lootdropper:SpawnLootPrefab(ret_prefab,Vector3(ret_tree.Transform:GetWorldPosition()))
 
-                -- local current_stage = ret_tree.components.growable.stage
-                -- local nex_stage = ret_tree.components.growable:GetNextStage()
-                -- print("current_stage",current_stage)
-                -- print("nex_stage",nex_stage)
-                -- ret_tree.components.growable:DoGrowth()
+            --     -- local current_stage = ret_tree.components.growable.stage
+            --     -- local nex_stage = ret_tree.components.growable:GetNextStage()
+            --     -- print("current_stage",current_stage)
+            --     -- print("nex_stage",nex_stage)
+            --     -- ret_tree.components.growable:DoGrowth()
 
-                -- local max_stage = #(ret_tree.components.growable.stages or {})
-                -- print(ret_tree,max_stage)
-                -- ret_tree.components.growable:DoGrowth()
-            end
+            --     -- local max_stage = #(ret_tree.components.growable.stages or {})
+            --     -- print(ret_tree,max_stage)
+            --     -- ret_tree.components.growable:DoGrowth()
+            -- end
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+                -- ThePlayer.SoundEmitter:PlaySound("loramia_sound/loramia_sound/talk_1")
+                -- ThePlayer.SoundEmitter:PlaySound("dontstarve/characters/wendy/death_voice")
+                -- ThePlayer.SoundEmitter:PlaySound("dontstarve/ghost/player_revive")
+                ThePlayer.SoundEmitter:PlaySound("dontstarve/ghost/ghost_howl")
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

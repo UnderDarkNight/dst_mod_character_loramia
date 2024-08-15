@@ -214,6 +214,9 @@ local assets =
             onhitfn = onhitfn,
             workable_destroy_checker_fn = workable_destroy_checker_fn,
         })
+        if player.SoundEmitter then
+            player.SoundEmitter:PlaySound("loramia_sound/loramia_sound/guardian_creation_attack")
+        end
     end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---
