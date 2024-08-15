@@ -81,8 +81,8 @@ local function fn()
 
     ---------------------------------------------------------------------------------------------------
     -- 保暖、隔热
-        inst:AddComponent("insulator")
-        inst.components.insulator:SetInsulation(300)
+        -- inst:AddComponent("insulator")
+        -- inst.components.insulator:SetInsulation(300)
     ---------------------------------------------------------------------------------------------------
     --- 护甲
         -- inst:AddComponent("armor")

@@ -268,6 +268,29 @@ configuration_options =
         default = 200,
       },
     ---------------------------------------------------------------------------
+      {name = "AAAA",label = IsChinese() and GetTitle("洛拉米亚的制服") or GetTitle("Loramia's Uniform") ,hover = "",options = {{description = "", data = 0}},default = 0,},
+      {
+        name = "LORAMIA_UNIFORM_TEMPERATURE_COST",
+        label = IsChinese() and "温度控制消耗" or "Temperature Control Cost",
+        hover = IsChinese() and "温度控制消耗" or "Temperature Control Cost",
+        options = Create_Number_Setting(10,500,10),
+        default = 200,
+      },
+      {
+        name = "LORAMIA_UNIFORM_DAMAGETAKEN_MULT",
+        label = IsChinese() and "伤害减免" or "Damage Reduction",
+        hover = IsChinese() and "伤害减免" or "Damage Reduction",
+        options = Create_Percent_Setting_With_1000_Mult(10,950,10),
+        default = 500,
+      },
+      {
+        name = "LORAMIA_UNIFORM_MAX_HUNGER",
+        label = IsChinese() and "最大电量" or "Max Battery Value",
+        hover = IsChinese() and "最大电量" or "Max Battery Value",
+        options = Create_Number_Setting(1000,10000,200),
+        default = 3000,
+      },
+    ---------------------------------------------------------------------------
       {name = "AAAA",label = IsChinese() and GetTitle("激光炮") or GetTitle("Laser Cannon") ,hover = "",options = {{description = "", data = 0}},default = 0,},
     ---------------------------------------------------------------------------
       {
@@ -311,14 +334,7 @@ configuration_options =
         default = true,
       },
     ---------------------------------------------------------------------------
-      {name = "AAAA",label = IsChinese() and GetTitle("洛拉米亚的制服") or GetTitle("Loramia's Uniform") ,hover = "",options = {{description = "", data = 0}},default = 0,},
-      {
-        name = "LORAMIA_UNIFORM_DAMAGETAKEN_MULT",
-        label = IsChinese() and "伤害减免" or "Damage Reduction",
-        hover = IsChinese() and "伤害减免" or "Damage Reduction",
-        options = Create_Percent_Setting_With_1000_Mult(10,950,10),
-        default = 500,
-      },
+
     ---------------------------------------------------------------------------
       {name = "AAAA",label = IsChinese() and GetTitle("神秘的创造物(帐篷)") or GetTitle("Mysterious Creation (tent)") ,hover = "",options = {{description = "", data = 0}},default = 0,},
       {

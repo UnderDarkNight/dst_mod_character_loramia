@@ -18,6 +18,7 @@ return function(inst)
         "prefabs/01_character/loramia_modules/06_world_tile_event",                     ---- 地图地块检测组件
         "prefabs/01_character/loramia_modules/07_uniform_hunger_fix",                   ---- 制服相关的操作
         "prefabs/01_character/loramia_modules/08_custom_sounds",                        ---- 客制化音源
+        "prefabs/01_character/loramia_modules/09_uniform_temperature_controller",       ---- 套装温度控制器
 
     }
     for k, lua_addr in pairs(modules) do
