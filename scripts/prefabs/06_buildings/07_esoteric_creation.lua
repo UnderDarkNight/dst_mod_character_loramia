@@ -47,7 +47,7 @@ local assets =
         local battery = nil
         inst.components.circuitnode:ForEachNode(function(inst, node)
             if ret_flag == false and node and node:HasTag("engineeringbattery") then
-                if node.components.fueled and not node.components.fueled:IsEmpty() then
+                if node.components.fueled and not node.components.fueled:IsEmpty() and node.components.fueled.consuming then
                     ret_flag = true
                     battery = node
                 end
