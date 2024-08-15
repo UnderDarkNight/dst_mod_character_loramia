@@ -55,8 +55,12 @@
         --- 激光炮的预发射
             ["lw_homura/rpg/pre_3d"] = function(inst,origin_addr)
                 inst.SoundEmitter:KillSound("laser_cannon_pre_attack")
+                inst.SoundEmitter:KillSound("loramia_onhitother")
                 inst.SoundEmitter:PlaySound("loramia_sound/loramia_sound/laser_cannon_pre_attack","laser_cannon_pre_attack")
-                cd_timer["laser_cannon_pre_attack"] = inst:DoTaskInTime(15,function()
+                if cd_timer["laser_cannon_pre_attack"] then
+                    cd_timer["laser_cannon_pre_attack"]:Cancel()
+                end
+                cd_timer["laser_cannon_pre_attack"] = inst:DoTaskInTime(3,function()
                     cd_timer["laser_cannon_pre_attack"] = nil
                 end)
             end,
@@ -152,7 +156,7 @@
             inst:ListenForEvent("killed",function()
                 if cd_timer["killed"] == nil and cd_timer["laser_cannon_pre_attack"] == nil then
                     inst.SoundEmitter:KillSound("loramia_onhitother")
-                    inst.SoundEmitter:PlaySound("loramia_sound/loramia_sound/player_kill_others")
+                    inst.SoundEmitter:PlaySound("loramia_sound/loramia_sound/player_kill_others","loramia_onhitother")
                     cd_timer["killed"] = inst:DoTaskInTime(15,function()
                         cd_timer["killed"] = nil
                     end)
