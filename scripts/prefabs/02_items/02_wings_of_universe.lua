@@ -97,7 +97,7 @@ local function fn()
 
     inst.AnimState:SetBank("loramia_item_wings_of_universe")
     inst.AnimState:SetBuild("loramia_item_wings_of_universe")
-    inst.AnimState:PlayAnimation("idle")
+    inst.AnimState:PlayAnimation("anim")
 
     inst:AddTag("loramia_item_wings_of_universe")
     
