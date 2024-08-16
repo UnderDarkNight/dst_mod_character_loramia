@@ -14,3 +14,6 @@ modimport("key_modules_for_loramia/00_others/03_equipment_slot.lua")
 
 modimport("key_modules_for_loramia/00_others/04_rpc_event_register.lua")
 --- RPC 信道注册
+
+modimport("key_modules_for_loramia/00_others/05_sleepingbag_and_hunger.lua")
+--- 帐篷和饥饿值
