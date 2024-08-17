@@ -92,13 +92,12 @@
     local FUELED_UP_PER_HIT = 100       --- 单次雷击充电数量
 
     local function SpawnPet(inst,doer)  --- 创建宠物并绑定给玩家
-        if inst.components.fueled.currentfuel < FUELED_PET_COST then
-            return
-        end
-        inst.components.fueled:DoDelta(-FUELED_PET_COST)
+        -- if inst.components.fueled.currentfuel < FUELED_PET_COST then
+        --     return
+        -- end
+        -- inst.components.fueled:DoDelta(-FUELED_PET_COST)
 
         local monster = SpawnPrefab("rook_nightmare")
-        -- scion.Transform:SetPosition(x,y,z)
         local debuff_prefab = "loramia_debuff_electromagnetic_tower_of_creation"
         while true do
             local debuff = monster:GetDebuff(debuff_prefab)
@@ -113,9 +112,9 @@
 
     end
     local function fueled_enough_checker(inst) --- 能量检查
-        -- if inst.components.fueled:IsEmpty() then
         if inst.components.fueled.currentfuel < FUELED_PET_COST then
-            inst:RemoveTag("fueled_enough")
+            -- inst:RemoveTag("fueled_enough")
+            inst:AddTag("fueled_enough")
         else
             inst:AddTag("fueled_enough")
         end
@@ -130,6 +129,9 @@
         end)
         inst:ListenForEvent("percentusedchange",fueled_enough_checker)
         inst:DoTaskInTime(0,fueled_enough_checker)
+
+        inst:AddTag("fueled_enough")
+
     end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- workable
@@ -199,44 +201,44 @@
     end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- acceptable
-    local function acceptable_com_install(inst)
-        local accept_item = {
-                ["loramia_item_luminescent_crystal"] = true,
-        }
+    -- local function acceptable_com_install(inst)
+    --     local accept_item = {
+    --             ["loramia_item_luminescent_crystal"] = true,
+    --     }
 
-        inst:ListenForEvent("Loramia_OnEntityReplicated.loramia_com_acceptable",function(inst,replica_com)
-            replica_com:SetTestFn(function(inst,item,doer,right_click)
-                if item and accept_item[item.prefab] then
-                    return true
-                end
-                return false
-            end)
-            replica_com:SetText("loramia_building_electromagnetic_tower_of_creation",STRINGS.ACTIONS.ADDFUEL)
-        end)
-        if not TheWorld.ismastersim then
-            return
-        end
-        inst:AddComponent("loramia_com_acceptable")
-        inst.components.loramia_com_acceptable:SetOnAcceptFn(function(inst,item,doer)
-            if not ( item and accept_item[item.prefab] )then
-                return false
-            end
-            if inst.components.fueled:IsFull() then
-                return false
-            end
-            ---------------------------------------------------------
-            --- 物品消耗
-                local item_num = item.components.stackable:StackSize()
-                item:Remove()
-            ---------------------------------------------------------
-            ---
-                -- inst.components.fueled:SetPercent(1)
-                inst.components.fueled:DoDelta(10*item_num)
-            ---------------------------------------------------------
+    --     inst:ListenForEvent("Loramia_OnEntityReplicated.loramia_com_acceptable",function(inst,replica_com)
+    --         replica_com:SetTestFn(function(inst,item,doer,right_click)
+    --             if item and accept_item[item.prefab] then
+    --                 return true
+    --             end
+    --             return false
+    --         end)
+    --         replica_com:SetText("loramia_building_electromagnetic_tower_of_creation",STRINGS.ACTIONS.ADDFUEL)
+    --     end)
+    --     if not TheWorld.ismastersim then
+    --         return
+    --     end
+    --     inst:AddComponent("loramia_com_acceptable")
+    --     inst.components.loramia_com_acceptable:SetOnAcceptFn(function(inst,item,doer)
+    --         if not ( item and accept_item[item.prefab] )then
+    --             return false
+    --         end
+    --         if inst.components.fueled:IsFull() then
+    --             return false
+    --         end
+    --         ---------------------------------------------------------
+    --         --- 物品消耗
+    --             local item_num = item.components.stackable:StackSize()
+    --             item:Remove()
+    --         ---------------------------------------------------------
+    --         ---
+    --             -- inst.components.fueled:SetPercent(1)
+    --             inst.components.fueled:DoDelta(10*item_num)
+    --         ---------------------------------------------------------
 
-            return true
-        end)
-    end
+    --         return true
+    --     end)
+    -- end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---- building_fn
     local function building_fn()
@@ -306,7 +308,7 @@
             constructionsite_install(inst)
         ---------------------------------------------------
         --- 物品充能
-            acceptable_com_install(inst)
+            -- acceptable_com_install(inst)
         ---------------------------------------------------
 
         MakeHauntableWork(inst)
@@ -431,7 +433,8 @@
         Ingredient("loramia_item_alloy_circuit_board", 3),
         Ingredient("loramia_item_luminous_alloy_board", 1),
         Ingredient("trinket_6", 1),
-        Ingredient("gears", 1),
+        -- Ingredient("gears", 1),
+        Ingredient("loramia_item_luminescent_crystal", 40),
     }
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
