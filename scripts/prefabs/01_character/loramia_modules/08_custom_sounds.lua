@@ -164,9 +164,14 @@
             end)
         ---------------------------------------------------------------
         --- 攻击目标
+            local onhitother_num = 1
             inst:ListenForEvent("onhitother",function()
                 if cd_timer["onhitother"] == nil and cd_timer["laser_cannon_pre_attack"] == nil then
-                    inst.SoundEmitter:PlaySound("loramia_sound/loramia_sound/for_attack_"..math.random(1,2),"loramia_onhitother")
+                    onhitother_num = onhitother_num + 1
+                    if onhitother_num > 2 then
+                        onhitother_num = 1
+                    end
+                    inst.SoundEmitter:PlaySound("loramia_sound/loramia_sound/for_attack_"..onhitother_num,"loramia_onhitother")
                     cd_timer["onhitother"] = inst:DoTaskInTime(15,function()
                         cd_timer["onhitother"] = nil
                     end)
