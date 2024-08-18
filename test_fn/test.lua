@@ -277,7 +277,28 @@ local flg,error_code = pcall(function()
                 -- ThePlayer.SoundEmitter:PlaySound("loramia_sound/loramia_sound/talk_1")
                 -- ThePlayer.SoundEmitter:PlaySound("dontstarve/characters/wendy/death_voice")
                 -- ThePlayer.SoundEmitter:PlaySound("dontstarve/ghost/player_revive")
-                ThePlayer.SoundEmitter:PlaySound("dontstarve/ghost/ghost_howl")
+                -- ThePlayer.SoundEmitter:PlaySound("dontstarve/ghost/ghost_howl")
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+        local function is_in_battery_area(inst)     ---- 在充电区域
+            if not inst.components.circuitnode:IsConnected() then
+                return false
+            end
+            local ret_flag = false
+            local battery = nil
+            inst.components.circuitnode:ForEachNode(function(inst, node)
+                if ret_flag == false and node and node:HasTag("engineeringbattery") then
+                    if node.components.fueled and not node.components.fueled:IsEmpty() and node.components.fueled.consuming then
+                        ret_flag = true
+                        battery = node
+                    end
+                end
+            end)
+            return ret_flag,battery
+        end
+        local inst = TheSim:FindEntities(x,y,z,15,{"loramia_building_mysterious_creation"})[1]
+        print(inst)
+        print("is_in_battery_area",is_in_battery_area(inst))
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

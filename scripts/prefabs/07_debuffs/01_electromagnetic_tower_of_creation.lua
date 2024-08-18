@@ -59,6 +59,17 @@ local assets = {
                 target.components.health:SetMaxHealth(IRON_RHINO_MAX_HEALTH)
                 target.components.combat:SetDefaultDamage(IRON_RHINO_DAMAGE)
             -----------------------------------------------------
+            --- 对友方目标造成0伤害
+                local old_CalcDamage = target.components.combat.CalcDamage
+                target.components.combat.CalcDamage = function(self,target,...)
+                    local damage,spdamage = old_CalcDamage(self,target,...)
+                    if target:HasTag("companion") then
+                        damage = 0
+                        spdamage = nil
+                    end
+                    return damage,spdamage
+                end
+            -----------------------------------------------------
             --- 靠近玩家
                 target:ListenForEvent("pet_close_2_player", function(target,_table)
                     if player == nil or not player:IsValid() then

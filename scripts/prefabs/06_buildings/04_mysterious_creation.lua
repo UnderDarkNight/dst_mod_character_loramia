@@ -64,7 +64,7 @@ local assets =
                 inst.components.sleepingbag.health_tick = TUNING.SLEEP_HEALTH_PER_TICK
                 inst.components.sleepingbag.sanity_tick = TUNING.SLEEP_SANITY_PER_TICK
             else
-                if battery_node and battery_node.components.fueled and not battery_node.components.fueled:IsEmpty() then
+                if battery_node and battery_node.components.fueled and not battery_node.components.fueled:IsEmpty() and battery_node.components.fueled.consuming then
                     inst.components.sleepingbag.hunger_tick = MYSTERIOUS_CREATION_HUNGER_VALUE_UP or 50
                     -- battery_node.components.fueled:DoDelta(-1)
                     local battery_node_max = battery_node.components.fueled.maxfuel
@@ -99,6 +99,11 @@ local assets =
         if inst.sleepingbag_task[sleeper] then
             inst.sleepingbag_task[sleeper]:Cancel()
         end
+        ---- 重新初始化帐篷的参数
+        inst.components.sleepingbag.hunger_tick = TUNING.SLEEP_HUNGER_PER_TICK
+        inst.components.sleepingbag.health_tick = TUNING.SLEEP_HEALTH_PER_TICK
+        inst.components.sleepingbag.sanity_tick = TUNING.SLEEP_SANITY_PER_TICK
+
         inst.sleepingbag_task[sleeper] = inst:DoPeriodicTask(1,function()
             local in_battery_area , battery_inst = is_in_battery_area(inst)
             if in_battery_area then
