@@ -108,7 +108,9 @@
         end
         doer:PushEvent("makefriend")
         monster.components.follower:SetLeader(doer)
-        monster:PushEvent("pet_close_2_player")
+        monster:DoTaskInTime(1,function()
+            monster:PushEvent("pet_close_2_player")            
+        end)
 
     end
     local function fueled_enough_checker(inst) --- 能量检查

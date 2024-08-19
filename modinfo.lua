@@ -381,6 +381,13 @@ configuration_options =
         options = keys_option,
         default = "KEY_F7",
       },
+      {
+        name = "IRON_RHINO_SLEEP_HOTKEY",
+        label = IsChinese() and "休眠快捷键" or "Sleep Hotkey",
+        hover = IsChinese() and "休眠快捷键" or "Sleep Hotkey",
+        options = keys_option,
+        default = "KEY_F8",
+      },
 
     ---------------------------------------------------------------------------
       {name = "AAAA",label = IsChinese() and GetTitle("古老的创造物") or GetTitle("Ancient Creation") ,hover = "",options = {{description = "", data = 0}},default = 0,},

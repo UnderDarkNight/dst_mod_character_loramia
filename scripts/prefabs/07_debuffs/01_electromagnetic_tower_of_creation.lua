@@ -48,6 +48,8 @@ local assets = {
             --- 上tag
                 target:AddTag("companion")      -- 友方tag,避免被炮台打
                 target:RemoveTag("monster")     -- 避免被中立怪主动攻击
+                target:AddTag("electromagnetic_tower_of_creation")
+                target:AddTag(player.userid)
             -----------------------------------------------------
             --- 修改名字
                 if target.components.named == nil then
@@ -61,9 +63,9 @@ local assets = {
             -----------------------------------------------------
             --- 对友方目标造成0伤害
                 local old_CalcDamage = target.components.combat.CalcDamage
-                target.components.combat.CalcDamage = function(self,target,...)
-                    local damage,spdamage = old_CalcDamage(self,target,...)
-                    if target:HasTag("companion") then
+                target.components.combat.CalcDamage = function(self,hit_target,...)
+                    local damage,spdamage = old_CalcDamage(self,hit_target,...)
+                    if hit_target:HasTag("companion") or hit_target == player then
                         damage = 0
                         spdamage = nil
                     end
@@ -116,11 +118,18 @@ local assets = {
                         target.components.combat:DropTarget()
                         target:RestartBrain()
                     end)
+
+                    if target.components.sleeper:IsAsleep() then --- 正在睡觉则弄醒
+                        target.components.sleeper:WakeUp()
+                    end
                 end)
             -----------------------------------------------------
             --- 超出加载范围
                 target:ListenForEvent("entitysleep", function(target)
                     if player and player:IsValid() then
+                        if target.components.sleeper:IsAsleep() then
+                            return
+                        end
                         target:PushEvent("pet_close_2_player")
                         target:DoTaskInTime(1,function()
                             target:RestartBrain()                
@@ -134,6 +143,10 @@ local assets = {
                     if player == nil or not player:IsValid() then
                         target:Remove()
                         inst:Remove()
+                        return
+                    end
+                    ---------- 怪物睡觉期间不做瞬移
+                    if target.components.sleeper:IsAsleep() then
                         return
                     end
                     ---------- 检查和玩家之间的距离
@@ -202,6 +215,13 @@ local assets = {
                     player:AddDebuff(debuff_prefab,debuff_prefab)
                 end
             -----------------------------------------------------
+            -- 控制睡觉
+                target:ListenForEvent("sleep_by_hotkey", function(target)
+                    if not target.components.sleeper:IsAsleep() then
+                        target.components.sleeper:AddSleepiness(100,480)
+                    end
+                end)
+            -----------------------------------------------------
         end)
     end
 ------------------------------------------------------------------------------------------------------------------------------------------------
@@ -242,13 +262,13 @@ local assets = {
 
         end)
     end
+
 ------------------------------------------------------------------------------------------------------------------------------------------------
 
 local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿越洞穴、重新进存档 也会执行。
     inst.entity:SetParent(target.entity)
     inst.Network:SetClassifiedTarget(target)
     inst.target = target
-
     if target:HasTag("player") then
         init_for_player(target,inst)
     else
@@ -269,22 +289,17 @@ local function ExtendDebuff(inst)
     -- inst.countdown = 3 + (inst._level:value() < CONTROL_LEVEL and EXTEND_TICKS or math.floor(TUNING.STALKER_MINDCONTROL_DURATION / FRAMES + .5))
 end
 
+
+
 local function fn()
     local inst = CreateEntity()
-
     inst.entity:AddTransform()
     inst.entity:AddNetwork()
-
     inst:AddTag("CLASSIFIED")
-
-
-
-    inst.entity:SetPristine()
-
+    inst.entity:SetPristine()    
     if not TheWorld.ismastersim then
         return inst
     end
-
     inst:AddComponent("debuff")
     inst.components.debuff:SetAttachedFn(OnAttached)
     inst.components.debuff.keepondespawn = true -- 是否保持debuff 到下次登陆

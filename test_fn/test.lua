@@ -280,25 +280,14 @@ local flg,error_code = pcall(function()
                 -- ThePlayer.SoundEmitter:PlaySound("dontstarve/ghost/ghost_howl")
     ----------------------------------------------------------------------------------------------------------------
     ---
-        local function is_in_battery_area(inst)     ---- 在充电区域
-            if not inst.components.circuitnode:IsConnected() then
-                return false
-            end
-            local ret_flag = false
-            local battery = nil
-            inst.components.circuitnode:ForEachNode(function(inst, node)
-                if ret_flag == false and node and node:HasTag("engineeringbattery") then
-                    if node.components.fueled and not node.components.fueled:IsEmpty() and node.components.fueled.consuming then
-                        ret_flag = true
-                        battery = node
-                    end
-                end
-            end)
-            return ret_flag,battery
-        end
-        local inst = TheSim:FindEntities(x,y,z,15,{"loramia_building_mysterious_creation"})[1]
-        print(inst)
-        print("is_in_battery_area",is_in_battery_area(inst))
+        local inst = TheSim:FindEntities(x,y,z,15,{"electromagnetic_tower_of_creation"})[1]
+        local replica_com = inst.replica.loramia_com_workable or inst.replica._.loramia_com_workable
+        print(inst,replica_com)
+        replica_com:SetTestFn(function(inst,doer,right_click)
+            return true
+        end)
+        -- local debuff = inst:GetDebuff("loramia_debuff_electromagnetic_tower_of_creation")
+        -- debuff._monster_workable_setup_net:set(inst)
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

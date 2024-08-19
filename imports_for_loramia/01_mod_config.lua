@@ -32,6 +32,7 @@ TUNING["loramia.Config"].IRON_RHINO_MAX_HEALTH = GetModConfigData("IRON_RHINO_MA
 TUNING["loramia.Config"].IRON_RHINO_DAMAGE = GetModConfigData("IRON_RHINO_DAMAGE")     --- 犀牛伤害
 TUNING["loramia.Config"].IRON_RHINO_HEALTH_REGEN_PER_SECOND = GetModConfigData("IRON_RHINO_HEALTH_REGEN_PER_SECOND")     --- 犀牛每秒恢复
 TUNING["loramia.Config"].IRON_RHINO_CLOSE_2_PLAYER_HOTKEY = GetModConfigData("IRON_RHINO_CLOSE_2_PLAYER_HOTKEY")     --- 犀牛召回快捷键
+TUNING["loramia.Config"].IRON_RHINO_SLEEP_HOTKEY = GetModConfigData("IRON_RHINO_SLEEP_HOTKEY")     --- 犀牛睡眠快捷键
 
 TUNING["loramia.Config"].ANCIENT_CREATION_SPAWN_LOOT_SWTICH = GetModConfigData("ANCIENT_CREATION_SPAWN_LOOT_SWTICH")     --- 古老的创造物 刷掉落物开关
 TUNING["loramia.Config"].ANCIENT_CREATION_SPAWN_LOOT_CD_DAY = GetModConfigData("ANCIENT_CREATION_SPAWN_LOOT_CD_DAY")     --- 古老的创造物 刷掉落物天数间隔
