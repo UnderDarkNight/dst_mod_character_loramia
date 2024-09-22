@@ -29,7 +29,8 @@
                     if #ents > 0 then -- 砸到的区域已经有其他逻辑生成的石头了，则不生成飞船碎片
                         return
                     end
-                    if inst.components.loramia_data:Add("spaceship_debris_num",0) < DAILY_SPAWN_NUM and math.random() < 0.3 then
+                    local has_max_num = TUNING.LORAMIA_SPACESHIP_DEBRIS_IS_MAX and TUNING.LORAMIA_SPACESHIP_DEBRIS_IS_MAX() or false
+                    if not has_max_num and inst.components.loramia_data:Add("spaceship_debris_num",0) < DAILY_SPAWN_NUM and math.random() < 0.3 then
                         SpawnPrefab("loramia_building_spaceship_debris").Transform:SetPosition(pt.x,0,pt.z)
                         inst.components.loramia_data:Add("spaceship_debris_num",1)
                     end

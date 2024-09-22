@@ -280,14 +280,16 @@ local flg,error_code = pcall(function()
                 -- ThePlayer.SoundEmitter:PlaySound("dontstarve/ghost/ghost_howl")
     ----------------------------------------------------------------------------------------------------------------
     ---
-        local inst = TheSim:FindEntities(x,y,z,15,{"electromagnetic_tower_of_creation"})[1]
-        local replica_com = inst.replica.loramia_com_workable or inst.replica._.loramia_com_workable
-        print(inst,replica_com)
-        replica_com:SetTestFn(function(inst,doer,right_click)
-            return true
-        end)
+        -- local inst = TheSim:FindEntities(x,y,z,15,{"electromagnetic_tower_of_creation"})[1]
+        -- local replica_com = inst.replica.loramia_com_workable or inst.replica._.loramia_com_workable
+        -- print(inst,replica_com)
+        -- replica_com:SetTestFn(function(inst,doer,right_click)
+        --     return true
+        -- end)
         -- local debuff = inst:GetDebuff("loramia_debuff_electromagnetic_tower_of_creation")
         -- debuff._monster_workable_setup_net:set(inst)
+
+        ThePlayer.components.loramia_com_recharge:DoDelta(1000)
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

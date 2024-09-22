@@ -9,6 +9,43 @@ local assets =
 }
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--- 残骸上限记录器
+    local max_spaceship_debris_num = TUNING.LORAMIA_DEBUGGING_MODE and 5 or 5  --- 总的最大数量。
+    local current_spaceship_debris = {}
+    local function Clear_Spaceship_Debris()
+        local new_table = {}
+        for k, v in pairs(current_spaceship_debris) do
+            if k and k:IsValid() then
+                new_table[k] = true
+            end
+        end
+        current_spaceship_debris = new_table
+    end
+    local function Add_Spaceship_Debris(inst)
+        Clear_Spaceship_Debris()
+        current_spaceship_debris[inst] = true
+    end
+    local function Get_Spaceship_Debris_Num()
+        local num = 0
+        for k, v in pairs(current_spaceship_debris) do
+            if k and k:IsValid() then
+                num = num + 1
+            end
+        end
+        return num
+    end
+    local function LORAMIA_SPACESHIP_DEBRIS_IS_MAX()
+        local current = Get_Spaceship_Debris_Num()
+        -- print(current,max_spaceship_debris_num)
+        if current >= max_spaceship_debris_num then
+            return true
+        else
+            return false
+        end
+        -- return Get_Spaceship_Debris_Num() >= max_spaceship_debris_num
+    end
+    TUNING.LORAMIA_SPACESHIP_DEBRIS_IS_MAX = LORAMIA_SPACESHIP_DEBRIS_IS_MAX
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- 
     local WORK_TIME = 15
     local function DropItem(inst)
@@ -103,6 +140,18 @@ local function fn()
             local anim = inst.components.loramia_data:Get("anim") or "idle_"..math.random(3)
             inst.AnimState:PlayAnimation(anim)
             inst.components.loramia_data:Set("anim",anim)
+        end)
+    ------------------------------------------------------------------
+    --- 数量上限
+        inst.components.loramia_data:AddOnLoadFn(function() -- 加载的时候就进行判断删除
+            if LORAMIA_SPACESHIP_DEBRIS_IS_MAX() then
+                inst:Remove()
+            else
+                Add_Spaceship_Debris(inst)
+            end
+        end)
+        inst:DoTaskInTime(0,function()
+            Add_Spaceship_Debris(inst)
         end)
     ------------------------------------------------------------------
 
