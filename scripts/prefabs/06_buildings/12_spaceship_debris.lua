@@ -10,7 +10,7 @@ local assets =
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- 残骸上限记录器
-    local max_spaceship_debris_num = TUNING.LORAMIA_DEBUGGING_MODE and 5 or 5  --- 总的最大数量。
+    local max_spaceship_debris_num = TUNING.LORAMIA_DEBUGGING_MODE and 5 or 15  --- 总的最大数量。
     local current_spaceship_debris = {}
     local function Clear_Spaceship_Debris()
         local new_table = {}
